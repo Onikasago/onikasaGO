@@ -1,4 +1,3 @@
-from accounts.models import CustomUser
 from django.db import models
 
 # Create your models here.
@@ -53,7 +52,12 @@ class Catch(models.Model):
         ('鹿児島県','鹿児島県'),
         ('沖縄県','沖縄県'),
     )
-    user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
+    LOCATIONS = (
+        ('海', '海'),
+        ('川', '川'),
+        ('その他', 'その他'),
+    )
+    # user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
     name1 = models.TextField(verbose_name='魚種1', blank=True, )
     name2 = models.TextField(verbose_name='魚種2', blank=True, null=True)
     name3 = models.TextField(verbose_name='魚種3', blank=True, null=True)
@@ -70,8 +74,13 @@ class Catch(models.Model):
     size4 = models.IntegerField(verbose_name='サイズ4', blank=True, null=True)
     size5 = models.IntegerField(verbose_name='サイズ5', blank=True, null=True)
     capital = models.CharField(choices=CAPITALS,verbose_name="都道府県",max_length=5)
+    city = models.CharField(verbose_name='市区町村',max_length=10, blank=True, null=True)
+    address = models.CharField(verbose_name='番地',max_length=30, blank=True, null=True)
+    location = models.CharField(choices=LOCATIONS,verbose_name="ロケーション",max_length=5)
+    free = models.CharField(verbose_name='自由記入欄',blank=True, null=True,max_length=500)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
+    iinecount = models.IntegerField(verbose_name='いいね総数',blank=True, null=True)
     class Meta:
         verbose_name_plural = 'Catch'
 
