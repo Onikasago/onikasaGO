@@ -194,7 +194,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667198675831</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="オニカサGO">
+      <created>1667199000737</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1667199000737</updated>
+    </task>
+    <task id="LOCAL-00018" summary="html">
+      <created>1667199180253</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1667199180253</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -243,6 +257,7 @@
     <MESSAGE value="test1" />
     <MESSAGE value="runserver" />
     <MESSAGE value="オニカサGO" />
-    <option name="LAST_COMMIT_MESSAGE" value="オニカサGO" />
+    <MESSAGE value="html" />
+    <option name="LAST_COMMIT_MESSAGE" value="html" />
   </component>
 </project>
