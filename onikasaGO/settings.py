@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'oniokoze.apps.OniokozeConfig',
 
     'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'django_bootstrap5',
 
 ]
 
