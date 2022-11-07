@@ -43,9 +43,7 @@ INSTALLED_APPS = [
     'oniokoze.apps.OniokozeConfig',
 
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'django_bootstrap5',
+
 ]
 
 MIDDLEWARE = [
@@ -132,3 +130,48 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    #ロガーの設定
+    'loggers': {
+        #Djangoが利用するロガー
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        #onikasaGOアプリケーションが利用するロガー
+        'onikasaGO': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+
+    #ハンドラの設定
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'dev'
+        },
+    },
+
+    #フォーマッタの設定
+    'formatters': {
+        'dev': {
+            'format': '\t'.join([
+                '%(asctime)s',
+                '[%(levelname)s]',
+                '%(pathname)s(Line:%(lineno)d)',
+                '%(message)s'
+            ])
+        },
+    }
+}
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
