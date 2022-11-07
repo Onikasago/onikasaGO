@@ -64,7 +64,11 @@ class Spot(models.Model):
     beginner = models.BooleanField(verbose_name='初心者おすすめチェック',default=False, help_text='初心者おすすめ',blank=True,null=True)
     created_at=models.DateTimeField(verbose_name='作成日時',auto_now_add=True)
     updated_at=models.DateTimeField(verbose_name='更新日時',auto_now=True)
+    class Meta:
+        verbose_name_plural = 'Spot'
 
+    def __str__(self):
+        return self.title
 class Catch(models.Model):
     LOCATIONS=(
         ('海','海'),
@@ -83,7 +87,11 @@ class Catch(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
+    class Meta:
+        verbose_name_plural = 'Catch'
 
+    def __str__(self):
+        return self.title
 class Recipe(models.Model):
 
      method=models.TextField(verbose_name='分類',blank=True,null=True)
@@ -97,7 +105,11 @@ class Recipe(models.Model):
      user = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT)
      created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
      updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
+     class Meta:
+        verbose_name_plural = 'Recipe'
 
+     def __str__(self):
+        return self.title
 class Order(models.Model):
     recipeID = models.ForeignKey(Recipe, verbose_name='レシピID', on_delete=models.PROTECT)
     order = models.IntegerField(verbose_name='順番',blank=True)
@@ -106,6 +118,10 @@ class Order(models.Model):
     material = models.IntegerField(verbose_name='材料',blank=True)
     amount = models.IntegerField(verbose_name='量',blank=True)
     unit = models.IntegerField(verbose_name='単位',blank=True)
+    class Meta:
+        verbose_name_plural = 'Order'
 
+    def __str__(self):
+        return self.title
 
 

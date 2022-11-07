@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'oniokoze.apps.OniokozeConfig',
-
     'accounts.apps.AccountsConfig',
 
     'django.contrib.sites',
