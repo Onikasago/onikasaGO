@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="" />
+    <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="html">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oniokoze/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/models.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,9 +24,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="063919e9-cf9b-43f4-865b-559b9396e17d" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -35,7 +38,7 @@
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ict/venv_oniokoze/onikasaGO/manage.py&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ict/venv_oniokoze/onikasaGO&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -44,61 +47,13 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="Python.migrate">
-    <configuration name="makemigrations" type="PythonConfigurationType" factoryName="Python">
-      <module name="onikasaGO" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_USER" value="postgres" />
-        <env name="DB_PASSWORD" value="Cloud2127" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\ict\AppData\Local\Programs\Python\Python38\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
-      <option name="PARAMETERS" value="makemigrations" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="migrate" type="PythonConfigurationType" factoryName="Python">
-      <module name="onikasaGO" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_USER" value="postgres" />
-        <env name="DB_PASSWORD" value="Cloud2127" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\ict\AppData\Local\Programs\Python\Python38\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
-      <option name="PARAMETERS" value="migrate" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="runserver" type="PythonConfigurationType" factoryName="Python">
       <module name="onikasaGO" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_USER" value="postgres" />
-        <env name="DB_PASSWORD" value="Cloud2127" />
       </envs>
       <option name="SDK_HOME" value="C:\Users\ict\AppData\Local\Programs\Python\Python38\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -114,11 +69,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Python.makemigrations" />
-      <item itemvalue="Python.runserver" />
-      <item itemvalue="Python.migrate" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="アプリケーションレベル" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -255,56 +205,7 @@
       <option name="project" value="LOCAL" />
       <updated>1667199180253</updated>
     </task>
-    <task id="LOCAL-00019" summary="html">
-      <created>1667199480230</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1667199480230</updated>
-    </task>
-    <task id="LOCAL-00020" summary="html">
-      <created>1667267757453</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1667267757453</updated>
-    </task>
-    <task id="LOCAL-00021" summary="html">
-      <created>1667373677792</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1667373677792</updated>
-    </task>
-    <task id="LOCAL-00022" summary="html">
-      <created>1667374821463</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1667374821463</updated>
-    </task>
-    <task id="LOCAL-00023" summary="html">
-      <created>1667798251911</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1667798251911</updated>
-    </task>
-    <task id="LOCAL-00024" summary="html">
-      <created>1667798267249</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1667798267249</updated>
-    </task>
-    <task id="LOCAL-00025" summary="html">
-      <created>1667801375371</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1667801375371</updated>
-    </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -355,16 +256,5 @@
     <MESSAGE value="オニカサGO" />
     <MESSAGE value="html" />
     <option name="LAST_COMMIT_MESSAGE" value="html" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/oniokoze/models.py</url>
-          <line>112</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
