@@ -1,3 +1,4 @@
+from accounts.models import CustomUser
 from django.db import models
 
 class Spot(models.Model):
@@ -52,14 +53,15 @@ class Spot(models.Model):
         ('沖縄県','沖縄県')
     )
 
-    capital=models.TextField(choices=CAPITALS,verbose_name='都道府県',blank=True,null=False)
-    city=models.TextField(verbose_name='市区町村',blank=True,null=False)
-    address=models.TextField(verbose_name='番地以降',blank=True,null=False)
-    place=models.TextField(verbose_name='場所',blank=True,null=False)
-    location=models.TextField(verbose_name='ロケーション',blank=True,null=False)
-    fish=models.TextField(verbose_name='釣れる魚',blank=True,null=True)
+    capital=models.TextField(choices=CAPITALS,verbose_name='都道府県',blank=True)
+    city=models.TextField(verbose_name='市区町村',blank=True)
+    address=models.TextField(verbose_name='番地以降',blank=True)
+    place=models.TextField(verbose_name='釣り場名',blank=True)
+    location=models.TextField(verbose_name='ロケーション',blank=True)
     spotURL=models.URLField(verbose_name='URL',blank=True,null=True)
+    URLcheck = models.IntegerField(verbose_name='URLチェック',blank=True,null=True)
     free=models.TextField(verbose_name='自由記入欄',blank=True,null=True)
+    beginner = models.BooleanField(verbose_name='初心者おすすめチェック',default=False, help_text='初心者おすすめ',blank=True,null=True)
     created_at=models.DateTimeField(verbose_name='作成日時',auto_now_add=True)
     updated_at=models.DateTimeField(verbose_name='更新日時',auto_now=True)
 
@@ -72,24 +74,38 @@ class Catch(models.Model):
         ('湖','湖'),
         ('その他','その他')
     )
-    name=models.TextField(verbose_name='魚種',blank=True)
-    photo=models.ImageField(verbose_name='写真',blank=True)
     capital=models.TextField(verbose_name='都道府県',blank=True,null=True)
     city=models.TextField(verbose_name='市区町村',blank=True,null=True)
     address=models.TextField(verbose_name='番地以降',blank=True,null=True)
-    size=models.IntegerField(verbose_name='番地以降',blank=True,null=True)
     place=models.TextField(verbose_name='場所',blank=True,null=True)
     location=models.TextField(choices=LOCATIONS,verbose_name='ロケーション',blank=True,null=True)
     free = models.TextField(verbose_name='自由記入欄', blank=True, null=True)
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
-# Create your models here.
 
-# class Recipe(models.Model):
-#
-#     method=models.TextField(verbose_name='分類',blank=True,null=False)
-#     title=models.TextField(verbose_name='タイトル',blank=True,null=False)
-#     material=models.TextField(verbose_name='',blank=True,null=False)
-#     procedure=models.TextField(verbose_name='魚種',blank=True,null=False)
-#     shopphoto=models.ImageField(verbose_name='魚種',blank=True,null=False)
-#     shopURL=models.URLField(verbose_name='魚種',blank=True,null=False)
+class Recipe(models.Model):
+
+     method=models.TextField(verbose_name='分類',blank=True,null=True)
+     title=models.TextField(verbose_name='タイトル',blank=True,null=True)
+     shopphoto=models.ImageField(verbose_name='お店の写真',blank=True,null=True)
+     shopURL=models.URLField(verbose_name='お店のURL',blank=True,null=True)
+     iinecount = models.TextField(verbose_name='いいね総数', blank=True, null=True)
+     URLcheck = models.TextField(verbose_name='URL確認チェック', blank=True, null=True)
+     titlephoto = models.ImageField(verbose_name='タイトル写真',blank=True,null=True)
+     titlemovie = models.TextField(verbose_name='タイトル動画',blank=True,null=True)
+     user = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT)
+     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
+     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
+
+class Order(models.Model):
+    recipeID = models.ForeignKey(Recipe, verbose_name='レシピID', on_delete=models.PROTECT)
+    order = models.IntegerField(verbose_name='順番',blank=True)
+    procedure = models.IntegerField(verbose_name='手順',blank=True)
+    photo = models.IntegerField(verbose_name='写真',blank=True)
+    material = models.IntegerField(verbose_name='材料',blank=True)
+    amount = models.IntegerField(verbose_name='量',blank=True)
+    unit = models.IntegerField(verbose_name='単位',blank=True)
+
+
+

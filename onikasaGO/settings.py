@@ -34,6 +34,8 @@ INSTALLED_APPS = [
 
     'oniokoze.apps.OniokozeConfig',
 
+    'accounts.apps.AccountsConfig',
+
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -129,3 +131,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
