@@ -1,8 +1,8 @@
+from accounts.models import CustomUser
 from django.db import models
 
-# Create your models here.
-class Catch(models.Model):
-    # """釣果テーブル"""
+class Spot(models.Model):
+
     CAPITALS = (
         ('北海道','北海道'),
         ('青森県','青森県'),
@@ -50,39 +50,78 @@ class Catch(models.Model):
         ('大分県','大分県'),
         ('宮崎県','宮崎県'),
         ('鹿児島県','鹿児島県'),
-        ('沖縄県','沖縄県'),
+        ('沖縄県','沖縄県')
     )
-    LOCATIONS = (
-        ('海', '海'),
-        ('川', '川'),
-        ('その他', 'その他'),
+
+    capital=models.TextField(choices=CAPITALS,verbose_name='都道府県',blank=True)
+    city=models.TextField(verbose_name='市区町村',blank=True)
+    address=models.TextField(verbose_name='番地以降',blank=True)
+    place=models.TextField(verbose_name='釣り場名',blank=True)
+    location=models.TextField(verbose_name='ロケーション',blank=True)
+    spotURL=models.URLField(verbose_name='URL',blank=True,null=True)
+    URLcheck = models.IntegerField(verbose_name='URLチェック',blank=True,null=True)
+    free=models.TextField(verbose_name='自由記入欄',blank=True,null=True)
+    beginner = models.BooleanField(verbose_name='初心者おすすめチェック',default=False, help_text='初心者おすすめ',blank=True,null=True)
+    created_at=models.DateTimeField(verbose_name='作成日時',auto_now_add=True)
+    updated_at=models.DateTimeField(verbose_name='更新日時',auto_now=True)
+    class Meta:
+        verbose_name_plural = 'Spot'
+
+    def __str__(self):
+        return self.title
+class Catch(models.Model):
+    LOCATIONS=(
+        ('海','海'),
+        ('川','川'),
+        ('管理釣り場','管理釣り場'),
+        ('船','船'),
+        ('湖','湖'),
+        ('その他','その他')
     )
-    # user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
-    name1 = models.TextField(verbose_name='魚種1', blank=True, )
-    name2 = models.TextField(verbose_name='魚種2', blank=True, null=True)
-    name3 = models.TextField(verbose_name='魚種3', blank=True, null=True)
-    name4 = models.TextField(verbose_name='魚種4', blank=True, null=True)
-    name5 = models.TextField(verbose_name='魚種5', blank=True, null=True)
-    photo1 = models.ImageField(verbose_name='写真1', blank=True, null=True)
-    photo2 = models.ImageField(verbose_name='写真2', blank=True, null=True)
-    photo3 = models.ImageField(verbose_name='写真3', blank=True, null=True)
-    photo4 = models.ImageField(verbose_name='写真4', blank=True, null=True)
-    photo5 = models.ImageField(verbose_name='写真5', blank=True, null=True)
-    size1 = models.IntegerField(verbose_name='サイズ1', blank=True, )
-    size2 = models.IntegerField(verbose_name='サイズ2', blank=True, null=True)
-    size3 = models.IntegerField(verbose_name='サイズ3', blank=True, null=True)
-    size4 = models.IntegerField(verbose_name='サイズ4', blank=True, null=True)
-    size5 = models.IntegerField(verbose_name='サイズ5', blank=True, null=True)
-    capital = models.CharField(choices=CAPITALS,verbose_name="都道府県",max_length=5)
-    city = models.CharField(verbose_name='市区町村',max_length=10, blank=True, null=True)
-    address = models.CharField(verbose_name='番地',max_length=30, blank=True, null=True)
-    location = models.CharField(choices=LOCATIONS,verbose_name="ロケーション",max_length=5)
-    free = models.CharField(verbose_name='自由記入欄',blank=True, null=True,max_length=500)
+    capital=models.TextField(verbose_name='都道府県',blank=True,null=True)
+    city=models.TextField(verbose_name='市区町村',blank=True,null=True)
+    address=models.TextField(verbose_name='番地以降',blank=True,null=True)
+    place=models.TextField(verbose_name='場所',blank=True,null=True)
+    location=models.TextField(choices=LOCATIONS,verbose_name='ロケーション',blank=True,null=True)
+    free = models.TextField(verbose_name='自由記入欄', blank=True, null=True)
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
-    iinecount = models.IntegerField(verbose_name='いいね総数',blank=True, null=True)
     class Meta:
         verbose_name_plural = 'Catch'
 
     def __str__(self):
         return self.title
+class Recipe(models.Model):
+
+     method=models.TextField(verbose_name='分類',blank=True,null=True)
+     title=models.TextField(verbose_name='タイトル',blank=True,null=True)
+     shopphoto=models.ImageField(verbose_name='お店の写真',blank=True,null=True)
+     shopURL=models.URLField(verbose_name='お店のURL',blank=True,null=True)
+     iinecount = models.TextField(verbose_name='いいね総数', blank=True, null=True)
+     URLcheck = models.TextField(verbose_name='URL確認チェック', blank=True, null=True)
+     titlephoto = models.ImageField(verbose_name='タイトル写真',blank=True,null=True)
+     titlemovie = models.TextField(verbose_name='タイトル動画',blank=True,null=True)
+     user = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT)
+     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
+     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
+     class Meta:
+        verbose_name_plural = 'Recipe'
+
+     def __str__(self):
+        return self.title
+class Order(models.Model):
+    recipeID = models.ForeignKey(Recipe, verbose_name='レシピID', on_delete=models.PROTECT)
+    order = models.IntegerField(verbose_name='順番',blank=True)
+    procedure = models.IntegerField(verbose_name='手順',blank=True)
+    photo = models.IntegerField(verbose_name='写真',blank=True)
+    material = models.IntegerField(verbose_name='材料',blank=True)
+    amount = models.IntegerField(verbose_name='量',blank=True)
+    unit = models.IntegerField(verbose_name='単位',blank=True)
+    class Meta:
+        verbose_name_plural = 'Order'
+
+    def __str__(self):
+        return self.title
+
+

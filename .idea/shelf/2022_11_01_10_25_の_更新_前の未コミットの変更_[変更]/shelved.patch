@@ -1,0 +1,253 @@
+Index: oniokoze/templates/base.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title> </title>\r\n</head>\r\n<body>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/oniokoze/templates/base.html b/oniokoze/templates/base.html
+--- a/oniokoze/templates/base.html	(revision 39d16947ee71d9af77f3a74e72d7b3ad01714038)
++++ b/oniokoze/templates/base.html	(date 1667265234254)
+@@ -1,10 +1,101 @@
+-<!DOCTYPE html>
+-<html lang="en">
+-<head>
+-    <meta charset="UTF-8">
+-    <title> </title>
+-</head>
+-<body>
++{% load static %}
++
++<html lang="ja">
++
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
++    <meta name="description" content="">
++    <meta name="author" content="">
++
++    <title>{% block title %}{% endblock %}</title>
++
++    <!-- Bootstrap core CSS -->
++    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
++
++    <!-- Custom fonts for this template -->
++    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
++    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
++
++    <!-- Custom styles for this template -->
++    <link href="{% static 'css/one-page-wonder.min.css' %}" rel="stylesheet">
++    <link href="{% static 'css/one-page-wonder.css' %}" rel="stylesheet">
++
++    <!-- My style -->
++    <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
++    {% block head %}{% endblock %}
++  </head>
++
++  <body>
++	<div id="wrapper">
++        <!-- Navigation -->
++        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
++          <div class="container">
++            <a class="navbar-brand" href="#">PRIVATE DIARY</a>
++            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
++              <span class="navbar-toggler-icon"></span>
++            </button>
++            <div class="collapse navbar-collapse" id="navbarResponsive">
++              <ul class="navbar-nav mr-auto">
++                <li class="nav-item {% block active_inquiry %}{% endblock %}">
++                  <a class="nav-link" href="#">INQUIRY</a>
++                </li>
++                {% if user.is_authenticated %}
++                  <li class="nav-item">
++                      <a >DIARY LIST</a>
++                  </li>
++                  {%endif%}
++              </ul>
++              <ul class="navbar-nav ml-auto">
++                {% if user.is_authenticated %}
++                    <li class="nav-item">
++                        <a class="nav-link" href="#">Log Out</a>
++                    </li>
++                {% else %}
++                    <li class="nav-item">
++                      <a class="nav-link" href="#">Sign Up</a>
++                    </li>
++                    <li class="nav-item">
++                      <a class="nav-link" href="#">Log In</a>
++                    </li>
++                 {% endif %}
++              </ul>
++            </div>
++          </div>
++        </nav>
++
++        {% block header%}{% endblock %}
++
++        {% if messages %}
++          <div class="container">
++              <div class="row">
++                  <div class="my-div-style w-100">
++                      <ul class="messages" style="list-style: none;">
++                          {% for message in messages %}
++                          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
++                              {{ message }}
++                          </li>
++                          {% endfor %}
++                      </ul>
++                  </div>
++              </div>
++          </div>
++        {% endif %}
++
++        {% block contents%}{% endblock %}
+ 
+-</body>
++        <!-- Footer -->
++        <footer class="py-5 bg-black">
++          <div class="container">
++            <p class="m-0 text-center text-white small">Copyright &copy; Private Dairy 2019</p>
++          </div>
++          <!-- /.container -->
++        </footer>
++
++        <!-- Bootstrap core JavaScript -->
++        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
++        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
++  	</div>
++  </body>
++
+ </html>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"4c19d678-78e0-4f7b-a342-c800ce9adb29\" name=\"変更\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/oniokoze/templates/base.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/oniokoze/templates/base.html\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n        <option value=\"HTML File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GithubDefaultAccount\">\r\n    <option name=\"defaultAccountId\" value=\"063919e9-cf9b-43f4-865b-559b9396e17d\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2GbdRvv9d9goqj9Ev03VKsuS8Rd\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/ict/venv_oniokoze/onikasaGO&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;ChangesTree.GroupingKeys&quot;: [\r\n      &quot;directory&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"runserver\" type=\"PythonConfigurationType\" factoryName=\"Python\">\r\n      <module name=\"onikasaGO\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"C:\\Users\\ict\\AppData\\Local\\Programs\\Python\\Python38\\python.exe\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/manage.py\" />\r\n      <option name=\"PARAMETERS\" value=\"runserver\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"アプリケーションレベル\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"デフォルトタスク\">\r\n      <changelist id=\"4c19d678-78e0-4f7b-a342-c800ce9adb29\" name=\"変更\" comment=\"\" />\r\n      <created>1666661212850</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1666661212850</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"test\">\r\n      <created>1666662402141</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666662402141</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"test\">\r\n      <created>1666664581606</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666664581606</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"test\">\r\n      <created>1666664611202</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666664611202</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"test1\">\r\n      <created>1666664678947</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666664678947</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"test1\">\r\n      <created>1666669253084</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666669253084</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"test1\">\r\n      <created>1666669289081</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666669289089</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"runserver\">\r\n      <created>1666669638457</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666669638457</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"runserver\">\r\n      <created>1666682495089</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666682495089</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"runserver\">\r\n      <created>1666683454247</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666683454247</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"runserver\">\r\n      <created>1666764464232</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666764464232</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"runserver\">\r\n      <created>1666764480228</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666764480228</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"runserver\">\r\n      <created>1666920885846</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666920885846</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"オニカサGO\">\r\n      <created>1666941949068</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1666941949068</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"オニカサGO\">\r\n      <created>1667179377136</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667179377136</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"オニカサGO\">\r\n      <created>1667192124053</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667192124053</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"オニカサGO\">\r\n      <created>1667198675831</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667198675831</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"オニカサGO\">\r\n      <created>1667199000737</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667199000737</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"html\">\r\n      <created>1667199180253</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667199180253</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"html\">\r\n      <created>1667199480230</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667199480230</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"20\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n        <entry key=\"aa11f570-a052-427b-a4e1-7b1f30d5534f\">\r\n          <value>\r\n            <State>\r\n              <option name=\"SHOW_ONLY_AFFECTED_CHANGES\" value=\"true\" />\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"HEAD\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                  <entry key=\"structure\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"dir:C:/Users/ict/venv_oniokoze/onikasaGO/onikasaGO\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"OPEN_GENERIC_TABS\">\r\n      <map>\r\n        <entry key=\"aa11f570-a052-427b-a4e1-7b1f30d5534f\" value=\"TOOL_WINDOW\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"test\" />\r\n    <MESSAGE value=\"test1\" />\r\n    <MESSAGE value=\"runserver\" />\r\n    <MESSAGE value=\"オニカサGO\" />\r\n    <MESSAGE value=\"html\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"html\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 39d16947ee71d9af77f3a74e72d7b3ad01714038)
++++ b/.idea/workspace.xml	(date 1667264809101)
+@@ -4,6 +4,7 @@
+     <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/oniokoze/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/templates/base.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/oniokoze/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/templates/index.html" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -212,7 +213,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1667199480230</updated>
+     </task>
+-    <option name="localTasksCounter" value="20" />
++    <task id="LOCAL-00020" summary="html">
++      <created>1667201799007</created>
++      <option name="number" value="00020" />
++      <option name="presentableId" value="LOCAL-00020" />
++      <option name="project" value="LOCAL" />
++      <updated>1667201799007</updated>
++    </task>
++    <option name="localTasksCounter" value="21" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+Index: oniokoze/templates/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Title</title>\r\n</head>\r\n<body>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/oniokoze/templates/index.html b/oniokoze/templates/index.html
+--- a/oniokoze/templates/index.html	(revision 39d16947ee71d9af77f3a74e72d7b3ad01714038)
++++ b/oniokoze/templates/index.html	(date 1667264283470)
+@@ -1,10 +1,76 @@
+-<!DOCTYPE html>
+-<html lang="en">
+-<head>
+-    <meta charset="UTF-8">
+-    <title>Title</title>
+-</head>
+-<body>
++{% extends 'base.html' %}
++{% load static %}
++
++{% block title %}Web上にあなた専用の日記ページを保存できるサービス | Private Diary{% endblock %}
++
++{% block header%}
++<header class="masthead text-center text-white">
++  <div class="masthead-content">
++    <div class="container">
++      <h1 class="masthead-heading mb-0">Private Diary</h1>
++      <h2 class="masthead-subheading mb-0">あなた専用の日記保存サービス</h2>
++      <a href="{% url 'account_login' %}" class="btn btn-primary btn-xl rounded-pill mt-5">LOG IN</a>
++    </div>
++  </div>
++  <div class="bg-circle-1 bg-circle"></div>
++  <div class="bg-circle-2 bg-circle"></div>
++  <div class="bg-circle-3 bg-circle"></div>
++  <div class="bg-circle-4 bg-circle"></div>
++</header>
++{% endblock %}
++
++{% block contents %}
++<section>
++  <div class="container">
++    <div class="row align-items-center">
++      <div class="col-lg-6 order-lg-2">
++        <div class="p-5">
++          <img class="img-fluid rounded-circle" src="{% static 'img/01.jpg' %}" alt="">
++        </div>
++      </div>
++      <div class="col-lg-6 order-lg-1">
++        <div class="p-5">
++          <h2 class="display-4">Web Diary</h2>
++          <p>Web上で作成/編集/削除ができる日記</p>
++        </div>
++      </div>
++    </div>
++  </div>
++</section>
+ 
+-</body>
+-</html>
+\ No newline at end of file
++<section>
++  <div class="container">
++    <div class="row align-items-center">
++      <div class="col-lg-6">
++        <div class="p-5">
++          <img class="img-fluid rounded-circle" src="{% static 'img/02.jpg' %}" alt="">
++        </div>
++      </div>
++      <div class="col-lg-6">
++        <div class="p-5">
++          <h2 class="display-4">Save Your Diary</h2>
++          <p>あなたの日記をWebに保存</p>
++        </div>
++      </div>
++    </div>
++  </div>
++</section>
++
++<section>
++  <div class="container">
++    <div class="row align-items-center">
++      <div class="col-lg-6 order-lg-2">
++        <div class="p-5">
++          <img class="img-fluid rounded-circle" src="{% static 'img/03.jpg' %}" alt="">
++        </div>
++      </div>
++      <div class="col-lg-6 order-lg-1">
++        <div class="p-5">
++          <h2 class="display-4">Membership System</h2>
++          <p>会員制のWeb日記サービス</p>
++        </div>
++      </div>
++    </div>
++  </div>
++</section>
++{% endblock %}
+\ No newline at end of file
