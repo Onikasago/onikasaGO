@@ -1,4 +1,5 @@
 from accounts.models import CustomUser
+
 from django.db import models
 
 class Spot(models.Model):
@@ -84,9 +85,6 @@ class Catch(models.Model):
     place=models.TextField(verbose_name='場所',blank=True,null=True)
     location=models.TextField(choices=LOCATIONS,verbose_name='ロケーション',blank=True,null=True)
     free = models.TextField(verbose_name='自由記入欄', blank=True, null=True)
-    user = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT)
-    created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
     class Meta:
         verbose_name_plural = 'Catch'
 
@@ -102,7 +100,6 @@ class Recipe(models.Model):
      URLcheck = models.TextField(verbose_name='URL確認チェック', blank=True, null=True)
      titlephoto = models.ImageField(verbose_name='タイトル写真',blank=True,null=True)
      titlemovie = models.TextField(verbose_name='タイトル動画',blank=True,null=True)
-     user = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT)
      created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
      updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
      class Meta:

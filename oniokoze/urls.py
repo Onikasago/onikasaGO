@@ -5,6 +5,8 @@ from . import views
 app_name = 'oniokoze'
 urlpatterns = [
     path('', views.IndexView.as_view(), name="index"),
-    path('oniokoze-create', views.OniokozeCreateView.as_view(), name = "oniokoze_create"),
+    path('catch-list', views.CatchListView.as_view(), name="catch_list"),
+    path('catch-create', views.CatchCreateView.as_view(), name="catch_create"),
+
 
 ]

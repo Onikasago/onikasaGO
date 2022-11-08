@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="html">
+    <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="">
+      <change afterPath="$PROJECT_DIR$/oniokoze/templates/catch_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022_11_02_16_03______.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2022_11_02_16_03______.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/onikasaGO/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/onikasaGO/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oniokoze/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oniokoze/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oniokoze/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oniokoze/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oniokoze/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +28,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="063919e9-cf9b-43f4-865b-559b9396e17d" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -53,10 +62,8 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_PASSWORD" value="Cloud2127" />
-        <env name="DB_USER" value="postgres" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\ict\AppData\Local\Programs\Python\Python38\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\ict\venv_oniokoze\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -76,10 +83,10 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_PASSWORD" value="Cloud2127" />
         <env name="DB_USER" value="postgres" />
+        <env name="DB_PASSWORD" value="retasu078" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\ict\AppData\Local\Programs\Python\Python38\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\ict\venv_oniokoze\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -99,8 +106,6 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_PASSWORD" value="Cloud2127" />
-        <env name="DB_USER" value="postgres" />
       </envs>
       <option name="SDK_HOME" value="C:\Users\ict\AppData\Local\Programs\Python\Python38\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -117,9 +122,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.runserver" />
       <item itemvalue="Python.makemigrations" />
       <item itemvalue="Python.migrate" />
-      <item itemvalue="Python.runserver" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="アプリケーションレベル" UseSingleDictionary="true" transferred="true" />
@@ -257,21 +262,7 @@
       <option name="project" value="LOCAL" />
       <updated>1667199180253</updated>
     </task>
-    <task id="LOCAL-00019" summary="html">
-      <created>1667806758605</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1667806758605</updated>
-    </task>
-    <task id="LOCAL-00020" summary="html">
-      <created>1667877929390</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1667877929390</updated>
-    </task>
-    <option name="localTasksCounter" value="21" />
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
