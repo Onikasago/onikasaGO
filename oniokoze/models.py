@@ -125,3 +125,23 @@ class Order(models.Model):
         return self.title
 
 
+class Fishname(models.Model):
+    catchID = models.ForeignKey(Catch,verbose_name='釣果ID', on_delete=models.PROTECT)
+    name = models.TextField(verbose_name='魚種', blank=True)
+    size = models.IntegerField(verbose_name='サイズ', blank=True)
+    No = models.IntegerField(verbose_name='種類数', blank=True)
+
+class Fish(models.Model):
+    spotID = models.ForeignKey(Spot,verbose_name='釣り場ID',on_delete=models.PROTECT)
+    fish = models.IntegerField(verbose_name='釣れる魚',blank=True)
+    No = models.IntegerField(verbose_name='番号',blank=True)
+
+class Iine(models.Model):
+    userID = models.ForeignKey(CustomUser, verbose_name='ユーザーID', on_delete=models.PROTECT,blank=True,null=True)
+    catchID = models.ForeignKey(Catch,verbose_name='釣果ID', on_delete=models.PROTECT,blank=True,null=True)
+    recipeID = models.ForeignKey(Recipe, verbose_name='レシピID', on_delete=models.PROTECT,blank=True,null=True)
+    spotID = models.ForeignKey(Spot,verbose_name='釣り場ID',on_delete=models.PROTECT,blank=True,null=True)
+
+
+class Trivia(models.Model):
+    trivia = models.TextField(verbose_name='豆知識',blank=True)
