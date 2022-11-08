@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="html">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022_11_01_10_25______.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022_11_01_10_25_の_更新_前の未コミットの変更_[変更]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oniokoze/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +46,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="Python.makemigrations">
+  <component name="RunManager" selected="Python.migrate">
     <configuration name="makemigrations" type="PythonConfigurationType" factoryName="Python">
       <module name="onikasaGO" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -267,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667806758605</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="html">
+      <created>1667877929390</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1667877929390</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
