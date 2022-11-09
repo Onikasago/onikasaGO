@@ -27,37 +27,19 @@
 	<div id="page-top">
         <!-- Navigation -->
          <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-          <div class="container px-4 px-lg-5">
-            <a>TOP</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item {% block active_inquiry %}{% endblock %}">
-                  <a>INQUIRY</a>
-                </li>
-                {% if user.is_authenticated %}
-                  <li class="nav-item">
-                      <a>MONEY LIST</a>
-                  </li>
-                     <li class="nav-item">
-                        <a>Graph</a>
-                    </li>
-                    <li class="nav-item">
-                        <a>Log Out</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                      <a>Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                      <a>Log In</a>
-                    </li>
-                 {% endif %}
-              </ul>
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">オニカサGO</a>
+                <a class="nav-item"><a class="nav-link" href="#spot">釣り場</a></a>
+                <a class="nav-item"><a class="nav-link" href="#catch">釣果</a></a>
+                <a class="nav-item"><a class="nav-link" href="#resipe">レシピ</a></a>
+                <a class="nav-item"><a class="nav-link" href="#trivia">豆知識</a></a>
+                <a class="nav-item"><a class="nav-link" href="#mypage">マイページ</a></a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+
             </div>
-          </div>
         </nav>
                 {% if messages %}
           <div class="container">
@@ -78,13 +60,7 @@
         {% block contents%}{% endblock %}
 
     <!-- Footer -->
-        <footer class="py-5 bg-black">
-          <div class="container">
-            <p class="m-0 text-center text-white small">Copyright &copy; Money List 2022</p>
-          </div>
-          <!-- /.container -->
-        </footer>
-
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2022</div></footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -94,6 +70,4 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-  　　</div>
-  </body>
 </html>
