@@ -1,0 +1,29 @@
+<changelist name="2022_11_08_14_37_の_更新_前の未コミットの変更_[変更]" date="1667885877685" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/2022_11_08_14_37_の_更新_前の未コミットの変更_[変更]/shelved.patch" />
+  <option name="DESCRIPTION" value="2022/11/08 14:37 の 更新 前の未コミットの変更 [変更]" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="static/assets/img/ipad.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/2022_11_08_14_37_の_更新_前の未コミットの変更_[変更]/ipad.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="static/assets/img/bg-masthead.jpg" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/2022_11_08_14_37_の_更新_前の未コミットの変更_[変更]/bg-masthead.jpg" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="static/assets/img/demo-image-01.jpg" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/2022_11_08_14_37_の_更新_前の未コミットの変更_[変更]/demo-image-01.jpg" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="static/assets/img/bg-signup.jpg" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/2022_11_08_14_37_の_更新_前の未コミットの変更_[変更]/bg-signup.jpg" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="static/assets/img/demo-image-02.jpg" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/2022_11_08_14_37_の_更新_前の未コミットの変更_[変更]/demo-image-02.jpg" />
+  </binary>
+</changelist>
