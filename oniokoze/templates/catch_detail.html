@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}釣果詳細 | OnikasaGO{% endblock %}
+
+{% block active_catch_list %}active{% endblock %}
+
+{% block contents %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<div class="container my-div-style">
+  <div class="row">
+    <div class="col-3">
+      <strong>魚種</strong>
+    </div>
+    <div class="col-9">
+    {{object.nametitle}}　<!--魚種名の表示-->
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-3">
+        <strong>写真</strong>
+      </div>
+      <div class="col-3">
+        {% if object.photo1 %}　<!--写真があれば表示-->
+          <img src="{{object.photo1.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {% if object.photo2 %} <!--写真があれば表示-->
+          <img src="{{object.photo2.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {% if object.photo3 %} <!--写真があれば表示-->
+          <img src="{{object.photo3.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {% if object.photo4 %} <!--写真があれば表示-->
+          <img src="{{object.photo4.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {% if object.photo5 %} <!--写真があれば表示-->
+          <img src="{{object.photo5.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+      <div class="app">
+        <vue-star animate="animated shake" color="#5654F0">
+          <a slot="icon" class="fa fa-thumbs-up" @click="handleClick"></a>
+        </vue-star>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-3">
+        <strong>サイズ</strong>
+      </div>
+      <div class="col-9">
+        {{object.size}}<!--サイズの表示-->
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-3">
+        <strong>場所</strong>
+      </div>
+      <div class="col-9">
+        {{object.place}}<!--場所の表示-->
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-3">
+        <strong>その他</strong>
+      </div>
+      <div class="col-9">
+        {{object.free}}<!--自由記入の表示-->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

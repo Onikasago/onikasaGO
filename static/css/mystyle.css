@@ -102,6 +102,14 @@ footer {
 margin-right: 0px;
 }
 
+#app .VueStar {
+      position: relative;
+    }
+    .VueStar__icon .fa {
+      font-size: 3em;
+      cursor: pointer;
+    }
+
 
 .test1{
 

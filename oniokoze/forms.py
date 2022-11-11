@@ -1,21 +1,14 @@
 from django import forms
 import os
-from .models import Catch,Fishname
-
+from .models import Catch
 
 class CatchCreateForm(forms.ModelForm):
-
-
-    class Meta():
-
+    class Meta:
         model = Catch
         fields = (
-            'capital', 'city', 'address', 'location', 'free'
-        )
-        CatchFormset = forms.inlineformset_factory(
-            Catch, Fishname, fields='__all__',
-            extra=1, can_delete=False
-        )
+                  'capital', 'city', 'address', 'location', 'free'
+                  )
+
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             for field in self.fields.values():
@@ -23,17 +16,5 @@ class CatchCreateForm(forms.ModelForm):
 
 
 
-class FishnameCreateForm(forms.ModelForm):
 
-
-    class Meta():
-
-        model = Fishname
-        fields = (
-            'name', 'size', 'No'
-        )
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            for field in self.fields.values():
-                field.widget.attrs['class'] = 'form-control'
 
