@@ -101,3 +101,61 @@ footer {
 .add{
 margin-right: 0px;
 }
+
+
+.test1{
+
+    counter-reset: rank;
+    list-style-type: none
+
+    }
+.test1 li {
+        margin-left: 1em;
+        position: relative;
+      }
+
+
+.test1 li::before {
+
+    counter-increment: rank;
+    content: counter(rank) " 位";
+    position: absolute;
+    padding: 8px 14px;
+    font-size: 1.2em;
+    color: #fff; /* 文字色 */
+    background: rgba(0,0,0,0.8); /* 背景色 */
+
+    }
+.test1 img { /* 画像のスタイル */
+        width: 350px;
+        height: 200px;
+        object-fit: cover;
+}
+.test2{
+
+    counter-reset: rank;
+    list-style-type: none
+
+    }
+.test2 li {
+
+        position: relative;
+      }
+
+
+.test2 li::before {
+
+    counter-increment: rank;
+    content: counter(rank) " 位";
+    position: absolute;
+    padding: 8px 14px;
+    font-size: 1.2em;
+    color: #fff; /* 文字色 */
+    background: rgba(0,0,0,0.8); /* 背景色 */
+
+    }
+.test2 img { /* 画像のスタイル */
+        width: 350px;
+        height: 200px;
+        object-fit: cover;
+}
