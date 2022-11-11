@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022_11_08_10_06______.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2022_11_08_10_06______.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022_11_08_14_37______.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2022_11_08_14_37______.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022_11_08_15_49______.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2022_11_08_15_49______.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022_11_02_16_03______.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022_11_02_16_03_の_更新_前の未コミットの変更_[変更]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/oniokoze/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/oniokoze/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/mystyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,20 +40,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/ict/venv_private_diary",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ict/venv_oniokoze/onikasaGO&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="runserver" type="PythonConfigurationType" factoryName="Python">
       <module name="onikasaGO" />
@@ -228,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667954296563</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="11/9 成田">
+      <created>1667961901692</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1667961901692</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
