@@ -60,9 +60,9 @@ class Spot(models.Model):
     place=models.TextField(verbose_name='釣り場名',blank=True)
     location=models.TextField(verbose_name='ロケーション',blank=True)
     spotURL=models.URLField(verbose_name='URL',blank=True,null=True)
-    URLcheck = models.IntegerField(verbose_name='URLチェック',blank=True,null=True)
+    URLcheck=models.IntegerField(verbose_name='URLチェック',blank=True,null=True)
     free=models.TextField(verbose_name='自由記入欄',blank=True,null=True)
-    beginner = models.BooleanField(verbose_name='初心者おすすめチェック',default=False, help_text='初心者おすすめ',blank=True,null=True)
+    beginner=models.BooleanField(verbose_name='初心者おすすめチェック',default=False, help_text='初心者おすすめ',blank=True,null=True)
     created_at=models.DateTimeField(verbose_name='作成日時',auto_now_add=True)
     updated_at=models.DateTimeField(verbose_name='更新日時',auto_now=True)
     class Meta:

@@ -41,4 +41,5 @@ class CatchCreateView(LoginRequiredMixin, generic.CreateView):
 
 
 
-
+class CatchDetailView(generic.TemplateView):
+    model=Catch
