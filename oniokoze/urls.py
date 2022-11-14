@@ -10,4 +10,5 @@ urlpatterns = [
     path('spot-list/', views.SpotListView.as_view(), name="spot_list"),
 
 
+
 ]

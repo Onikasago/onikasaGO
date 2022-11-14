@@ -10,11 +10,13 @@
   <div class = "row">
     <form method = "POST" enctype = 'multipart/form-data'>
       {% csrf_token %}
+      {% for result_form in formset %}
+                {{ result_form.as_p }}
+      {% endfor %}
       <table class = "table">
         {{form.as_table}}
       </table>
       <button class = "btn btn-primary" type = "submit">作成</button>
-    </form>
-  </div>
+
 </div>
 {% endblock %}
