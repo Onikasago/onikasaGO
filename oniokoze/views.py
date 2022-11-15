@@ -1,10 +1,12 @@
 import logging
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CatchCreateForm
-from .models import Catch
+from .forms import CatchCreateForm,FishnameCreateForm
+from .models import Catch,Fishname
+from django.shortcuts import render
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 
 logger = logging.getLogger(__name__)
@@ -22,24 +24,21 @@ class CatchListView(LoginRequiredMixin, generic.ListView):
         return catches
 
 
-class CatchCreateView(LoginRequiredMixin, generic.CreateView):
+class CatchCreateView( generic.CreateView):
     model = Catch
-    template_name = 'catch_create.html'
     form_class = CatchCreateForm
-    success_url = reverse_lazy('oniokoze:oniokoze_list')
+    template_name = 'catch_create.html'
+    success_url = reverse_lazy('oniokoze:catch-list')
 
-    def form_valid(self, form):
-        catch = form.save(commit=False)
-        catch.user = self.request.user
-        catch.save()
-        messages.success(self.request, '釣果を作成しました')
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        messages.error(self.request, "釣果の作成に失敗しました。")
+class FishnameCreateView(generic.CreateView):
+    model = Fishname
+    form_class = FishnameCreateForm
+    template_name = 'fishname_create.html'
+    success_url = reverse_lazy('oniokoze:catch-create')
 
 
 
 
-class CatchDetailView(generic.TemplateView):
-    model=Catch
+
+
+
