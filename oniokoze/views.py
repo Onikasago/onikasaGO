@@ -35,3 +35,6 @@ class FishnameCreateView(generic.CreateView):
     form_class = FishnameCreateForm
     template_name = 'fishname_create.html'
     success_url = reverse_lazy('oniokoze:catch-create')
+
+class MypageView(generic.TemplateView):
+    template_name = 'mypage.html'
