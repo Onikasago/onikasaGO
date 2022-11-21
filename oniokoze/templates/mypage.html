@@ -1,0 +1,91 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}効果測定{% endblock %}
+
+{% block header%}
+<header>
+    <div class="masthead">
+<div class="container">
+    <div class="row">
+        <div class="my-div-style">
+            <table>
+            <tr>
+                <div>
+                    <td><h2><img src="{% static 'assets/img/pict01.jpg' %}" class="circle" /></h2></td>
+                </div>
+                <div>
+                    <td>
+                        <h2>
+                            {% if user.is_authenticated %}
+                            <p>{{ user.get_username }}</p>
+                            {% else %}
+                            <p>ログインしていません</p>
+                            {% endif %}
+                        </h2>
+                    </td>
+                </div>
+            </tr>
+        </table>
+        <p><a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">ユーザー情報</a></p>
+        </div>
+    </div>
+</div>
+    </div>
+</header>
+{% endblock %}
+
+{% block contents %}
+<section class="about-section text-center" id="about">
+            <div class="container px-4 px-lg-5">
+                <!-- Featured Project Row-->
+                <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                    <div class="col-xl-12 col-lg-8">
+                        <div class="tabbox">
+                            <input type="radio" name="tabset" id="tabcheck1" checked><label for="tabcheck1" class="tab">マイ投稿</label>
+                            <input type="radio" name="tabset" id="tabcheck2"        ><label for="tabcheck2" class="tab">マイいいね</label>
+                            <div class="tabcontent" id="tabcontent1">
+                                <div class="col-auto my-1">
+                                    <select class="form-control" id="sample" onchange="viewChange();">
+                                        <option value="select1">one</option>
+                                        <option value="select2">two</option>
+                                    </select>
+                                </div>
+                                <div class="col-auto my-5">
+                                    <div id="Box1" class="my-5">
+                                        <p><img class="img-fluid" src="{% static 'assets/img/fish1.jpg' %}"></p>
+                                    </div>
+                                    <div id="Box2" class="my-5" style="display:none;">
+                                        <p><img class="img-fluid" src="{% static 'assets/img/fish2.png' %}"></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tabcontent" id="tabcontent2">
+                                <div class="col-auto my-1">
+                                    <select class="form-control" id="sample2" onchange="viewChange2();">
+                                        <option value="select3">one</option>
+                                        <option value="select4">two</option>
+                                        <option value="select5">three</option>
+                                    </select>
+                                </div>
+                                <div class="col-auto my-5">
+                                    <div id="Box3" class="my-5">
+                                        <p><img class="img-fluid" src="{% static 'assets/img/pict01.jpg' %}"></p>
+                                    </div>
+                                    <div id="Box4" class="my-5" style="display:none;">
+                                        <p><img class="img-fluid" src="{% static 'assets/img/pict02.jpg' %}"></p>
+                                    </div>
+                                    <div id="Box5" class="my-5" style="display:none;">
+                                        <p><img class="img-fluid" src="{% static 'assets/img/pict03.jpg' %}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
