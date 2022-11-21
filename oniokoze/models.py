@@ -195,3 +195,5 @@ class Iine(models.Model):
 
 class Trivia(models.Model):
     trivia = models.TextField(verbose_name='豆知識',blank=True)
+    triviaimg = models.ImageField(verbose_name='豆知識画像', blank=True)
+
