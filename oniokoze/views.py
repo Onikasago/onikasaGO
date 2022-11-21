@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 logger = logging.getLogger(__name__)
 
 class IndexView(generic.TemplateView):
-    template_name = "index.html"
+    template_name = "index/.html"
 
 
 class CatchListView(LoginRequiredMixin, generic.ListView):

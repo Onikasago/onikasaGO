@@ -11,6 +11,6 @@ urlpatterns = [
     path('spot-list', views.SpotListView.as_view(), name="spot_list"),
     path('resipe-list', views.ResipeListView.as_view(), name="resipe_list"),
     path('trivia', views.TriviaView.as_view(), name="trivia"),
-    path('mypage', views.MypageView.as_view(), name="mypage"),
+    path('mypage/', views.MypageView.as_view(), name="mypage"),
 
 ]
