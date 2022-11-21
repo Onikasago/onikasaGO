@@ -48,11 +48,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#spot">釣り場</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'oniokoze:spot_list' %}">釣り場</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'oniokoze:catch_list' %}">釣果</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#resipe">レシピ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#trivia">豆知識</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#mypage">マイページ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'oniokoze:resipe_list' %}">レシピ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'oniokoze:trivia' %}">豆知識</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'oniokoze:mypage' %}">マイページ</a></li>
                     </ul>
                 </div>
             </div>
