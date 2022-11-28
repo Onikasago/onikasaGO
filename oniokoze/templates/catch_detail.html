@@ -7,6 +7,7 @@
 
 {% block contents %}
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 <div class="container my-div-style">
   <div class="row">
@@ -14,7 +15,7 @@
       <strong>魚種</strong>
     </div>
     <div class="col-9">
-    {{object.nametitle}}　<!--魚種名の表示-->
+    {{object.catch.nametitle}}　<!--魚種名の表示-->
     </div>
 
     <hr>
@@ -24,27 +25,27 @@
         <strong>写真</strong>
       </div>
       <div class="col-3">
-        {% if object.photo1 %}　<!--写真があれば表示-->
+        {% if object.catch.photo1 %}　<!--写真があれば表示-->
           <img src="{{object.photo1.url}}" width="200" height="200"/>
         {% endif %}
       </div>
       <div class="col-3">
-        {% if object.photo2 %} <!--写真があれば表示-->
+        {% if object.catch.photo2 %} <!--写真があれば表示-->
           <img src="{{object.photo2.url}}" width="200" height="200"/>
         {% endif %}
       </div>
       <div class="col-3">
-        {% if object.photo3 %} <!--写真があれば表示-->
+        {% if object.catch.photo3 %} <!--写真があれば表示-->
           <img src="{{object.photo3.url}}" width="200" height="200"/>
         {% endif %}
       </div>
       <div class="col-3">
-        {% if object.photo4 %} <!--写真があれば表示-->
+        {% if object.catch.photo4 %} <!--写真があれば表示-->
           <img src="{{object.photo4.url}}" width="200" height="200"/>
         {% endif %}
       </div>
       <div class="col-3">
-        {% if object.photo5 %} <!--写真があれば表示-->
+        {% if object.catch.photo5 %} <!--写真があれば表示-->
           <img src="{{object.photo5.url}}" width="200" height="200"/>
         {% endif %}
       </div>
@@ -74,7 +75,7 @@
         <strong>場所</strong>
       </div>
       <div class="col-9">
-        {{object.place}}<!--場所の表示-->
+        {{object.catch.place}}<!--場所の表示-->
       </div>
     </div>
 
@@ -85,7 +86,7 @@
         <strong>その他</strong>
       </div>
       <div class="col-9">
-        {{object.free}}<!--自由記入の表示-->
+        {{object.catch.free}}<!--自由記入の表示-->
       </div>
     </div>
   </div>
