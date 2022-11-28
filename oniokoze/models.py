@@ -236,7 +236,7 @@ class Catch(models.Model):
 
 class Fishname(models.Model):
     name = models.CharField(verbose_name='魚種',max_length=50 ,blank=True, null=True)
-    size = models.IntegerField(verbose_name='サイズ', blank=True, null=True)
+    size = models.IntegerField(verbose_name='サイズ', blank=True,null=True)
     no = models.IntegerField(verbose_name='種類数', blank=True, null=True)
     catch = models.ForeignKey(Catch, on_delete = models.CASCADE)
 

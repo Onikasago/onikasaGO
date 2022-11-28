@@ -8,7 +8,12 @@ from django.forms.models import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 
-
+FIELD_NAME_MAPPING = {
+    'titleList': 'titleList_0',
+    'bodyList': 'bodyList_0',
+    'noList': 'noList_0',
+    'idList': 'idList_0',
+}
 class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
 
@@ -48,3 +53,7 @@ class FishnameCreateForm(forms.ModelForm):
             catch.user = self.request.user
             catch.save()
             return super().form_vaild(form)
+
+        def add_prefix(self, field_name):
+            field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
+            return super(FishnameCreateForm, self).add_prefix(field_name)

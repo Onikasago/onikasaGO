@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import re
 from .forms import CatchCreateForm, FishnameCreateForm
 from .models import Catch, Fishname
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -65,20 +65,27 @@ class FishnameCreateView(generic.CreateView):
           # 空の配列を作ります
         titleList= []
         bodyList= []
+        noList= []
+        idList= []
           # request.POST.items()でPOSTで送られてきた全てを取得。
         for i in request.POST.items():
-            if re.match(r'title_*', i[0]):
-                title.append(i[1])
-            if re.match(r'body_*', i[0]):
-                body.append(i[1])
-
-        for i in range(len(title)):
-            corporationinformation = CorporationInformation(
-            title= titleList[i],
-                body = bodyList[i],
+            if re.match(r'titleList_*', i[0]):
+                titleList.append(i[1])
+            if re.match(r'bodyList_*', i[0]):
+                bodyList.append(i[1])
+            if re.match(r'noList_*', i[0]):
+                noList.append(i[1])
+            if re.match(r'idList_*', i[0]):
+                idList.append(i[1])
+        for i in range(len(titleList)):
+            corporationinformation = Fishname.objects.create(
+                name= titleList[i],
+                size = bodyList[i],
+                no = noList[i],
+                catch_id= idList[i],
             )
             corporationinformation.save()
-        return redirect(to='/home')
+        return redirect(to='/fishname-create')
 
 class SpotListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'spot_list.html'

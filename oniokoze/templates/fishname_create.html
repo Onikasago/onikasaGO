@@ -14,17 +14,21 @@
                     <div id="file-area">
                            {% csrf_token %}
                          <div class="form-group" id="list">
-                          <div class="list_var">
-                           {{form}}
-                              <label>タイトル</label><br>
-                                <input class="form-control" type="text"  id="list_0" name="title_0">
-                                <label>内容</label><br>
-                                <input class="form-control" type="text"  id="list_0" name="body_0">
-                            <button class="list_del">Delete</button>
-                          </div>
+                           <div class="list_var">
 
-                    <input type="button" value="Add" class="list_add">
-                   </div>
+                              <label>タイトル</label><br>
+                                <input class="form-control" type="text"  id="list_0" name="titleList_0">
+                                <label>内容</label><br>
+                                <input class="form-control" type="text"  id="list_0" name="bodyList_0">
+                              <label>種類数</label><br>
+                                <input class="form-control" type="text"  id="list_0" name="noList_0">
+                                <label>ID</label><br>
+                                <input class="form-control" type="text"  id="list_0" name="idList_0">
+                             <button class="list_del">削除</button>
+                           </div>
+                         </div>
+                              <input type="button" value="追加" class="list_add">
+                  </div>
                 </table>
               <button class="btn btn-primary" type="submit">作成</button>
             </form>
