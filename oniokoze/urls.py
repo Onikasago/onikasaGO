@@ -9,8 +9,10 @@ urlpatterns = [
     path('catch-create', views.CatchCreateView.as_view(), name="catch_create"),
     path('fishname-create', views.FishnameCreateView.as_view(), name="fishname_create"),
     path('spot-list', views.SpotListView.as_view(), name="spot_list"),
-    path('resipe-list', views.ResipeListView.as_view(), name="resipe_list"),
+    path('recipe-list', views.RecipeListView.as_view(), name="recipe_list"),
+    path('recipe-create', views.FishnameCreateView.as_view(), name="recipe_create"),
     path('trivia', views.TriviaView.as_view(), name="trivia"),
-    path('mypage/', views.MypageView.as_view(), name="mypage"),
+    path('mypage', views.MypageView.as_view(), name="mypage"),
+
 
 ]
