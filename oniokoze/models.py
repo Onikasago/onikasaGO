@@ -80,17 +80,6 @@ class History(models.Model):
         return self.CAPITALS
 
 
-class Recipelike(models.Model):
-    recipe = models.IntegerField(verbose_name='レシピ')
-    user = models.IntegerField(verbose_name='ユーザ')
-    likerecipe = models.IntegerField(verbose_name='いいね')
-
-    class Meta:
-        verbose_name_plural = 'Catchlike'
-
-    def __str__(self):
-        return self.recipe
-
 
 class Order(models.Model):
     order = models.IntegerField(verbose_name='順番')
@@ -105,18 +94,6 @@ class Order(models.Model):
 
     def __str__(self):
         return self.procedure
-
-
-class Spotlike(models.Model):
-    spot = models.IntegerField(verbose_name='釣り場')
-    user = models.IntegerField(verbose_name='ユーザ')
-    likespot = models.IntegerField(verbose_name='いいね', default=0)
-
-    class Meta:
-        verbose_name_plural = 'Spotlike'
-
-    def __str__(self):
-        return self.spot
 
 
 class Fish(models.Model):
@@ -140,17 +117,6 @@ class Fish(models.Model):
         return self.title
 
 
-
-class Catchlike(models.Model):
-    catch = models.IntegerField(verbose_name='釣果')
-    user = models.IntegerField(verbose_name='ユーザ')
-    likecatch = models.IntegerField(verbose_name='いいね',default=0)
-
-    class Meta:
-        verbose_name_plural = 'Catchlike'
-
-    def __str__(self):
-        return self.likecatch
 
 
 
@@ -305,13 +271,14 @@ class Spot(models.Model):
     address = models.TextField(verbose_name='番地以降', blank=True)
     place = models.TextField(verbose_name='釣り場', blank=True)
     free = models.TextField(verbose_name='自由記入欄', blank=True, null=True)
-    changeID = models.ForeignKey(History, verbose_name='編集履歴', on_delete=models.CASCADE)
+    changeID = models.ForeignKey(History, verbose_name='編集履歴', on_delete=models.CASCADE,null=True)
     URLcheck = models.CharField(verbose_name='URLチェック', blank=True, null=True, max_length=1)
     spotURL = models.URLField(verbose_name='URL記入欄', blank=True, null=True)
-    location = models.CharField(choices=LOCATIONS, blank=True, null=True, max_length=5)
+    location = models.CharField(choices=LOCATIONS, verbose_name='ロケーション',blank=True, null=True, max_length=5)
     beginner = models.BooleanField(verbose_name='初心者おすすめチェック',default=False, help_text='初心者おすすめ',blank=True,null=True)
-    spotlike = models.ForeignKey(Spotlike, verbose_name='釣り場いいね', on_delete=models.CASCADE, related_name='spot_like')
-    fish = models.ForeignKey(Fish, verbose_name='魚いいね', on_delete=models.CASCADE)
+    spotfish=models.TextField(verbose_name='釣れる魚',blank=True)
+    created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Spot'
@@ -334,7 +301,6 @@ class Recipe(models.Model):
     titlemovie = models.URLField(verbose_name='タイトル動画', blank=True, null=True)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
-    recipelike = models.ForeignKey(Recipelike, verbose_name='レシピいいね', on_delete=models.CASCADE, related_name='recipe_like')
     order = models.ForeignKey(Order, verbose_name='手順', on_delete=models.CASCADE)
 
     class Meta:
@@ -347,6 +313,38 @@ class Trivia(models.Model):
     trivia = models.TextField(verbose_name='豆知識', blank=True, null=True)
     kind = models.TextField(verbose_name='分類')
 
+class Catchlike(models.Model):
+    catch = models.ForeignKey(Catch,verbose_name='釣果', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.PROTECT)
+    likecatch = models.IntegerField(verbose_name='いいね',default=0)
 
+    class Meta:
+        verbose_name_plural = 'Catchlike'
+
+    def __str__(self):
+        return self.likecatch
+
+class Spotlike(models.Model):
+    spot = models.ForeignKey(Spot,verbose_name='釣り場', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.CASCADE)
+    likespot = models.IntegerField(verbose_name='いいね', default=0)
+
+    class Meta:
+        verbose_name_plural = 'Spotlike'
+
+    def __str__(self):
+        return self.spot
+
+
+class Recipelike(models.Model):
+    recipe = models.ForeignKey(Recipe,verbose_name='レシピ',on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.CASCADE)
+    likerecipe = models.IntegerField(verbose_name='いいね')
+
+    class Meta:
+        verbose_name_plural = 'Catchlike'
+
+    def __str__(self):
+        return self.recipe
 
 

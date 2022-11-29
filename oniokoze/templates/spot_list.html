@@ -5,29 +5,52 @@
 
 {% block active_spot_list %}active{% endblock %}
 
-{% block head %}
-<link href="#" rel="stylesheet">
+{% block header %}
+<div class="masthead">
+    <div class="container">
+            <div class="row">
+                <div class="my-div-style">
+                    <h1>釣り場</h1>
+                     <form method="GET" action="{% url 'oniokoze:spot_list' %}">
+                         <input type="text" name="keyword" placeholder="釣り場名"><br>
+                         <select name="capital">
+                         <option>項目1</option>
+                         <option>項目2</option>
+                         <option>項目3</option>
+                         <option>項目4</option>
+                         <option>項目5</option>
+                         </select>
+                         <input type="text" name="city" placeholder="市区町村"><br>
+                     <button class="btn btn-primary" type="submit">検索</button>
+                     </form>
+                </div>
+            </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block contents %}
+<div class="masthead2">
 <div class="container">
     <div class="row">
         <div class="my-div-style w-100">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="clearfix">
-                    <a class="btn btn-primary float-right" href="#">新規作成</a>
+                    <a class="btn btn-primary float-right" href="{% url 'oniokoze:spot_create' %}">新規作成</a>
                 </div>
-                {% for diary in diary_list %}
+                {% for spot in spot_list %}
                     <div class="post-preview">
                         <a href="#">
                           <h2 class="post-title">
-                            {{ diary.title }}
+                            {{ spot.place }}
                           </h2>
                           <h3 class="post-subtitle">
-                            {{ diary.content|truncatechars:20 }}
+                              {{ spot.capital }}
+                              {{ spot.city }}
+                              {{ spot.address }}
                           </h3>
                         </a>
-                        <p class="post-meta">{{ diary.created_at }}</p>
+                        <p class="post-meta">{{ spot.created_at }}</p>
                     </div>
                     <hr>
                 {% empty %}
@@ -41,7 +64,7 @@
                         {% if page_obj.has_previous %}
                             <li class="page-item">
                                 <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-                                    <span aria-hidden="true">&laquo;</span>
+                                    <span aria-hidden="true"></span>
                                 </a>
                             </li>
                         {% endif %}
@@ -68,5 +91,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

@@ -3,7 +3,7 @@ import os
 import logging
 from django.urls import reverse_lazy
 from django.views import generic
-from .models import Catch, Fishname
+from .models import Catch, Fishname,Spot
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
@@ -57,3 +57,12 @@ class FishnameCreateForm(forms.ModelForm):
         def add_prefix(self, field_name):
             field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
             return super(FishnameCreateForm, self).add_prefix(field_name)
+
+class SpotCreateForm(forms.ModelForm):
+    class Meta:
+        model=Spot
+        fields=('capital', 'city', 'address','place', 'location','spotfish','spotURL','free','beginner')
+        def __init__(self,*args,**kwargs):
+            super().__init__(*args,**kwargs)
+            for field in self.fields.value():
+                field.widget.attrs['class']='form-control'

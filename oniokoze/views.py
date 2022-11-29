@@ -2,15 +2,30 @@ import logging
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import re
-from .forms import CatchCreateForm, FishnameCreateForm
-from .models import Catch, Fishname
+from .forms import CatchCreateForm, FishnameCreateForm,SpotCreateForm
+from .models import Catch, Fishname,Spot
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 logger = logging.getLogger(__name__)
 
+
+def spot(request):
+    spot = Spot.objects.order_by('-id')
+    """ 検索機能の処理 """
+    keyword = request.GET.get('keyword')
+
+    if keyword:
+        """ テキスト用のQオブジェクトを追加 """
+        spot = spot.filter(
+            Q(title__icontains=keyword) | Q(text__icontains=keyword)
+        )
+        messages.success(request, '「{}」の検索結果'.format(keyword))
+
+    return render(request, 'oniokoze/spot_list.html', {'spot': spot})
 
 class IndexView(generic.TemplateView):
     template_name = "index.html"
@@ -87,8 +102,26 @@ class FishnameCreateView(generic.CreateView):
             corporationinformation.save()
         return redirect(to='/catch-create')
 
-class SpotListView(LoginRequiredMixin, generic.TemplateView):
+class SpotListView(LoginRequiredMixin,generic.ListView):
+    model = Spot
     template_name = 'spot_list.html'
+
+
+    def get_queryset(self):
+        spots = Spot.objects.filter(user=self.request.user).order_by('-created_at')
+        return spots
+
+    def get_queryset(self):
+        queryset = Spot.objects.order_by('-id')
+        keyword = self.request.GET.get('keyword')
+
+        if keyword:
+            queryset = queryset.filter(
+                            Q(title__icontains=keyword) | Q(text__icontains=keyword)
+                       )
+            messages.success(self.request, '「{}」の検索結果'.format(keyword))
+
+        return queryset
 
 
 class ResipeListView(LoginRequiredMixin, generic.TemplateView):
@@ -101,3 +134,19 @@ class TriviaView(generic.TemplateView):
 
 class MypageView(generic.TemplateView):
     template_name = 'mypage.html'
+
+class SpotCreateView(LoginRequiredMixin,generic.CreateView):
+    model = Spot
+    template_name = 'spot_create.html'
+    form_class=SpotCreateForm
+    success_url=reverse_lazy('oniokoze:spot_list')
+
+    def form_valid(self,form):
+        spot=form.save(commit=False)
+        spot.user=self.request.user
+        spot.save()
+        messages.success(self.request,'日記を作成しました。')
+        return super().form_valid(form)
+    def form_invalid(self,form):
+        messages.error(self.request,"日記の作成に失敗しました。")
+        return super().form_invalid(form)
