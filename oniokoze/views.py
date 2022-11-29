@@ -85,7 +85,7 @@ class FishnameCreateView(generic.CreateView):
                 catch_id= idList[i],
             )
             corporationinformation.save()
-        return redirect(to='/fishname-create')
+        return redirect(to='/catch-create')
 
 class SpotListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'spot_list.html'
