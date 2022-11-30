@@ -5,6 +5,8 @@ import re
 from .forms import CatchCreateForm, FishnameCreateForm
 from .models import Catch, Fishname
 from django.shortcuts import render, redirect
+from django.db.models.functions import Upper
+from django.db.models.query import QuerySet
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -19,6 +21,7 @@ class IndexView(generic.TemplateView):
 class CatchListView(LoginRequiredMixin, generic.ListView):
     model = Fishname.objects.select_related('catch').all()
     template_name = 'catch_list.html'
+    paginate_by = 4
 
     def get_queryset(self):
         catches = Catch.objects.filter(user=self.request.user).order_by('-created_at')
@@ -29,32 +32,33 @@ class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
 
     def test_func(self):
-        dairy = get_object_or_404(Diary, pk=self.kwargs['pk'])
+        dairy = get_object_or_404(Catch, pk=self.kwargs['pk'])
         return self.request.user == list.user
 
 
 class CatchDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Fishname
+    fishname = Fishname.objects.values_list('catch')
+    catches= Catch.objects.values_list('id')
+    model = Fishname.objects.select_related('catch')
+    model = fishname.union(catches,all=True)
+    model = Catch
     template_name = 'catch_detail.html'
 
+    def get_queryset(self):
+        catches = Fishname.objects.select_related('catch')
+        return catches
 
-class CatchCreateView(generic.CreateView):
-    model = Fishname
+class CatchCreateView(LoginRequiredMixin,generic.CreateView):
     form_class = CatchCreateForm
     template_name = 'catch_create.html'
     success_url = reverse_lazy('oniokoze:catch_list')
+
+
 
     def form_valid(self, form):
         catch = form.save(commit=False)
         catch.user = self.request.user
         catch.save()
-
-
-
-def get_queryset():
-    catches = Fishname.objects.select_related('catch').all()
-    return catches
-
 
 class FishnameCreateView(generic.CreateView):
     form_class = FishnameCreateForm
@@ -63,12 +67,15 @@ class FishnameCreateView(generic.CreateView):
 
     def post(self, request, *args, **kwrgs):
           # 空の配列を作ります
+        formList = []
         titleList= []
         bodyList= []
         noList= []
         idList= []
           # request.POST.items()でPOSTで送られてきた全てを取得。
         for i in request.POST.items():
+            if re.match(r'formList_*', i[0]):
+                formList.append(i[1])
             if re.match(r'titleList_*', i[0]):
                 titleList.append(i[1])
             if re.match(r'bodyList_*', i[0]):

@@ -11,11 +11,22 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 <div class="container my-div-style">
   <div class="row">
+
     <div class="col-3">
       <strong>魚種</strong>
     </div>
     <div class="col-9">
-    {{object.catch.nametitle}}　<!--魚種名の表示-->
+    {{object.name}}　<!--魚種名の表示-->
+    </div>
+
+    <hr>
+        <div class="row">
+      <div class="col-3">
+        <strong>サイズ</strong>
+      </div>
+      <div class="col-9">
+        {{object.size}}<!--サイズの表示-->
+      </div>
     </div>
 
     <hr>
@@ -35,17 +46,17 @@
         {% endif %}
       </div>
       <div class="col-3">
-        {% if object.catch.photo3 %} <!--写真があれば表示-->
+        {% if object.photo3 %} <!--写真があれば表示-->
           <img src="{{object.photo3.url}}" width="200" height="200"/>
         {% endif %}
       </div>
       <div class="col-3">
-        {% if object.catch.photo4 %} <!--写真があれば表示-->
+        {% if object.photo4 %} <!--写真があれば表示-->
           <img src="{{object.photo4.url}}" width="200" height="200"/>
         {% endif %}
       </div>
       <div class="col-3">
-        {% if object.catch.photo5 %} <!--写真があれば表示-->
+        {% if object.photo5 %} <!--写真があれば表示-->
           <img src="{{object.photo5.url}}" width="200" height="200"/>
         {% endif %}
       </div>
@@ -59,14 +70,7 @@
 
     <hr>
 
-    <div class="row">
-      <div class="col-3">
-        <strong>サイズ</strong>
-      </div>
-      <div class="col-9">
-        {{object.size}}<!--サイズの表示-->
-      </div>
-    </div>
+
 
     <hr>
 
@@ -75,7 +79,7 @@
         <strong>場所</strong>
       </div>
       <div class="col-9">
-        {{object.catch.place}}<!--場所の表示-->
+        {{object.catch.capital}}<!--場所の表示-->
       </div>
     </div>
 

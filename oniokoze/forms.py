@@ -26,8 +26,14 @@ class CatchCreateForm(forms.ModelForm):
     class Meta:
         model = Catch
         fields = (
-            'nametitle', 'photo1', 'capital', 'city', 'address', 'place', 'location', 'free'
-
+            'nametitle',
+            'photo1',
+            'capital',
+            'city',
+            'address',
+            'place',
+            'location',
+            'free',
         )
 
         def __init__(self, *args, **kwargs):

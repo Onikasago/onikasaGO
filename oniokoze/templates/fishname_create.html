@@ -16,21 +16,23 @@
                     <div class="list_var">
                       <table class="table">
                         <div id="file-area">
-                              <label>タイトル</label><br>
-                                <input class="form-control" type="text"  id="list_0" name="titleList_0">
-                                <label>内容</label><br>
-                                <input class="form-control" type="text"  id="list_0" name="bodyList_0">
-                              <label>種類数</label><br>
-                                <input class="form-control" type="text"  id="list_0" name="noList_0">
-                                <label>ID</label><br>
-                                <input class="form-control" type="text"  id="list_0" name="idList_0">
-                              <button class="list_del">Delete</button>
+
+
+                              <label>{{form.name.label}}</label>
+                            <input type="text" id="list_0" name="titleList_0"></input><br>
+                                <label>{{form.size.label}}</label>
+                            <input type="number" id="list_0" name="bodyList_0"></input><br>
+                              <label>{{form.no.label}}</label>
+                            <input type="number" id="list_0" name="noList_0"></input><br>
+                                <label>{{form.catch.label}}</label>
+                            <input type="number" id="list_0" name="idList_0"></input><br>
+                              <button class="list_del">削除</button>
                         </div>
                       </table>
                         </div>
                     </div>
                   </div>
-                <input type="button" value="Add2" class="list_add">
+                <input type="button" value="追加" class="list_add">
               <button class="btn btn-primary" type="submit">作成</button>
             </form>
             <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
