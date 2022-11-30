@@ -10,13 +10,36 @@
     <div class="row">
         <div class="my-div-style w-100">
             <form method="POST" enctype='multipart/form-data'>
-                {% csrf_token %}
-                <table class="table">
-                    {{ form.as_table }}
-                </table>
-                <button class="btn btn-primary" type="submit">作成</button>
+                 {% csrf_token %}
+                  <div class="form-group" id="list">
+                      <div id="list">
+                    <div class="list_var">
+                      <table class="table">
+                        <div id="file-area">
+                              <label>タイトル</label><br>
+                                <input class="form-control" type="text"  id="list_0" name="titleList_0">
+                                <label>内容</label><br>
+                                <input class="form-control" type="text"  id="list_0" name="bodyList_0">
+                              <label>種類数</label><br>
+                                <input class="form-control" type="text"  id="list_0" name="noList_0">
+                                <label>ID</label><br>
+                                <input class="form-control" type="text"  id="list_0" name="idList_0">
+                              <button class="list_del">Delete</button>
+                        </div>
+                      </table>
+                        </div>
+                    </div>
+                  </div>
+                <input type="button" value="Add2" class="list_add">
+              <button class="btn btn-primary" type="submit">作成</button>
             </form>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
+            <script type="text/javascript">
+            $('#list').addInputArea();
+            </script>
         </div>
     </div>
 </div>
 {% endblock %}
+
