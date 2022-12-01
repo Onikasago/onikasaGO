@@ -3,7 +3,7 @@
 
 {% block title %}釣果詳細 | OnikasaGO{% endblock %}
 
-{% block active_catch_list %}active{% endblock %}
+{% block active_object_list %}active{% endblock %}
 
 {% block contents %}
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
@@ -16,7 +16,7 @@
       <strong>魚種</strong>
     </div>
     <div class="col-9">
-    {{object.name}}　<!--魚種名の表示-->
+      {{object.name}}　<!--魚種名の表示-->
     </div>
 
     <hr>
@@ -37,7 +37,8 @@
       </div>
       <div class="col-3">
         {% if object.catch.photo1 %}　<!--写真があれば表示-->
-          <img src="{{object.photo1.url}}" width="200" height="200"/>
+          <img src="{{ object.catch.photo1.url }}" width="200" height="200"/>
+
         {% endif %}
       </div>
       <div class="col-3">

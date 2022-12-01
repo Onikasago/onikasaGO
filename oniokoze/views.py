@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import re
 from .forms import CatchCreateForm, FishnameCreateForm
 from .models import Catch, Fishname
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models.functions import Upper
 from django.db.models.query import QuerySet
 from django.contrib import messages
@@ -13,7 +13,8 @@ from django.http import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
-
+global var
+var=0
 class IndexView(generic.TemplateView):
     template_name = "index.html"
 
@@ -32,7 +33,7 @@ class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
 
     def test_func(self):
-        dairy = get_object_or_404(Catch, pk=self.kwargs['pk'])
+        catch = get_object_or_404(Catch, pk=self.kwargs['pk'])
         return self.request.user == list.user
 
 
@@ -46,24 +47,28 @@ class CatchDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_queryset(self):
         catches = Fishname.objects.select_related('catch')
+
         return catches
 
 class CatchCreateView(LoginRequiredMixin,generic.CreateView):
     form_class = CatchCreateForm
     template_name = 'catch_create.html'
-    success_url = reverse_lazy('oniokoze:catch_list')
+    success_url = reverse_lazy('oniokoze:fishname_create')
 
 
 
     def form_valid(self, form):
         catch = form.save(commit=False)
         catch.user = self.request.user
+        var = catch.id
         catch.save()
+        return redirect(self.success_url)
+
+
 
 class FishnameCreateView(generic.CreateView):
     form_class = FishnameCreateForm
     template_name = 'fishname_create.html'
-    success_url = reverse_lazy('oniokoze:catch_create')
 
     def post(self, request, *args, **kwrgs):
           # 空の配列を作ります
@@ -72,18 +77,18 @@ class FishnameCreateView(generic.CreateView):
         bodyList= []
         noList= []
         idList= []
+        n=1
           # request.POST.items()でPOSTで送られてきた全てを取得。
         for i in request.POST.items():
-            if re.match(r'formList_*', i[0]):
-                formList.append(i[1])
             if re.match(r'titleList_*', i[0]):
                 titleList.append(i[1])
             if re.match(r'bodyList_*', i[0]):
                 bodyList.append(i[1])
             if re.match(r'noList_*', i[0]):
-                noList.append(i[1])
+                noList.append(n)
             if re.match(r'idList_*', i[0]):
-                idList.append(i[1])
+                idList.append(var)
+            n+=1
         for i in range(len(titleList)):
             corporationinformation = Fishname.objects.create(
                 name= titleList[i],
@@ -92,7 +97,7 @@ class FishnameCreateView(generic.CreateView):
                 catch_id= idList[i],
             )
             corporationinformation.save()
-        return redirect(to='/catch-create')
+        return redirect(to='/catch-list')
 
 class SpotListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'spot_list.html'

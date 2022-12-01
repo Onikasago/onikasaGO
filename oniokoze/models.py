@@ -216,7 +216,7 @@ class Catch(models.Model):
 
 
     nametitle = models.TextField(verbose_name='釣果タイトル')
-    photo1 = models.ImageField(verbose_name='写真1')
+    photo1 = models.ImageField(verbose_name='写真1', blank=True, null=True)
     photo2 = models.ImageField(verbose_name='写真2', blank=True, null=True)
     photo3 = models.ImageField(verbose_name='写真3', blank=True, null=True)
     photo4 = models.ImageField(verbose_name='写真4', blank=True, null=True)
