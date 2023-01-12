@@ -11,71 +11,93 @@
     <div class="my-div-style w-100">
         <div class="row">
             <div class="col-3">
-                <strong>タイトル</strong>
+                <strong>所在地</strong>
             </div>
             <div class="col-9">
-                {{ object.place }}
+                {{ spot.capital }}
+                {{ spot.city }}
+                {{ spot.address }}
             </div>
         </div>
-
-        <hr>
+        <div class="row">
+            <div class="col-3">
+                <strong>釣り場名</strong>
+            </div>
+            <div class="col-9">
+                {% if spot.spotURL %}
+                <a href="{{ spot.spotURL }}">{{ spot.place }}</a>
+                {% else %}
+                {{ spot.place }}
+                {% endif %}
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-3">
-                <strong>本文</strong>
+                <strong>釣れる魚</strong>
             </div>
             <div class="col-9">
-                {{ object.content|linebreaksbr }}
+                {{ spot.spotfish }}
             </div>
         </div>
-
-        <hr>
 
         <div class="row">
             <div class="col-3">
-                <strong>写真</strong>
+                <strong>詳細</strong>
             </div>
-            <div class="col-3">
-                {% if object.photo1 %}
-                    <img src="{{ object.photo1.url }}" width="200" height="200"/>
-                {% endif %}
-            </div>
-            <div class="col-3">
-                {% if object.photo2 %}
-                    <img src="{{ object.photo2.url }}" width="200" height="200"/>
-                {% endif %}
-            </div>
-            <div class="col-3">
-                {% if object.photo3 %}
-                    <img src="{{ object.photo3.url }}" width="200" height="200"/>
-                {% endif %}
+            <div class="col-9">
+                {{ spot.free }}
             </div>
         </div>
 
-        <hr>
+        <div class="row">
+            <div class="col-3">
+                <strong>初心者おすすめ</strong>
+            </div>
+            <div class="col-9">
+                {{ spot.beginner }}
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-3">
                 <strong>作成日時</strong>
             </div>
             <div class="col-9">
-                {{ object.created_at }}
+                {{ spot.created_at }}
             </div>
         </div>
-
-        <hr>
 
         <div class="row">
             <div class="col-3">
                 <strong>更新日時</strong>
             </div>
             <div class="col-9">
-                {{ object.updated_at }}
+                {{ spot.updated_at }}
             </div>
         </div>
 
-        <a class="btn btn-success mt-5 mb-3" href="#">編集</a>
-        <a class="btn btn-danger mt-5 ml-2 mb-3" href="#">削除</a>
+        <div class="card-footer">
+          {% if is_user_liked_for_post %}
+            <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                <!-- すでにイイねしている時はfasクラス -->
+                <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+            </button>
+            {% else %}
+            <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                <!-- イイねしていないときはfarクラス -->
+                <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+            </button>
+            {% endif %}
+            <!-- イイねの数 -->
+            <span id="like-for-post-count">{{ like_for_post_count }}</span>
+            <span>件のイイね</span>
+        </div>
+
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:spot_update' spot.pk %}">編集</a>
+        <a class="btn btn-success mt-5 ml-1 mb-3" href="#">編集履歴</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:spot_delete' spot.pk %}">削除</a>
+        <a class="btn btn-secondary mt-5 ml-3 mb-3" href="{% url 'oniokoze:spot_list' %}">キャンセル</a>
     </div>
 </div>
 {% endblock %}

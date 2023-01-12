@@ -1,5 +1,5 @@
 from accounts.models import CustomUser
-
+from django.utils import timezone
 from django.db import models
 
 
@@ -266,12 +266,12 @@ class Spot(models.Model):
         ('その他', 'その他')
     )
 
+    user=models.ForeignKey(CustomUser,verbose_name='ユーザー',on_delete=models.PROTECT)
     capital = models.CharField(choices=CAPITALS, verbose_name='都道府県', blank=True,max_length=5)
     city = models.TextField(verbose_name='市区町村', blank=True)
     address = models.TextField(verbose_name='番地以降', blank=True)
     place = models.TextField(verbose_name='釣り場', blank=True)
     free = models.TextField(verbose_name='自由記入欄', blank=True, null=True)
-    changeID = models.ForeignKey(History, verbose_name='編集履歴', on_delete=models.CASCADE,null=True)
     URLcheck = models.CharField(verbose_name='URLチェック', blank=True, null=True, max_length=1)
     spotURL = models.URLField(verbose_name='URL記入欄', blank=True, null=True)
     location = models.CharField(choices=LOCATIONS, verbose_name='ロケーション',blank=True, null=True, max_length=5)
@@ -283,11 +283,7 @@ class Spot(models.Model):
     class Meta:
         verbose_name_plural = 'Spot'
     def __str__(self):
-        return self.title
-
-
-
-
+        return self.place
 
 
 class Recipe(models.Model):
@@ -348,3 +344,9 @@ class Recipelike(models.Model):
         return self.recipe
 
 
+
+class LikeForPost(models.Model):
+    """投稿に対するいいね"""
+    target = models.ForeignKey(Spot, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(default=timezone.now)

@@ -1,10 +1,9 @@
 import logging
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-import re
 from .forms import CatchCreateForm, FishnameCreateForm,SpotCreateForm
-from .models import Catch, Fishname,Spot
-from django.shortcuts import render, redirect
+from .models import Catch, Fishname,Spot, LikeForPost
+from django.shortcuts import render, redirect ,get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -21,7 +20,7 @@ def spot(request):
     if keyword:
         """ テキスト用のQオブジェクトを追加 """
         spot = spot.filter(
-            Q(title__icontains=keyword) | Q(text__icontains=keyword)
+            Q(place__icontains=keyword) | Q(capitl__icontains=keyword)
         )
         messages.success(request, '「{}」の検索結果'.format(keyword))
 
@@ -44,8 +43,8 @@ class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
 
     def test_func(self):
-        dairy = get_object_or_404(Diary, pk=self.kwargs['pk'])
-        return self.request.user == list.user
+        oniokoze = get_object_or_404(Spot,pk=self.kwargs['pk'])
+        return self.request.user == oniokoze.user
 
 
 class CatchDetailView(LoginRequiredMixin, generic.DetailView):
@@ -117,7 +116,7 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
 
         if keyword:
             queryset = queryset.filter(
-                            Q(title__icontains=keyword) | Q(text__icontains=keyword)
+                            Q(place__icontains=keyword) | Q(capital__icontains=keyword)
                        )
             messages.success(self.request, '「{}」の検索結果'.format(keyword))
 
@@ -150,3 +149,44 @@ class SpotCreateView(LoginRequiredMixin,generic.CreateView):
     def form_invalid(self,form):
         messages.error(self.request,"日記の作成に失敗しました。")
         return super().form_invalid(form)
+class SpotDetailView(LoginRequiredMixin,OnlyYouMixin,generic.DetailView):
+    model = Spot
+    template_name = 'spot_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        like_for_post_count = self.object.likeforpost_set.count()
+        # ポストに対するイイね数
+        context['like_for_post_count'] = like_for_post_count
+        # ログイン中のユーザーがイイねしているかどうか
+        if self.object.likeforpost_set.filter(user=self.request.user).exists():
+            context['is_user_liked_for_post'] = True
+        else:
+            context['is_user_liked_for_post'] = False
+
+        return context
+
+class SpotUpdateView(LoginRequiredMixin,OnlyYouMixin,generic.UpdateView):
+    model = Spot
+    template_name = 'spot_update.html'
+    form_class = SpotCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('oniokoze:spot_detail',kwargs={'pk':self.kwargs['pk']})
+
+    def form_valid(self,form):
+        messages.success(self.request,'日記を更新しました。')
+        return super().form_valid(form)
+    def form_invalid(self,form):
+        messages.error(self.request,"日記の更新に失敗しました。")
+        return super().form_invalid(form)
+
+class SpotDeleteView(LoginRequiredMixin,OnlyYouMixin,generic.DeleteView):
+    model = Spot
+    template_name = 'spot_delete.html'
+    success_url = reverse_lazy('oniokoze:spot_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,"日記を削除しました。")
+        return super().delete(request,*args,**kwargs)
+
