@@ -54,7 +54,7 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
         query = self.request.GET
 
         if q := query.get('q'):  # python3.8以降
-            queryset = queryset.filter( Q(title__icontains=q) | Q(method__icontains=q))
+            queryset = queryset.filter( Q(method__icontains=q) | Q(title__icontains=q))
             messages.success(self.request, '「{}」の検索結果'.format(q))
 
         return queryset.order_by('-created_at')
