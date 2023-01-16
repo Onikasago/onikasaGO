@@ -309,42 +309,6 @@ class Trivia(models.Model):
     trivia = models.TextField(verbose_name='豆知識', blank=True, null=True)
     kind = models.TextField(verbose_name='分類')
 
-class Catchlike(models.Model):
-    catch = models.ForeignKey(Catch,verbose_name='釣果', on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.PROTECT)
-    likecatch = models.IntegerField(verbose_name='いいね',default=0)
-
-    class Meta:
-        verbose_name_plural = 'Catchlike'
-
-    def __str__(self):
-        return self.likecatch
-
-class Spotlike(models.Model):
-    spot = models.ForeignKey(Spot,verbose_name='釣り場', on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.CASCADE)
-    likespot = models.IntegerField(verbose_name='いいね', default=0)
-
-    class Meta:
-        verbose_name_plural = 'Spotlike'
-
-    def __str__(self):
-        return self.spot
-
-
-class Recipelike(models.Model):
-    recipe = models.ForeignKey(Recipe,verbose_name='レシピ',on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.CASCADE)
-    likerecipe = models.IntegerField(verbose_name='いいね')
-
-    class Meta:
-        verbose_name_plural = 'Catchlike'
-
-    def __str__(self):
-        return self.recipe
-
-
-
 class LikeForPost(models.Model):
     """投稿に対するいいね"""
     target = models.ForeignKey(Spot, on_delete=models.CASCADE)
