@@ -6,7 +6,7 @@ from .models import Catch, Fishname,Spot, LikeForPost
 from django.shortcuts import render, redirect ,get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from django.db.models import Q
 
 logger = logging.getLogger(__name__)
@@ -122,6 +122,22 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
 
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # {'pk':{'count':ポストに対するイイネ数,'is_user_liked_for_post':bool},}という辞書を追加していく
+        d = {}
+        for spot in self.object_list:
+            # postに対するイイね数
+            like_for_post_count = spot.likeforpost_set.count()
+            # ログイン中のユーザーがイイねしているかどうか
+            is_user_liked_for_post = False
+            if not self.request.user.is_anonymous:
+                if spot.likeforpost_set.filter(user=self.request.user).exists():
+                    is_user_liked_for_post = True
+
+            d[spot.pk] = {'count': like_for_post_count, 'is_user_liked_for_post': is_user_liked_for_post}
+        context['post_like_data'] = d
+        return context
 
 class ResipeListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'resipe_list.html'
@@ -149,7 +165,8 @@ class SpotCreateView(LoginRequiredMixin,generic.CreateView):
     def form_invalid(self,form):
         messages.error(self.request,"日記の作成に失敗しました。")
         return super().form_invalid(form)
-class SpotDetailView(LoginRequiredMixin,OnlyYouMixin,generic.DetailView):
+
+class SpotDetailView(LoginRequiredMixin,generic.DetailView):
     model = Spot
     template_name = 'spot_detail.html'
 
@@ -159,12 +176,31 @@ class SpotDetailView(LoginRequiredMixin,OnlyYouMixin,generic.DetailView):
         # ポストに対するイイね数
         context['like_for_post_count'] = like_for_post_count
         # ログイン中のユーザーがイイねしているかどうか
-        if self.object.likeforpost_set.filter(user=self.request.user).exists():
-            context['is_user_liked_for_post'] = True
-        else:
-            context['is_user_liked_for_post'] = False
+        is_user_liked_for_post = False
+        if not self.request.user.is_anonymous:
+            if self.object.likeforpost_set.filter(user=self.request.user).exists():
+                is_user_liked_for_post = True
+        context['is_user_liked_for_post'] = is_user_liked_for_post
 
         return context
+
+def like_for_post(request):
+    spot_pk = request.POST.get('spot_pk')
+    context = {
+        'user': f'{request.user.last_name} {request.user.first_name}',
+    }
+    spotpost = get_object_or_404(Spot, pk=spot_pk)
+    like = LikeForPost.objects.filter(target=spotpost, user=request.user)
+    if like.exists():
+        like.delete()
+        context['method'] = 'delete'
+    else:
+        like.create(target=spotpost, user=request.user)
+        context['method'] = 'create'
+
+    context['like_for_post_count'] = spotpost.likeforpost_set.count()
+
+    return JsonResponse(context)
 
 class SpotUpdateView(LoginRequiredMixin,OnlyYouMixin,generic.UpdateView):
     model = Spot
