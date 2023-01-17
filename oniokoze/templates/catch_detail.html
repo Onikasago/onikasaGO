@@ -13,36 +13,27 @@
   <div class="row">
 
     <div class="col-3">
-      <strong>魚種</strong>
+      <strong>釣果タイトル</strong>
     </div>
     <div class="col-9">
-      {{object.name}}　<!--魚種名の表示-->
+      {{object.nametitle}}　<!--魚種名の表示-->
     </div>
 
     <hr>
-        <div class="row">
-      <div class="col-3">
-        <strong>サイズ</strong>
-      </div>
-      <div class="col-9">
-        {{object.size}}<!--サイズの表示-->
-      </div>
-    </div>
 
-    <hr>
 
     <div class="row">
       <div class="col-3">
         <strong>写真</strong>
       </div>
       <div class="col-3">
-        {% if object.catch.photo1 %}　<!--写真があれば表示-->
+        {% if object.photo1 %}　<!--写真があれば表示-->
           <img src="{{ object.catch.photo1.url }}" width="200" height="200"/>
 
         {% endif %}
       </div>
       <div class="col-3">
-        {% if object.catch.photo2 %} <!--写真があれば表示-->
+        {% if object.photo2 %} <!--写真があれば表示-->
           <img src="{{object.photo2.url}}" width="200" height="200"/>
         {% endif %}
       </div>
@@ -61,11 +52,7 @@
           <img src="{{object.photo5.url}}" width="200" height="200"/>
         {% endif %}
       </div>
-      <div class="app">
-        <vue-star animate="animated shake" color="#5654F0">
-          <a slot="icon" class="fa fa-thumbs-up" @click="handleClick"></a>
-        </vue-star>
-      </div>
+
 
     </div>
 
@@ -80,20 +67,36 @@
         <strong>場所</strong>
       </div>
       <div class="col-9">
-        {{object.catch.capital}}<!--場所の表示-->
+        {{object.capital}}<!--場所の表示-->
+        {{object.city}}
+        {{object.address}}
+
       </div>
     </div>
 
     <hr>
+        <div class="row">
+      <div class="col-3">
+        <strong>ロケーション</strong>
+      </div>
+      <div class="col-9">
+        {{object.location}}<!--サイズの表示-->
+      </div>
+    </div>
 
+    <hr>
+    
     <div class="row">
       <div class="col-3">
         <strong>その他</strong>
       </div>
       <div class="col-9">
-        {{object.catch.free}}<!--自由記入の表示-->
+        {{object.free}}<!--自由記入の表示-->
       </div>
     </div>
+           <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:catch_update' object.pk%}">編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_delete' object.pk %}">削除</a>
   </div>
+  <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:catch_list' %}">キャンセル</a>
 </div>
 {% endblock %}

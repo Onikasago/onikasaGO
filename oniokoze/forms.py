@@ -3,7 +3,7 @@ import os
 import logging
 from django.urls import reverse_lazy
 from django.views import generic
-from .models import Catch, Fishname
+from .models import *
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
@@ -23,14 +23,23 @@ class OnlyYouMixin(UserPassesTestMixin):
 
 
 class CatchCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
-
     class Meta:
         model = Catch
-        fields =  '__all__'
+        fields = (
+            'nametitle',
+            'photo1',
+            'capital',
+            'city',
+            'address',
+            'place',
+            'location',
+            'free',
+        )
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field in self.fields.values():
+                field.widget.attrs['class'] = 'form-control'
 
 
 
@@ -59,3 +68,8 @@ class FishnameCreateForm(forms.ModelForm):
         def add_prefix(self, field_name):
             field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
             return super(FishnameCreateForm, self).add_prefix(field_name)
+
+class RecipeCreateForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields =  '__all__'
