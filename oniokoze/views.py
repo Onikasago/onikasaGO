@@ -2,7 +2,7 @@ import logging
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import re
-from .forms import CatchCreateForm, FishnameCreateForm
+from .forms import CatchCreateForm, FishnameCreateForm,CatchFormset
 from .models import Catch, Fishname
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models.functions import Upper
@@ -38,10 +38,8 @@ class OnlyYouMixin(UserPassesTestMixin):
 
 
 class CatchDetailView(LoginRequiredMixin, generic.DetailView):
-    fishname = Fishname.objects.values_list('catch')
     catches= Catch.objects.values_list('id')
     model = Fishname.objects.select_related('catch')
-    model = fishname.union(catches,all=True)
     model = Catch
     template_name = 'catch_detail.html'
 
@@ -50,19 +48,33 @@ class CatchDetailView(LoginRequiredMixin, generic.DetailView):
 
         return catches
 
-class CatchCreateView(LoginRequiredMixin,generic.CreateView):
-    form_class = CatchCreateForm
-    template_name = 'catch_create.html'
-    success_url = reverse_lazy('oniokoze:fishname_create')
+class CatchCreateView(LoginRequiredMixin,generic.ListView):
+    model = Catch
+
+
+def catch_create(request):
+    form = CatchCreateForm(request.POST or None)
+    context = {'form':form}
+    if request.method == 'POST' and form.is_valid():
+        post = form.save(commit=False)
+        formset = CatchFormset(request.POST,instance=post)
+        if formset.is_valid():
+            post.save()
+            formset.save()
+            return redirect('oniokoze:catch')
+    else:
+        context['formset'] = CatchFormset()
+
+    return render(request, 'catch_create.html' , context)
 
 
 
-    def form_valid(self, form):
-        catch = form.save(commit=False)
-        catch.user = self.request.user
-        var = catch.id
-        catch.save()
-        return redirect(self.success_url)
+def form_valid(self, form):
+    catch = form.save(commit=False)
+    catch.user = self.request.user
+    var = catch.id
+    catch.save()
+    return redirect(self.success_url)
 
 
 

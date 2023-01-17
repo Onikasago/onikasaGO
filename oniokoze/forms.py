@@ -23,31 +23,27 @@ class OnlyYouMixin(UserPassesTestMixin):
 
 
 class CatchCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = Catch
-        fields = (
-            'nametitle',
-            'photo1',
-            'capital',
-            'city',
-            'address',
-            'place',
-            'location',
-            'free',
-        )
+        fields =  '__all__'
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            for field in self.fields.values():
-                field.widget.attrs['class'] = 'form-control'
 
+
+CatchFormset = forms.inlineformset_factory(
+    Catch,Fishname, fields='__all__',
+    extra=2,max_num=5, can_delete=False
+)
 
 class FishnameCreateForm(forms.ModelForm):
     class Meta:
         model = Fishname
-        fields = (
-            '__all__'
-        )
+        fields = '__all__'
+
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
