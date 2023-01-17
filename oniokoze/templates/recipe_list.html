@@ -49,7 +49,7 @@
         </div>
           <div class="search_ui size_search_box pc">
               <form class="d-flex" action="{% url 'oniokoze:recipe_list' %}" method="get">
-                  <input name="q" placeholder="Search" aria-label="Search">
+                  <input name="p" value="" placeholder="Search" aria-label="Search">
                   <a>分類: </a>
                   <button type="submit">検索</button>
               </form>
@@ -197,13 +197,7 @@
                                   return arrCheck;
                                 }
 
-                                // 全サイズ選択解除
-                                $(function () {
-                                  $("#checkAll").on("click", function () {
-                                    $(".size_sort").prop("checked", this.checked);
-                                  });
 
-                                });
                             </script>
                         </div>
                     </div>

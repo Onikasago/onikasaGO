@@ -111,9 +111,14 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
         queryset = super().get_queryset(**kwargs)
         query = self.request.GET
 
-        if q := query.get('q'):  # python3.8以降
-            queryset = queryset.filter( Q(method__icontains=q) | Q(title__icontains=q))
-            messages.success(self.request, '「{}」の検索結果'.format(q))
+        if q := query.get('q') : # python3.8以降
+            if p := query.get('p'):
+                if p == '#':
+                    queryset = queryset.filter( Q(method__icontains=q) )
+                elif q == '#':
+                    queryset = queryset.filter( Q(title__icontains=p) )
+                else:
+                    queryset = queryset.filter( Q(method__icontains=q) & Q(title__icontains=p))
 
         return queryset.order_by('-created_at')
 
