@@ -24,7 +24,7 @@ class CatchListView(LoginRequiredMixin, generic.ListView):
     template_name = 'catch_list.html'
 
     def get_queryset(self):
-        catches = Catch.objects.filter(user=self.request.user).order_by('-created_at')
+        catches = Catch.objects.order_by('-created_at')  #.filter(user=self.request.user)
         return catches
 
 
@@ -36,11 +36,6 @@ class CatchCreateView(generic.CreateView):
     template_name = 'catch_create.html'
     success_url = reverse_lazy('oniokoze:catch-list')
 
-class FishnameCreateView(generic.CreateView):
-    model = Fishname
-    form_class = FishnameCreateForm
-    template_name = 'fishname_create.html'
-    success_url = reverse_lazy('oniokoze:catch-create')
 
 class SpotListView(LoginRequiredMixin,generic.TemplateView):
     template_name = 'spot_list.html'
@@ -54,11 +49,13 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
         query = self.request.GET
 
         if q := query.get('q') : # python3.8以降
-            if p := query.get('p'):
-                if p == '#':
-                    queryset = queryset.filter( Q(method__icontains=q) )
-                elif q == '#':
-                    queryset = queryset.filter( Q(title__icontains=p) )
+            if q == '#':
+                queryset = queryset.filter(Q(title__icontains=p))
+
+            else:
+                if p := query.get('p'):
+                    if p == '#':
+                        queryset = queryset.filter(Q(method__icontains=q))
                 else:
                     queryset = queryset.filter( Q(method__icontains=q) & Q(title__icontains=p))
 
@@ -66,11 +63,41 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
 
 
 
+
 class RecipeCreateView(generic.CreateView):
     model = Recipe
     form_class = RecipeCreateForm
     template_name = 'recipe_create.html'
-    success_url = reverse_lazy('oniokoze:recipe-create')
+    success_url = reverse_lazy('oniokoze:recipe_list')
+
+class RecipeDetailView(generic.DetailView):
+    model = Recipe
+    template_name = 'recipe_detail.html'
+
+class RecipeDeleteView(generic.DeleteView):
+    model = Recipe
+    template_name = 'recipe_delete.html'
+    success_url = reverse_lazy('oniokoze:recipe_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "日記を削除しました。")
+        return super().delete(request, *args, **kwargs)
+
+
+class RecipeUpdateView(generic.UpdateView):
+    model = Recipe
+    template_name = 'recipe_update.html'
+    form_class = RecipeCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('oniokoze:recipe_detail', kwargs = {'pk':self.kwargs['pk']})
+
+    def form_valid(self, form):
+        messages.success(self.request, '日記を更新しました。')
+        return super().form_valid(form)
+    def form_invalid(self, form):
+        messages.error(self.request, "日記の更新に失敗しました。")
+        return super().form_invalid(form)
 
 
 class TriviaView(generic.TemplateView):

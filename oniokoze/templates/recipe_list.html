@@ -69,10 +69,10 @@
                 <div class="my-div-style w-100">
                     <div class="col-lg-8 col-md-10 mx-auto">
                         <div class="clearfix">
-                          {% for recipe in recipe_list %}<!--Fishnameモデルが持つデータを繰り返しで表示する-->
+                          {% for recipe in recipe_list %}<!--Recipeモデルが持つデータを繰り返しで表示する-->
                           <div class="post-preview">
                     <!--        idにあったデータの詳細画面を表示するリンクの表示-->
-                            <a href="#">
+                            <a href="{% url 'oniokoze:recipe_detail' recipe.pk %}">
                                 <h2 class="post-title">
                                     {{recipe.title}}<!--            魚種名の表示-->
                                 </h2>
