@@ -14,7 +14,7 @@
                 <strong>タイトル</strong>
             </div>
             <div class="col-9">
-                {{ object.title }}
+                {{ recipe.title }}
             </div>
         </div>
 
@@ -25,7 +25,7 @@
                 <strong>本文</strong>
             </div>
             <div class="col-9">
-                {{ object.content|linebreaksbr }}
+                {{ recipe.content|linebreaksbr }}
             </div>
         </div>
 
@@ -36,18 +36,13 @@
                 <strong>写真</strong>
             </div>
             <div class="col-3">
-                {% if object.photo1 %}
-                    <img src="{{ object.photo1.url }}" width="200" height="200"/>
+                {% if recipe.titlephoto %}
+                    <img src="{{ recipe.titlephoto.url }}" width="200" height="200"/>
                 {% endif %}
             </div>
             <div class="col-3">
-                {% if object.photo2 %}
-                    <img src="{{ object.photo2.url }}" width="200" height="200"/>
-                {% endif %}
-            </div>
-            <div class="col-3">
-                {% if object.photo3 %}
-                    <img src="{{ object.photo3.url }}" width="200" height="200"/>
+                {% if recipe.shopphoto %}
+                    <img src="{{ recipe.shopphoto.url }}" width="200" height="200"/>
                 {% endif %}
             </div>
         </div>
@@ -59,7 +54,7 @@
                 <strong>作成日時</strong>
             </div>
             <div class="col-9">
-                {{ object.created_at }}
+                {{ recipe.created_at }}
             </div>
         </div>
 
@@ -70,7 +65,7 @@
                 <strong>更新日時</strong>
             </div>
             <div class="col-9">
-                {{ object.updated_at }}
+                {{ reipe.updated_at }}
             </div>
         </div>
         <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' object.pk%}">編集</a>

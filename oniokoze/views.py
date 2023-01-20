@@ -44,20 +44,26 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
     template_name = 'recipe_list.html'
     paginate_by = 3
 
+
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         query = self.request.GET
+        list = [0,0]
 
         if q := query.get('q') : # python3.8以降
-            if q == '#':
-                queryset = queryset.filter(Q(title__icontains=p))
+            list[0]=1
 
-            else:
-                if p := query.get('p'):
-                    if p == '#':
-                        queryset = queryset.filter(Q(method__icontains=q))
-                else:
-                    queryset = queryset.filter( Q(method__icontains=q) & Q(title__icontains=p))
+            if p := query.get('p'):
+                list[1]=2
+
+            if (list[0] == 1) and (list[1] == 2):
+                    queryset = queryset.filter(Q(method__icontains=q) & Q(title__icontains=p))
+
+            elif (list[0] == 1) and (list[1] != 2):
+                    queryset = queryset.filter(Q(method__icontains=q))
+
+            elif (list[0] != 1) and (list[1] == 2):
+                    queryset = queryset.filter(Q(title__icontains=p))
 
         return queryset.order_by('-created_at')
 
