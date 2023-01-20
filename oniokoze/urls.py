@@ -1,8 +1,9 @@
 from django.urls import path
-
 from . import views
+from .views import *
 
 app_name = 'oniokoze'
+
 urlpatterns = [
     path('', views.IndexView.as_view(), name="index"),
     path('catch-list', views.CatchListView.as_view(), name="catch_list"),
@@ -18,5 +19,7 @@ urlpatterns = [
     path('resipe-list', views.ResipeListView.as_view(), name="resipe_list"),
     path('trivia', views.TriviaView.as_view(), name="trivia"),
     path('mypage/', views.MypageView.as_view(), name="mypage"),
+    path('process-form', processForm, name='process-form'),
+    path('get-prefecture', getPrefecture, name='get-prefecture'),
 
 ]

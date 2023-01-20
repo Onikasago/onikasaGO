@@ -1,13 +1,15 @@
 import logging
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import CatchCreateForm, FishnameCreateForm,SpotCreateForm
+from .forms import CatchCreateForm, FishnameCreateForm,SpotCreateForm,AddressForm
 from .models import Catch, Fishname,Spot, LikeForPost
 from django.shortcuts import render, redirect ,get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
+from oniokoze.forms import *
 from django.http import HttpResponseRedirect,JsonResponse
 from django.db.models import Q
+from django.http.response import JsonResponse
 
 logger = logging.getLogger(__name__)
 
@@ -226,3 +228,22 @@ class SpotDeleteView(LoginRequiredMixin,OnlyYouMixin,generic.DeleteView):
         messages.success(self.request,"日記を削除しました。")
         return super().delete(request,*args,**kwargs)
 
+def getPrefecture(request):
+    prefecture = request.POST.get('prefecture')
+    prefecutres = return_cities_by_prefecture(prefecture)
+    return JsonResponse({'prefecutres': prefecutres})
+
+def processForm(request):
+    context = {}
+    if request.method == 'GET':
+        form = AddressForm()
+        context['form'] = form
+        return render(request, 'spot_list.html', context)
+
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            selected_province = request.POST['city']
+            obj = form.save(commit=False)
+            obj.state = selected_province
+            obj.save()

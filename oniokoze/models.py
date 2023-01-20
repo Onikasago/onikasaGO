@@ -2,7 +2,6 @@ from accounts.models import CustomUser
 from django.utils import timezone
 from django.db import models
 
-
 class History(models.Model):
     CAPITALS = (
         ('北海道', '北海道'),

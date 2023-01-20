@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'django_bootstrap5',
     'reversion',
+    'widget_tweaks',
 
 ]
 
