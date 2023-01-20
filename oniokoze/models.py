@@ -232,7 +232,8 @@ class Catch(models.Model):
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
     def __str__(self):
-        return str(self.nametitle)+self.capital
+        return self.id
+        # return str(self.nametitle)+self.capital
 
 class Fishname(models.Model):
     name = models.CharField(verbose_name='魚種',max_length=50 ,blank=True, null=True)

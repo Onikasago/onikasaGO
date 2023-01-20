@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from .models import *
 from django.forms.models import inlineformset_factory
+# from django_superform import ModelFormField, SuperModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 
@@ -60,9 +61,8 @@ class FishnameCreateForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
 
         def form_valid(self, form):
-            catch = form.save(commit=False)
-            catch.user = self.request.user
-            catch.save()
+            fishname = form.save(commit=False)
+            fishname.save()
             return super().form_vaild(form)
 
         def add_prefix(self, field_name):
