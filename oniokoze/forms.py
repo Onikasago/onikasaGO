@@ -3,7 +3,7 @@ import os
 import logging
 from django.urls import reverse_lazy
 from django.views import generic
-from .models import Catch, Fishname, Spot
+from .models import *
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
@@ -22,13 +22,18 @@ class OnlyYouMixin(UserPassesTestMixin):
         catch = get_object_or_404(Fishname, pk=self.kwargs['pk'])
         return self.request.user == list.user
 
-
 class CatchCreateForm(forms.ModelForm):
     class Meta:
         model = Catch
         fields = (
-            'nametitle', 'photo1', 'capital', 'city', 'address', 'place', 'location', 'free'
-
+            'nametitle',
+            'photo1',
+            'capital',
+            'city',
+            'address',
+            'place',
+            'location',
+            'free',
         )
 
         def __init__(self, *args, **kwargs):
@@ -36,13 +41,16 @@ class CatchCreateForm(forms.ModelForm):
             for field in self.fields.values():
                 field.widget.attrs['class'] = 'form-control'
 
+CatchFormset = forms.inlineformset_factory(
+    Catch,Fishname, fields='__all__',
+    extra=2,max_num=5, can_delete=False
+)
 
 class FishnameCreateForm(forms.ModelForm):
     class Meta:
         model = Fishname
-        fields = (
-            '__all__'
-        )
+        fields = '__all__'
+
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -50,15 +58,18 @@ class FishnameCreateForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
 
         def form_valid(self, form):
-            catch = form.save(commit=False)
-            catch.user = self.request.user
-            catch.save()
+            fishname = form.save(commit=False)
+            fishname.save()
             return super().form_vaild(form)
 
         def add_prefix(self, field_name):
             field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
             return super(FishnameCreateForm, self).add_prefix(field_name)
 
+class RecipeCreateForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields =  '__all__'
 class SpotCreateForm(forms.ModelForm):
     class Meta:
         model=Spot

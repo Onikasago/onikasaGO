@@ -9,17 +9,16 @@
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="text-center">
-                 <h1 class="mx-auto my-0 text-uppercase">オニカサGO</h1>
+                <h1 class="mx-auto my-0 text-uppercase">オニカサGO</h1>
+                <!-- スライドバナー -->
+                <div class="slider">
+                    <li><a href="{% url 'oniokoze:spot_list' %}"><img src="{% static 'assets/img/fish1.jpg' %}" width="1600" height="300" alt="リンク先サイト名" /></a></li>
+                    <li><a href="{% url 'oniokoze:catch_list' %}"><img src="{% static 'assets/img/onikasago.jpg' %}" width="1600" height="300" alt="リンク先サイト名"  /></a></li>
+                    <li><a href="{% url 'oniokoze:recipe_list' %}"><img src="{% static 'assets/img/fish2.png' %}" width="1600" height="300" alt="リンク先サイト名" /></a></li>
+                    <li><a href="{% url 'oniokoze:trivia' %}"><img src="{% static 'assets/img/demi_hangyo.jpg' %}" width="1600" height="300" alt="リンク先サイト名" /></a></li>
+                </div>
 
-<!-- スライドバナー -->
-<div class="slider">
-<li><a href="#"><img src="{% static 'assets/img/fish1.jpg' %}" width="1600" height="300" alt="リンク先サイト名" /></a></li>
-<li><a href="#"><img src="{% static 'assets/img/onikasago.jpg' %}" width="1600" height="300" alt="リンク先サイト名"  /></a></li>
-<li><a href="#"><img src="{% static 'assets/img/fish2.png' %}" width="1600" height="300" alt="リンク先サイト名" /></a></li>
-<li><a href="#"><img src="{% static 'assets/img/demi_hangyo.jpg' %}" width="1600" height="300" alt="リンク先サイト名" /></a></li>
-</div>
-
-                <!--新規登録ログインボタン(ifをつける予定)-->
+                <!--新規登録ログインボタン-->
                 {% if user.is_authenticated %}
                 <a href="{% url 'account_logout' %}" class="btn btn-primary btn-xl rounded-pill mt-5">ログアウト</a>
                 {% else %}
@@ -54,7 +53,6 @@
         <li><a href="#"><img class="img-fluid" src="{% static 'assets/img/pict02.jpg' %}"></a></li>
         <li><a href="#"><img class="img-fluid" src="{% static 'assets/img/pict03.jpg' %}"></a></li>
     </ol>
-
                     </div>
                 </div>
             </div>
