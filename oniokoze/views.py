@@ -7,7 +7,7 @@ from .models import *
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from oniokoze.forms import *
 from django.contrib import messages
 from django.db.models import Q
