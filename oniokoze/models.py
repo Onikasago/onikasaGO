@@ -115,10 +115,6 @@ class Fish(models.Model):
     def __str__(self):
         return self.title
 
-
-
-
-
 class Catch(models.Model):
     CAPITALS = (
         ('北海道', '北海道'),
@@ -287,17 +283,23 @@ class Spot(models.Model):
 
 
 class Recipe(models.Model):
-    method = models.TextField(verbose_name='分類', blank=True)
+
+    CHOICE_TUPLE=(
+        ("調理", "調理"),
+        ("処理", "処理"),
+        ("豆知識", "豆知識"),
+    )
+
+    method = models.TextField(choices=CHOICE_TUPLE,verbose_name='分類', blank=True)
     title = models.TextField(verbose_name='タイトル')
     shopphoto = models.ImageField(verbose_name='お店の写真', blank=True, null=True)
     shopURL = models.URLField(verbose_name='お店のURL', blank=True, null=True)
     userID = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.CASCADE)
-    check = models.CharField(verbose_name='URLチェック', blank=True, null=True, max_length=1)
     titlephoto = models.ImageField(verbose_name='タイトル写真', blank=True, null=True)
     titlemovie = models.URLField(verbose_name='タイトル動画', blank=True, null=True)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
-    order = models.ForeignKey(Order, verbose_name='手順', on_delete=models.CASCADE)
+
 
     class Meta:
         verbose_name_plural = 'Recipe'

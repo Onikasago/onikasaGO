@@ -10,6 +10,11 @@
 {% endblock %}
 
 {% block contents %}
+<div class="masthead">
+    <div class="container">
+            <div class="row">
+                <div class="my-div-style">
+                    <h1>釣果</h1>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 <div class="container px-4 px-lg-5 my-div-style">
@@ -21,7 +26,7 @@
 
       {% for catch in catch_list %}<!--Fishnameモデルが持つデータを繰り返しで表示する-->
       <div class="post-preview">
-          <a href="{% url 'oniokoze:catch_detail' catch.pk%}">
+          <a href="{% url 'oniokoze:catch_detail' catch.pk%}"></a>
 <!--        idにあったデータの詳細画面を表示するリンクの表示-->
           <h2 class="post-title">
             {{catch.nametitle}}<!--            魚種名の表示-->
@@ -84,6 +89,10 @@
       {% endif %}
     </div>
   </div>
+</div>
+                </div>
+            </div>
+    </div>
 </div>
 {% endblock %}
 

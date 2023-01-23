@@ -222,9 +222,6 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
         context['post_like_data'] = d
         return context
 
-class ResipeListView(LoginRequiredMixin, generic.TemplateView):
-    template_name = 'resipe_list.html'
-
 class SpotCreateView(LoginRequiredMixin,generic.CreateView):
     model = Spot
     template_name = 'spot_create.html'
@@ -345,8 +342,46 @@ class RecipeCreateView(generic.CreateView):
     model = Recipe
     form_class = RecipeCreateForm
     template_name = 'recipe_create.html'
-    success_url = reverse_lazy('oniokoze:recipe-create')
+    success_url = reverse_lazy('oniokoze:recipe_list')
 
+    def form_valid(self, form):
+        spot = form.save(commit=False)
+        spot.user = self.request.user
+        spot.save()
+        messages.success(self.request, '日記を作成しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "日記の作成に失敗しました。")
+        return super().form_invalid(form)
+
+class RecipeDetailView(LoginRequiredMixin,generic.DetailView):
+    model = Recipe
+    template_name = 'recipe_detail.html'
+
+class RecipeUpdateView(LoginRequiredMixin,OnlyYouMixin,generic.UpdateView):
+    model = Recipe
+    template_name = 'recipe_update.html'
+    form_class = RecipeCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('oniokoze:recipe_detail',kwargs={'pk':self.kwargs['pk']})
+
+    def form_valid(self,form):
+        messages.success(self.request,'日記を更新しました。')
+        return super().form_valid(form)
+    def form_invalid(self,form):
+        messages.error(self.request,"日記の更新に失敗しました。")
+        return super().form_invalid(form)
+
+class RecipeDeleteView(LoginRequiredMixin,OnlyYouMixin,generic.DeleteView):
+    model = Recipe
+    template_name = 'recipe_delete.html'
+    success_url = reverse_lazy('oniokoze:recipe_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,"日記を削除しました。")
+        return super().delete(request,*args,**kwargs)
 class TriviaView(generic.TemplateView):
     template_name = 'trivia.html'
 

@@ -10,7 +10,10 @@
 {% endblock %}
 
 {% block contents %}
-
+<div class="masthead">
+    <div class="container">
+            <div class="row">
+                <div class="my-div-style">
 <script src="https://cdn.jsdelivr.net/npm/vue-star@0.0.4/dist/VueStar.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 
@@ -29,7 +32,7 @@
     <div class="col-md-10 col-lg-8 col-xl-7">
         <div id="recipesearch">
             <div class="wrapper">
-    <h1>複数条件での絞り込み検索 実装例</h1>
+    <h1>レシピ</h1>
     <!-- 絞込み検索UI start -->
     <div class="search_area">
       <form id="selectForm">
@@ -58,17 +61,19 @@
     </div>
     <!-- 絞込み検索UI end -->
     <!-- 絞り込み対象一覧 end -->
-
-
-        <div class="d-flex justify-content-end mb-4">
-            <a class="btn btn-primary float-right" href="{% url 'oniokoze:recipe_create' %}">新規作成</a>
+            </div>
         </div>
-
+    </div>
+</div>
+    <div class="masthead2">
         <div class="container">
             <div class="row">
                 <div class="my-div-style w-100">
                     <div class="col-lg-8 col-md-10 mx-auto">
                         <div class="clearfix">
+                            <div class="d-flex justify-content-end mb-4">
+                                <a class="btn btn-primary float-right" href="{% url 'oniokoze:recipe_create' %}">新規作成</a>
+                            </div>
                           {% for recipe in recipe_list %}<!--Recipeモデルが持つデータを繰り返しで表示する-->
                           <div class="post-preview">
                     <!--        idにあったデータの詳細画面を表示するリンクの表示-->
@@ -141,6 +146,9 @@
         </div>
     </div>
   </div>
+</div>
+  </div>
+</div>
 </div>
 {% endblock %}
 
