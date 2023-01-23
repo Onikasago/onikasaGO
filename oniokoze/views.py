@@ -1,9 +1,10 @@
 import logging
+import re
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CatchCreateForm,FishnameCreateForm,RecipeCreateForm
 from .models import Catch,Fishname,Fish,Recipe
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
