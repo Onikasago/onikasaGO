@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}釣り場詳細|OnikasaGO{% endblock %}
+
+{% block active_spot_list %}active{% endblock %}
+
+<head><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script></head>
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <div class="row">
+            <div class="col-3">
+                <strong>所在地</strong>
+            </div>
+            <div class="col-9">
+                {{ spot.capital }}
+                {{ spot.city }}
+                {{ spot.address }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <strong>釣り場名</strong>
+            </div>
+            <div class="col-9">
+                {% if spot.spotURL %}
+                <a href="{{ spot.spotURL }}">{{ spot.place }}</a>
+                {% else %}
+                {{ spot.place }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>釣れる魚</strong>
+            </div>
+            <div class="col-9">
+                {{ spot.spotfish }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>詳細</strong>
+            </div>
+            <div class="col-9">
+                {{ spot.free }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>初心者おすすめ</strong>
+            </div>
+            <div class="col-9">
+                {{ spot.beginner }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>作成日時</strong>
+            </div>
+            <div class="col-9">
+                {{ spot.created_at }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>更新日時</strong>
+            </div>
+            <div class="col-9">
+                {{ spot.updated_at }}
+            </div>
+        </div>
+
+        <div class="card-header">
+          {% if is_user_liked_for_post %}
+            <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                <!-- すでにイイねしている時はfasクラス -->
+                <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+            </button>
+            {% else %}
+            <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                <!-- イイねしていないときはfarクラス -->
+                <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+            </button>
+            {% endif %}
+            <!-- イイねの数 -->
+            <span id="like-for-post-count">{{ like_for_post_count }}</span>
+            <span>件のイイね</span>
+        </div>
+
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:spot_update' spot.pk %}">編集</a>
+        <a class="btn btn-success mt-5 ml-1 mb-3" href="#">編集履歴</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:spot_delete' spot.pk %}">削除</a>
+        <a class="btn btn-secondary mt-5 ml-3 mb-3" href="{% url 'oniokoze:spot_list' %}">キャンセル</a>
+    </div>
+</div>
+<script type="text/javascript">
+     /* ポストに対するイイね */
+  document.getElementById('ajax-like-for-post').addEventListener('click', e => {
+    /* ログインしていない場合はログインページへ */
+    if ("{{ user.is_authenticated }}"=="False"){
+      window.location.href='{% url "oniokoze:index" %}'
+    }
+    e.preventDefault();
+    const url = '{% url "oniokoze:like_for_post" %}';
+    fetch(url, {
+      method: 'POST',
+      body: `spot_pk={{spot.pk}}`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'X-CSRFToken': '{{ csrf_token }}',
+      },
+    }).then(response => {
+      return response.json();
+    }).then(response => {
+      const counter = document.getElementById('like-for-post-count')
+      const icon = document.getElementById('like-for-post-icon')
+      counter.textContent = response.like_for_post_count
+      if (response.method == 'create') {
+        icon.classList.remove('far')
+        icon.classList.add('fas')
+        icon.id = 'like-for-post-icon'
+      } else {
+        icon.classList.remove('fas')
+        icon.classList.add('far')
+        icon.id = 'like-for-post-icon'
+      }
+    }).catch(error => {
+      console.log(error);
+    });
+  });
+</script>
+{% endblock %}
+
+{% block extrajs %}
+
+{% endblock %}

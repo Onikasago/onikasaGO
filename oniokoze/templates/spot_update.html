@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}釣り場作成|OnikasaGO{% endblock %}
+{% block title %}釣り場一覧|OnikasaGO{% endblock %}
 
 {% block active_spot_list %}active{% endblock %}
 
@@ -14,7 +14,8 @@
                 <table class="table">
                     {{ form.as_table }}
                 </table>
-                <button class="btn btn-primary" type="submit">作成</button>
+                <button class="btn btn-primary" type="submit">更新</button>
+                <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:spot_detail' spot.pk %}">キャンセル</a>
             </form>
         </div>
     </div>

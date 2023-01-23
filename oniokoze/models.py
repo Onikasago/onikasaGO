@@ -1,7 +1,6 @@
 from accounts.models import CustomUser
-
+from django.utils import timezone
 from django.db import models
-
 
 class History(models.Model):
     CAPITALS = (
@@ -80,17 +79,6 @@ class History(models.Model):
         return self.CAPITALS
 
 
-class Recipelike(models.Model):
-    recipe = models.IntegerField(verbose_name='レシピ')
-    user = models.IntegerField(verbose_name='ユーザ')
-    likerecipe = models.IntegerField(verbose_name='いいね')
-
-    class Meta:
-        verbose_name_plural = 'Catchlike'
-
-    def __str__(self):
-        return self.recipe
-
 
 class Order(models.Model):
     order = models.IntegerField(verbose_name='順番')
@@ -105,18 +93,6 @@ class Order(models.Model):
 
     def __str__(self):
         return self.procedure
-
-
-class Spotlike(models.Model):
-    spot = models.IntegerField(verbose_name='釣り場')
-    user = models.IntegerField(verbose_name='ユーザ')
-    likespot = models.IntegerField(verbose_name='いいね', default=0)
-
-    class Meta:
-        verbose_name_plural = 'Spotlike'
-
-    def __str__(self):
-        return self.spot
 
 
 class Fish(models.Model):
@@ -138,21 +114,6 @@ class Fish(models.Model):
 
     def __str__(self):
         return self.title
-
-
-
-class Catchlike(models.Model):
-    catch = models.IntegerField(verbose_name='釣果')
-    user = models.IntegerField(verbose_name='ユーザ')
-    likecatch = models.IntegerField(verbose_name='いいね',default=0)
-
-    class Meta:
-        verbose_name_plural = 'Catchlike'
-
-    def __str__(self):
-        return self.likecatch
-
-
 
 class Catch(models.Model):
     CAPITALS = (
@@ -301,42 +262,44 @@ class Spot(models.Model):
         ('その他', 'その他')
     )
 
+    user=models.ForeignKey(CustomUser,verbose_name='ユーザー',on_delete=models.PROTECT)
     capital = models.CharField(choices=CAPITALS, verbose_name='都道府県', blank=True,max_length=5)
     city = models.TextField(verbose_name='市区町村', blank=True)
     address = models.TextField(verbose_name='番地以降', blank=True)
     place = models.TextField(verbose_name='釣り場', blank=True)
     free = models.TextField(verbose_name='自由記入欄', blank=True, null=True)
-    changeID = models.ForeignKey(History, verbose_name='編集履歴', on_delete=models.CASCADE)
     URLcheck = models.CharField(verbose_name='URLチェック', blank=True, null=True, max_length=1)
     spotURL = models.URLField(verbose_name='URL記入欄', blank=True, null=True)
-    location = models.CharField(choices=LOCATIONS, blank=True, null=True, max_length=5)
+    location = models.CharField(choices=LOCATIONS, verbose_name='ロケーション',blank=True, null=True, max_length=5)
     beginner = models.BooleanField(verbose_name='初心者おすすめチェック',default=False, help_text='初心者おすすめ',blank=True,null=True)
-    spotlike = models.ForeignKey(Spotlike, verbose_name='釣り場いいね', on_delete=models.CASCADE, related_name='spot_like')
-    fish = models.ForeignKey(Fish, verbose_name='魚いいね', on_delete=models.CASCADE)
+    spotfish=models.TextField(verbose_name='釣れる魚',blank=True)
+    created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Spot'
     def __str__(self):
-        return self.title
-
-
-
-
+        return self.place
 
 
 class Recipe(models.Model):
-    method = models.TextField(verbose_name='分類', blank=True)
+
+    CHOICE_TUPLE=(
+        ("調理", "調理"),
+        ("処理", "処理"),
+        ("豆知識", "豆知識"),
+    )
+
+    method = models.TextField(choices=CHOICE_TUPLE,verbose_name='分類', blank=True)
     title = models.TextField(verbose_name='タイトル')
     shopphoto = models.ImageField(verbose_name='お店の写真', blank=True, null=True)
     shopURL = models.URLField(verbose_name='お店のURL', blank=True, null=True)
     userID = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.CASCADE)
-    check = models.CharField(verbose_name='URLチェック', blank=True, null=True, max_length=1)
     titlephoto = models.ImageField(verbose_name='タイトル写真', blank=True, null=True)
     titlemovie = models.URLField(verbose_name='タイトル動画', blank=True, null=True)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
-    recipelike = models.ForeignKey(Recipelike, verbose_name='レシピいいね', on_delete=models.CASCADE, related_name='recipe_like')
-    order = models.ForeignKey(Order, verbose_name='手順', on_delete=models.CASCADE)
+
 
     class Meta:
         verbose_name_plural = 'Recipe'
@@ -348,6 +311,8 @@ class Trivia(models.Model):
     trivia = models.TextField(verbose_name='豆知識', blank=True, null=True)
     kind = models.TextField(verbose_name='分類')
 
-
-
-
+class LikeForPost(models.Model):
+    """投稿に対するいいね"""
+    target = models.ForeignKey(Spot, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(default=timezone.now)
