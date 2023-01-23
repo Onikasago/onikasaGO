@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Catch,Spot,LikeForPost,Fishname,Recipe
 from reversion.admin import VersionAdmin
 
 class FishnameInline(admin.StackedInline):
@@ -11,6 +11,7 @@ class CatchAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Catch, CatchAdmin)
+admin.site.register(Recipe)
 admin.site.register(Spot)
 admin.site.register(LikeForPost)
 

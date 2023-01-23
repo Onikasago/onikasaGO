@@ -294,7 +294,6 @@ class Recipe(models.Model):
     title = models.TextField(verbose_name='タイトル')
     shopphoto = models.ImageField(verbose_name='お店の写真', blank=True, null=True)
     shopURL = models.URLField(verbose_name='お店のURL', blank=True, null=True)
-    userID = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.CASCADE)
     titlephoto = models.ImageField(verbose_name='タイトル写真', blank=True, null=True)
     titlemovie = models.URLField(verbose_name='タイトル動画', blank=True, null=True)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
