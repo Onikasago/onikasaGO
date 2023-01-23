@@ -25,11 +25,6 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
-        # blogアプリケーションが利用するロガー
-        'blog': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
     },
 
     # ハンドラの設定
