@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}日記詳細 | Private Diary{% endblock %}
+
+{% block active_recipe_list %}active{% endblock %}
+
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <div class="row">
+            <div class="col-3">
+                <strong>タイトル</strong>
+            </div>
+            <div class="col-9">
+                {{ recipe.title }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>本文</strong>
+            </div>
+            <div class="col-9">
+                {{ recipe.content|linebreaksbr }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>写真</strong>
+            </div>
+            <div class="col-3">
+                {% if recipe.titlephoto %}
+                    <img src="{{ recipe.titlephoto.url }}" width="200" height="200"/>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if recipe.shopphoto %}
+                    <img src="{{ recipe.shopphoto.url }}" width="200" height="200"/>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>作成日時</strong>
+            </div>
+            <div class="col-9">
+                {{ recipe.created_at }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>更新日時</strong>
+            </div>
+            <div class="col-9">
+                {{ reipe.updated_at }}
+            </div>
+        </div>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' object.pk%}">編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_delete' object.pk %}">削除</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_list'%}">戻る</a>
+    </div>
+</div>
+{% endblock %}

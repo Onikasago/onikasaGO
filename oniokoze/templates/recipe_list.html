@@ -44,12 +44,12 @@
             <input type="radio" name="q" value="処理" class="radio_input">
             <span class="radio_parts padding_adjust1">処理</span></label>
           <label class="checkbox_margin">
-            <input type="radio" name="q" value="" checked="checked" class="radio_input" id="allItem">
+            <input type="radio" name="q" value="" class="radio_input" id="allItem">
             <span class="radio_parts padding_adjust1">全てのジャンル</span></label>
         </div>
           <div class="search_ui size_search_box pc">
               <form class="d-flex" action="{% url 'oniokoze:recipe_list' %}" method="get">
-                  <input name="q" placeholder="Search" aria-label="Search">
+                  <input name="p" placeholder="Search" aria-label="Search">
                   <a>分類: </a>
                   <button type="submit">検索</button>
               </form>
@@ -69,23 +69,23 @@
                 <div class="my-div-style w-100">
                     <div class="col-lg-8 col-md-10 mx-auto">
                         <div class="clearfix">
-                          {% for recipe in recipe_list %}<!--Fishnameモデルが持つデータを繰り返しで表示する-->
+                          {% for recipe in recipe_list %}<!--Recipeモデルが持つデータを繰り返しで表示する-->
                           <div class="post-preview">
                     <!--        idにあったデータの詳細画面を表示するリンクの表示-->
-                            <a href="#">
+                            <a href="{% url 'oniokoze:recipe_detail' recipe.pk %}">
                                 <h2 class="post-title">
                                     {{recipe.title}}<!--            魚種名の表示-->
                                 </h2>
                                 <h2>
                                     {{recipe.method}}<!--            魚種名の表示-->
                                 </h2>
-                                {% if recipe.titlephoto%}
+                                {% if recipe.shopphoto %}
                                 <h3>
-                                    {{recipe.titlephoto}}<!--              場所の表示-->
+                                    {{recipe.shopphoto.url}}<!--              場所の表示-->
                                 </h3>
-                                {% elif recipe.titlemovie %}
+                                {% elif recipe.titlephoto %}
                                 <h3>
-                                    {{recipe.titlemovie}}<!--              場所の表示-->
+                                    {{recipe.titlephoto.url}}<!--              場所の表示-->
                                 </h3>
                                 {% endif %}
                             </a>
@@ -130,80 +130,9 @@
                             </ul>
                             {% endif %}
                             <script>
-                                let searchUi = ".search_ui"; // 絞り込み検索条件設定エリア
-                                let listItem = ".item"; // 検索対象アイテム
-                                let hideItem = "hide_item"; // 対象外アイテムに付与されるclass名
-                                let checkBox = 'input[name="size"]'; //チェックボックスのnameを指定
 
-                                // 絞り込み条件の変更
-                                $(function () {
-                                  $(document).on("change", searchUi + " input", function () {
-                                    search_filter();
-                                  });
-                                });
 
-                                function search_filter() {
-                                  // 非表示状態を解除
-                                  $(listItem).removeClass(hideItem);
-                                  for (let i = 0; i < $(searchUi).length; i++) {
-                                    let name = $(searchUi).eq(i).find("input").attr("name");
-                                    // チェックされた検索条件を取得
-                                    let searchData = get_selected_input_items(name);
-                                    // チェック項目無し or 全てを選択している場合
-                                    if (searchData.length === 0 || searchData[0] === "") {
-                                      continue;
-                                    }
-                                    // リスト内の各アイテムをチェック
-                                    for (let j = 0; j < $(listItem).length; j++) {
-                                      // アイテムに設定している項目を取得
-                                      let itemData = get_setting_values_in_item($(listItem).eq(j), name);
-                                      // 絞り込み対象かどうかを調べる
-                                      let check = array_match_check(itemData, searchData);
-                                      if (!check) {
-                                        $(listItem).eq(j).addClass(hideItem);
-                                      }
-                                    }
-                                  }
-                                }
 
-                                // チェックの入った値の一覧を取得する
-                                function get_selected_input_items(name) {
-                                  let searchData = [];
-                                  $("[name=" + name + "]:checked").each(function () {
-                                    searchData.push($(this).val());
-                                  });
-                                  return searchData;
-                                }
-
-                                // リスト内のアイテムに設定している値の一覧を取得する
-                                function get_setting_values_in_item(target, data) {
-                                  let itemData = target.data(data);
-                                  if (!Array.isArray(itemData)) {
-                                    itemData = [itemData];
-                                  }
-                                  return itemData;
-                                }
-
-                                // 2つの配列内で一致する文字列があるかどうかを調べる
-                                function array_match_check(arr1, arr2) {
-                                  // 絞り込み対象かどうかを調べる
-                                  let arrCheck = false;
-                                  for (let i = 0; i < arr1.length; i++) {
-                                    if (arr2.indexOf(arr1[i]) >= 0) {
-                                      arrCheck = true;
-                                      break;
-                                    }
-                                  }
-                                  return arrCheck;
-                                }
-
-                                // 全サイズ選択解除
-                                $(function () {
-                                  $("#checkAll").on("click", function () {
-                                    $(".size_sort").prop("checked", this.checked);
-                                  });
-
-                                });
                             </script>
                         </div>
                     </div>

@@ -181,7 +181,7 @@ class Catch(models.Model):
 
 
     nametitle = models.TextField(verbose_name='釣果タイトル')
-    photo1 = models.ImageField(verbose_name='写真1')
+    photo1 = models.ImageField(verbose_name='写真1', blank=True, null=True)
     photo2 = models.ImageField(verbose_name='写真2', blank=True, null=True)
     photo3 = models.ImageField(verbose_name='写真3', blank=True, null=True)
     photo4 = models.ImageField(verbose_name='写真4', blank=True, null=True)
@@ -197,7 +197,8 @@ class Catch(models.Model):
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
     def __str__(self):
-        return str(self.nametitle)+self.capital
+        return self.id
+        # return str(self.nametitle)+self.capital
 
 class Fishname(models.Model):
     name = models.CharField(verbose_name='魚種',max_length=50 ,blank=True, null=True)
