@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import *
+# from django.contrib.staticfiles.urls import static
 
 from django.contrib.staticfiles.urls import static
 app_name = 'oniokoze'

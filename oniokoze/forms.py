@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 import json
 
+
 FIELD_NAME_MAPPING = {
     'titleList': 'titleList_0',
     'bodyList': 'bodyList_0',
@@ -70,11 +71,11 @@ class RecipeCreateForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields =  '__all__'
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field in self.fields.values():
+                field.widget.attrs['class'] = 'form-control'
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
 class SpotCreateForm(forms.ModelForm):
     class Meta:
         model=Spot
