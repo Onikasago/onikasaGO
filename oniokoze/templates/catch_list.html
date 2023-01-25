@@ -25,7 +25,7 @@
       </div>
       {% for catch in catch_list %}<!--Fishnameモデルが持つデータを繰り返しで表示する-->
       <div class="post-preview">
-          <a href="{% url 'oniokoze:catch_detail' catch.pk %}"></a>
+          <a href="{% url 'oniokoze:catch_detail' catch.pk %}">
 <!--        idにあったデータの詳細画面を表示するリンクの表示-->
           <h2 class="post-title">
             {{catch.nametitle}}<!--            魚種名の表示-->
@@ -39,7 +39,7 @@
           <h3 class="post-maincontent">
             {{catch.city}}
           </h3>
-<!--        </a>-->
+        </a>
         <p class="post-meta">
           {{catch.created_at}}<!--              作成日時の表示-->
         </p>
