@@ -78,19 +78,19 @@
         </div>
 
         <div class="card-header">
-          {% if is_user_liked_for_post %}
-            <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+          {% if is_user_liked_for_spot %}
+            <button type="button" id="ajax-like-for-spot" style="border:none;background:none">
                 <!-- すでにイイねしている時はfasクラス -->
-                <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                <i class="fas fa-heart text-danger" id="like-for-spot-icon"></i>
             </button>
             {% else %}
-            <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+            <button type="button" id="ajax-like-for-spot" style="border:none;background:none">
                 <!-- イイねしていないときはfarクラス -->
-                <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                <i class="far fa-heart text-danger" id="like-for-spot-icon"></i>
             </button>
             {% endif %}
             <!-- イイねの数 -->
-            <span id="like-for-post-count">{{ like_for_post_count }}</span>
+            <span id="like-for-spot-count">{{ like_for_spot_count }}</span>
             <span>件のイイね</span>
         </div>
 
@@ -102,13 +102,13 @@
 </div>
 <script type="text/javascript">
      /* ポストに対するイイね */
-  document.getElementById('ajax-like-for-post').addEventListener('click', e => {
+  document.getElementById('ajax-like-for-spot').addEventListener('click', e => {
     /* ログインしていない場合はログインページへ */
     if ("{{ user.is_authenticated }}"=="False"){
       window.location.href='{% url "oniokoze:index" %}'
     }
     e.preventDefault();
-    const url = '{% url "oniokoze:like_for_post" %}';
+    const url = '{% url "oniokoze:like_for_spot" %}';
     fetch(url, {
       method: 'POST',
       body: `spot_pk={{spot.pk}}`,
@@ -119,17 +119,17 @@
     }).then(response => {
       return response.json();
     }).then(response => {
-      const counter = document.getElementById('like-for-post-count')
-      const icon = document.getElementById('like-for-post-icon')
-      counter.textContent = response.like_for_post_count
+      const counter = document.getElementById('like-for-spot-count')
+      const icon = document.getElementById('like-for-spot-icon')
+      counter.textContent = response.like_for_spot_count
       if (response.method == 'create') {
         icon.classList.remove('far')
         icon.classList.add('fas')
-        icon.id = 'like-for-post-icon'
+        icon.id = 'like-for-spot-icon'
       } else {
         icon.classList.remove('fas')
         icon.classList.add('far')
-        icon.id = 'like-for-post-icon'
+        icon.id = 'like-for-spot-icon'
       }
     }).catch(error => {
       console.log(error);

@@ -7,4 +7,5 @@ urlpatterns = [
     path('', include('oniokoze.urls')),
     path('accounts/',include('allauth.urls')),
 ]
+
 urlpatterns += static(settings_common.MEDIA_URL, document_root=settings_dev.MEDIA_ROOT)

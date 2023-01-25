@@ -50,8 +50,22 @@ class CatchListView(LoginRequiredMixin, generic.ListView):
         catches = Catch.objects.filter(user=self.request.user).order_by('-created_at')
         return catches
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # {'pk':{'count':ポストに対するイイネ数,'is_user_liked_for_post':bool},}という辞書を追加していく
+        d = {}
+        for catch in self.object_list:
+            # postに対するイイね数
+            like_for_catch_count = catch.likeforcatch_set.count()
+            # ログイン中のユーザーがイイねしているかどうか
+            is_user_liked_for_catch = False
+            if not self.request.user.is_anonymous:
+                if catch.likeforcatch_set.filter(user=self.request.user).exists():
+                    is_user_liked_for_catch = True
 
-
+            d[catch.pk] = {'count': like_for_catch_count, 'is_user_liked_for_catch': is_user_liked_for_catch}
+        context['catch_like_data'] = d
+        return context
 
 class CatchCreateView(generic.CreateView):
     model = Catch
@@ -98,8 +112,37 @@ class CatchDetailView(LoginRequiredMixin, generic.DetailView):
         context = Fishname.objects.filter(catch_id='id')
         return render(request,'catch_detail.html',context)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        like_for_catch_count = self.object.likeforcatch_set.count()
+         # ポストに対するイイね数
+        context['like_for_catch_count'] = like_for_catch_count
+         # ログイン中のユーザーがイイねしているかどうか
+        is_user_liked_for_catch = False
+        if not self.request.user.is_anonymous:
+            if self.object.likeforcatch_set.filter(user=self.request.user).exists():
+                is_user_liked_for_catch = True
+        context['is_user_liked_for_catch'] = is_user_liked_for_catch
+        return context
 
 
+def like_for_catch(request):
+    catch_pk = request.POST.get('catch_pk')
+    context = {
+        'user': f'{request.user.last_name} {request.user.first_name}',
+    }
+    catchpost = get_object_or_404(Catch, pk=catch_pk)
+    like = LikeForCatch.objects.filter(target=catchpost, user=request.user)
+    if like.exists():
+        like.delete()
+        context['method'] = 'delete'
+    else:
+        like.create(target=catchpost, user=request.user)
+        context['method'] = 'create'
+
+    context['like_for_catch_count'] = catchpost.likeforcatch_set.count()
+
+    return JsonResponse(context)
 
 class CatchUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Catch
@@ -184,15 +227,15 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
         d = {}
         for spot in self.object_list:
             # postに対するイイね数
-            like_for_post_count = spot.likeforpost_set.count()
+            like_for_spot_count = spot.likeforspot_set.count()
             # ログイン中のユーザーがイイねしているかどうか
-            is_user_liked_for_post = False
+            is_user_liked_for_spot = False
             if not self.request.user.is_anonymous:
-                if spot.likeforpost_set.filter(user=self.request.user).exists():
-                    is_user_liked_for_post = True
+                if spot.likeforspot_set.filter(user=self.request.user).exists():
+                    is_user_liked_for_spot = True
 
-            d[spot.pk] = {'count': like_for_post_count, 'is_user_liked_for_post': is_user_liked_for_post}
-        context['post_like_data'] = d
+            d[spot.pk] = {'count': like_for_spot_count, 'is_user_liked_for_spot': is_user_liked_for_spot}
+        context['spot_like_data'] = d
         return context
 
 class SpotCreateView(LoginRequiredMixin,generic.CreateView):
@@ -217,25 +260,25 @@ class SpotDetailView(LoginRequiredMixin,generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        like_for_post_count = self.object.likeforpost_set.count()
+        like_for_spot_count = self.object.likeforspot_set.count()
         # ポストに対するイイね数
-        context['like_for_post_count'] = like_for_post_count
+        context['like_for_spot_count'] = like_for_spot_count
         # ログイン中のユーザーがイイねしているかどうか
-        is_user_liked_for_post = False
+        is_user_liked_for_spot = False
         if not self.request.user.is_anonymous:
-            if self.object.likeforpost_set.filter(user=self.request.user).exists():
-                is_user_liked_for_post = True
-        context['is_user_liked_for_post'] = is_user_liked_for_post
+            if self.object.likeforspot_set.filter(user=self.request.user).exists():
+                is_user_liked_for_spot = True
+        context['is_user_liked_for_spot'] = is_user_liked_for_spot
 
         return context
 
-def like_for_post(request):
+def like_for_spot(request):
     spot_pk = request.POST.get('spot_pk')
     context = {
         'user': f'{request.user.last_name} {request.user.first_name}',
     }
     spotpost = get_object_or_404(Spot, pk=spot_pk)
-    like = LikeForPost.objects.filter(target=spotpost, user=request.user)
+    like = LikeForSpot.objects.filter(target=spotpost, user=request.user)
     if like.exists():
         like.delete()
         context['method'] = 'delete'
@@ -243,7 +286,7 @@ def like_for_post(request):
         like.create(target=spotpost, user=request.user)
         context['method'] = 'create'
 
-    context['like_for_post_count'] = spotpost.likeforpost_set.count()
+    context['like_for_spot_count'] = spotpost.likeforspot_set.count()
 
     return JsonResponse(context)
 
@@ -311,7 +354,22 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
 
         return queryset.order_by('-created_at')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # {'pk':{'count':ポストに対するイイネ数,'is_user_liked_for_post':bool},}という辞書を追加していく
+        d = {}
+        for recipe in self.object_list:
+            # postに対するイイね数
+            like_for_recipe_count = recipe.likeforrecipe_set.count()
+            # ログイン中のユーザーがイイねしているかどうか
+            is_user_liked_for_recipe = False
+            if not self.request.user.is_anonymous:
+                if recipe.likeforrecipe_set.filter(user=self.request.user).exists():
+                    is_user_liked_for_recipe = True
 
+            d[recipe.pk] = {'count': like_for_recipe_count, 'is_user_liked_for_recipe': is_user_liked_for_recipe}
+        context['recipe_like_data'] = d
+        return context
 
 class RecipeCreateView(generic.CreateView):
     model = Recipe
@@ -335,6 +393,37 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe
     template_name = 'recipe_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        like_for_recipe_count = self.object.likeforrecipe_set.count()
+         # ポストに対するイイね数
+        context['like_for_recipe_count'] = like_for_recipe_count
+         # ログイン中のユーザーがイイねしているかどうか
+        is_user_liked_for_recipe = False
+        if not self.request.user.is_anonymous:
+            if self.object.likeforrecipe_set.filter(user=self.request.user).exists():
+                is_user_liked_for_recipe = True
+        context['is_user_liked_for_recipe'] = is_user_liked_for_recipe
+        return context
+
+
+def like_for_recipe(request):
+    recipe_pk = request.POST.get('recipe_pk')
+    context = {
+        'user': f'{request.user.last_name} {request.user.first_name}',
+    }
+    recipepost = get_object_or_404(Recipe, pk=recipe_pk)
+    like = LikeForRecipe.objects.filter(target=recipepost, user=request.user)
+    if like.exists():
+        like.delete()
+        context['method'] = 'delete'
+    else:
+        like.create(target=recipepost, user=request.user)
+        context['method'] = 'create'
+
+    context['like_for_recipe_count'] = recipepost.likeforrecipe_set.count()
+
+    return JsonResponse(context)
 
 class RecipeUpdateView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView):
     model = Recipe

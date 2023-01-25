@@ -106,9 +106,6 @@ class Fish(models.Model):
         return self.fish
 
 
-
-
-
     class Meta:
         verbose_name_plural = 'Fishname'
 
@@ -310,8 +307,20 @@ class Trivia(models.Model):
     trivia = models.TextField(verbose_name='豆知識', blank=True, null=True)
     kind = models.TextField(verbose_name='分類')
 
-class LikeForPost(models.Model):
+class LikeForSpot(models.Model):
     """投稿に対するいいね"""
     target = models.ForeignKey(Spot, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+class LikeForCatch(models.Model):
+    """投稿に対するいいね"""
+    target = models.ForeignKey(Catch, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+class LikeForRecipe(models.Model):
+    """投稿に対するいいね"""
+    target = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
