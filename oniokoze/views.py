@@ -53,9 +53,6 @@ class CatchListView(LoginRequiredMixin, generic.ListView):
 
 
 
-class CatchList(generic.ListView):
-    model = Catch
-
 class CatchCreateView(generic.CreateView):
     model = Catch
     form_class = CatchCreateForm
@@ -89,7 +86,9 @@ class CatchDetailView(LoginRequiredMixin, generic.DetailView):
     model = Fishname
     model = Catch
 
-
+    main_catch = Catch.objects.filter(id=9).prefetch_related('fishname')
+    sub_catch = main_catch[0].fishname.all()
+    
     slug_field = "catch_id"
     slug_url_kwarg = "catch_id"
     template_name = 'catch_detail.html'
