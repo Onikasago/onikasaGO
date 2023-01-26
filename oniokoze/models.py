@@ -80,30 +80,7 @@ class History(models.Model):
 
 
 
-class Order(models.Model):
-    order = models.IntegerField(verbose_name='順番')
-    procedure = models.TextField(verbose_name='手順', blank=True, null=True)
-    photo = models.ImageField(verbose_name='写真', blank=True, null=True)
-    material = models.TextField(verbose_name='材料', blank=True, null=True)
-    amount = models.IntegerField(verbose_name='量', blank=True, null=True)
-    unit = models.IntegerField(verbose_name='単位', blank=True, null=True)
 
-    class Meta:
-        verbose_name_plural = 'Order'
-
-    def __str__(self):
-        return self.procedure
-
-
-class Fish(models.Model):
-    fish = models.TextField(verbose_name='釣れる魚', blank=True, null=True)
-    no = models.IntegerField(verbose_name='番号', blank=True, null=True)
-
-    class Meta:
-        verbose_name_plural = 'Fish'
-
-    def __str__(self):
-        return self.fish
 
 
     class Meta:
@@ -302,6 +279,33 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+class Order(models.Model):
+    order = models.IntegerField(verbose_name='順番')
+    procedure = models.TextField(verbose_name='手順', blank=True, null=True)
+    photo = models.ImageField(verbose_name='写真', blank=True, null=True)
+    material = models.TextField(verbose_name='材料', blank=True, null=True)
+    amount = models.IntegerField(verbose_name='量', blank=True, null=True)
+    unit = models.TextField(verbose_name='単位', blank=True, null=True)
+    recipe = models.ForeignKey(Recipe, on_delete = models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = 'Order'
+
+    def __str__(self):
+        return self.procedure
+
+
+class Fish(models.Model):
+    fish = models.TextField(verbose_name='釣れる魚', blank=True, null=True)
+    no = models.IntegerField(verbose_name='番号', blank=True, null=True)
+    spot = models.ForeignKey(Spot, on_delete = models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = 'Fish'
+
+    def __str__(self):
+        return self.fish
 
 class Trivia(models.Model):
     trivia = models.TextField(verbose_name='豆知識', blank=True, null=True)

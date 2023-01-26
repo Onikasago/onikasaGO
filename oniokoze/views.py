@@ -242,7 +242,7 @@ class SpotCreateView(LoginRequiredMixin,generic.CreateView):
     model = Spot
     template_name = 'spot_create.html'
     form_class=SpotCreateForm
-    success_url=reverse_lazy('oniokoze:spot_list')
+    success_url=reverse_lazy('oniokoze:fish_create')
 
     def form_valid(self,form):
         spot=form.save(commit=False)
@@ -334,6 +334,51 @@ def processForm(request):
             obj.state = selected_province
             obj.save()
 
+class OrderCreateView(generic.CreateView):
+    form_class = OrderCreateForm
+    template_name = 'order_create.html'
+    success_url = reverse_lazy('oniokoze:recipe_create')
+
+    def post(self, request, *args, **kwrgs):
+          # 空の配列を作ります
+        orderList= []
+        procedureList= []
+        photoList= []
+        materialList= []
+        amountList = []
+        unitList = []
+        n=1
+          # request.POST.items()でPOSTで送られてきた全てを取得。
+        for i in request.POST.items():
+
+            if re.match(r'procedureList_*', i[0]):
+                procedureList.append(i[1])
+            if re.match(r'photoList_*', i[0]):
+                photoList.append(i[1])
+            if re.match(r'materialList_*', i[0]):
+                materialList.append(i[1])
+            if re.match(r'amountList_*', i[0]):
+                amountList.append(i[1])
+            if re.match(r'unitList_*', i[0]):
+                unitList.append(i[1])
+            orderList.append(n)
+            n+=1
+        print(procedureList)
+        print(photoList)
+        for i in range(len(procedureList)):
+            corporationinformation = Order.objects.create(
+                order=orderList[i],
+                procedure =procedureList[i],
+                # photo=photoList[i],
+                material =materialList[i],
+                amount=amountList[i],
+                unit=unitList[i],
+                recipe_id= Recipe.objects.order_by('created_at').last().pk
+            )
+            corporationinformation.save()
+        return redirect(to='/recipe-list')
+
+
 class RecipeListView(LoginRequiredMixin,generic.ListView):
     model = Recipe
     template_name = 'recipe_list.html'
@@ -375,7 +420,7 @@ class RecipeCreateView(generic.CreateView):
     model = Recipe
     form_class = RecipeCreateForm
     template_name = 'recipe_create.html'
-    success_url = reverse_lazy('oniokoze:recipe_list')
+    success_url = reverse_lazy('oniokoze:order_create')
 
     def form_valid(self, form):
         spot = form.save(commit=False)
@@ -451,6 +496,65 @@ class RecipeDeleteView(LoginRequiredMixin, OnlyYouMixin, generic.DeleteView):
         messages.success(self.request, "日記を削除しました。")
         return super().delete(request, *args, **kwargs)
 
+class FishnameCreateView(generic.CreateView):
+    form_class = FishnameCreateForm
+    template_name = 'fishname_create.html'
+    success_url = reverse_lazy('oniokoze:catch_create')
+
+    def post(self, request, *args, **kwrgs):
+          # 空の配列を作ります
+        titleList= []
+        bodyList= []
+        noList= []
+        idList= []
+        n=1
+          # request.POST.items()でPOSTで送られてきた全てを取得。
+        for i in request.POST.items():
+            if re.match(r'titleList_*', i[0]):
+                titleList.append(i[1])
+            if re.match(r'bodyList_*', i[0]):
+                bodyList.append(i[1])
+
+            noList.append(n)
+            n+=1
+
+        for i in range(len(titleList)):
+            corporationinformation = Fishname.objects.create(
+                name= titleList[i],
+                size = bodyList[i],
+                no = noList[i],
+                catch_id= Catch.objects.order_by('created_at').last().pk
+            )
+            corporationinformation.save()
+        return redirect(to='/catch-list')
+
+class FishCreateView(generic.CreateView):
+    form_class = FishCreateForm
+    template_name = 'fish_create.html'
+    success_url = reverse_lazy('oniokoze:spot_create')
+
+    def post(self, request, *args, **kwrgs):
+          # 空の配列を作ります
+        fishList= []
+        noList= []
+        idList= []
+        n=1
+          # request.POST.items()でPOSTで送られてきた全てを取得。
+        for i in request.POST.items():
+            if re.match(r'fishList_*', i[0]):
+                fishList.append(i[1])
+
+            noList.append(n)
+            n+=1
+
+        for i in range(len(fishList)):
+            corporationinformation = Fish.objects.create(
+                fish= fishList[i],
+                no = noList[i],
+                spot_id= Spot.objects.order_by('created_at').last().pk
+            )
+            corporationinformation.save()
+        return redirect(to='/spot-list')
 
 class TriviaView(generic.TemplateView):
     template_name = 'trivia.html'
