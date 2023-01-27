@@ -4,7 +4,7 @@
 {% block title %}釣果詳細 | OnikasaGO{% endblock %}
 
 {% block active_object_list %}active{% endblock %}
-<head><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script></head>
+<head xmlns="http://www.w3.org/1999/html"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script></head>
 {% block contents %}
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 
@@ -57,9 +57,19 @@
     </div>
 
     <hr>
-
+    <div class="col-3">
+<strong>魚種:サイズ</strong>
+    </div>
     <div class="col-9">
-      {{object.name}}　<!--魚種名の表示-->
+
+
+        {% for fishname in catch.fishname.all %}
+
+        {{ fishname.name }}:
+
+         {{fishname.size}}cm
+        <a href="{% url 'oniokoze:fishname_update' fishname.pk %}">編集する</a><br>
+      {% endfor %}
     </div>
 
     <hr>
@@ -113,35 +123,13 @@
             <span id="like-for-catch-count">{{ like_for_catch_count }}</span>
             <span>件のイイね</span>
         </div>
-           <a class="btn btn-success mt-5 　mb-3" href="{% url 'oniokoze:catch_update' object.pk %}">編集</a>
+           <a class="btn btn-success mt-5 　mb-3" href="{% url 'oniokoze:catch_update' object.pk %}">釣果編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_delete' object.pk %}">削除</a>
   </div>
-  <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:catch_list' %}">キャンセル</a>
-          <div class="row mb-5">
-            <div class="col-2">
-                <button type="button" class="btn btn-primary mb-12" data-toggle="modal" data-target="#testModal">魚一覧</button>
-            </div>
-            <div class="col-2">
-                <a class="btn btn-primary" data-toggle="modal" data-target="#testModal">リンクボタンで開く</a>
-            </div>
-        </div>
+  <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:catch_list' %}">戻る</a>
+
 </div>
-<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4>class="modal-title" id="myModalLabel">魚一覧画面</h4></h4>
-      </div>
-      <div class="modal-body">
-        <label>データを削除しますか？</label>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-        <button type="button" class="btn btn-danger">削除</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <script type="text/javascript">
      /* ポストに対するイイね */

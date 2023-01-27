@@ -41,15 +41,12 @@ class CatchCreateForm(forms.ModelForm):
             for field in self.fields.values():
                 field.widget.attrs['class'] = 'form-control'
 
-CatchFormset = forms.inlineformset_factory(
-    Catch,Fishname, fields='__all__',
-    extra=2,max_num=5, can_delete=False
-)
 
 class FishnameCreateForm(forms.ModelForm):
     class Meta:
         model = Fishname
-        fields = '__all__'
+        fields = ('name',
+                    'size',)
 
 
         def __init__(self, *args, **kwargs):

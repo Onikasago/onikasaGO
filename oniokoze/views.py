@@ -14,7 +14,6 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 
 
-
 logger = logging.getLogger(__name__)
 
 def spot(request):
@@ -45,7 +44,7 @@ class IndexView(generic.TemplateView):
 class CatchListView(LoginRequiredMixin, generic.ListView):
     model = Catch
     template_name = 'catch_list.html'
-
+    paginate_by = 3
     def get_queryset(self):
         catches = Catch.objects.filter(user=self.request.user).order_by('-created_at')
         return catches
@@ -100,9 +99,6 @@ class CatchDetailView(LoginRequiredMixin, generic.DetailView):
     model = Fishname
     model = Catch
 
-    main_catch = Catch.objects.filter(id=9).prefetch_related('fishname')
-    sub_catch = main_catch[0].fishname.all()
-    
     slug_field = "catch_id"
     slug_url_kwarg = "catch_id"
     template_name = 'catch_detail.html'
@@ -242,7 +238,7 @@ class SpotCreateView(LoginRequiredMixin,generic.CreateView):
     model = Spot
     template_name = 'spot_create.html'
     form_class=SpotCreateForm
-    success_url=reverse_lazy('oniokoze:fish_create')
+    success_url=reverse_lazy('oniokoze:spot_list')
 
     def form_valid(self,form):
         spot=form.save(commit=False)
@@ -555,6 +551,24 @@ class FishCreateView(generic.CreateView):
             )
             corporationinformation.save()
         return redirect(to='/spot-list')
+
+class FishnameUpdateView(generic.UpdateView):
+        template_name = 'fishname_update.html'
+        model = Fishname
+        form_class = FishnameCreateForm
+        def get_success_url(self):
+            id = Fishname.catch
+            # return reverse_lazy('oniokoze:catch_detail',kwargs={'pk':self.kwargs['pk']})
+            return  reverse_lazy('oniokoze:mypage')
+        def form_valid(self, form):
+            messages.success(self.request,'項目を更新しました')
+            return super().form_valid(form)
+        def form_invalid(self, form):
+            messages.error(self.request,'項目の更新に失敗しました')
+            return super().form_invalid(form)
+
+
+
 
 class TriviaView(generic.TemplateView):
     template_name = 'trivia.html'

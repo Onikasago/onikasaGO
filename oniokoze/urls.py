@@ -13,6 +13,7 @@ urlpatterns = [
     path('catch-update/<int:pk>/', views.CatchUpdateView.as_view(), name="catch_update"),
     path('catch-delete/<int:pk>/', views.CatchDeleteView.as_view(), name="catch_delete"),
     path('fishname-create', views.FishnameCreateView.as_view(), name="fishname_create"),
+    path('fishname-update/<int:pk>/', views.FishnameUpdateView.as_view(), name="fishname_update"),
     path('spot-list', views.SpotListView.as_view(), name="spot_list"),
     path('spot-create', views.SpotCreateView.as_view(), name="spot_create"),
     path('spot-detail/<int:pk>/', views.SpotDetailView.as_view(), name="spot_detail"),
