@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}釣果投稿 | OnikasaGO{% endblock %}
+{% block title %}手順投稿 | OnikasaGO{% endblock %}
 
 {% block active_oniokoze_list %}active{% endblock %}
 
@@ -18,10 +18,16 @@
                         <div id="file-area">
 
 
-                              <label>{{form.name.label}}</label>
-                            <input type="text" id="list_0" name="titleList_0"></input><br>
-                                <label>{{form.size.label}}</label>
-                            <input type="number" id="list_0" name="bodyList_0"></input>cm<br>
+                              <label>{{form.procedure.label}}</label>
+                            <input type="text" id="list_0" name="procedureList_0"></input><br>
+<!--                                <label>  {{form.photo.label}}</label>-->
+<!--                            <input type="file" id="list_0" name="photoList_0"></input><br>-->
+                             <label>{{form.material.label}}</label>
+                            <input id="list_0" name="materialList_0"></input><br>
+                                <label>{{form.amount.label}}</label>
+                            <input type="number" id="list_0" name="amountList_0"></input><br>
+                            <label>{{form.unit.label}}</label>
+                            <input type="text" id="list_0" name="unitList_0"></input><br>
 
 
 
