@@ -28,4 +28,10 @@ urlpatterns = [
     path('trivia/', views.TriviaView.as_view(), name="trivia"),
     path('mypage/', views.MypageView.as_view(), name="mypage"),
     path('get-prefecture', views.getPrefecture, name='get-prefecture'),
+    path('tool/', views.ToolView.as_view(), name="tool"),
+    path('manners/', views.MannersView.as_view(), name="manners"),
+    path('fishing_method/', views.Fishing_methodView.as_view(), name="fishing_method"),
+    path('bait/', views.BaitView.as_view(), name="bait"),
+    path('dangerous_creature/', views.Dangerous_creatureView.as_view(), name="dangerous_creature"),
+    path('place/', views.PlaceView.as_view(), name="place"),
 ]

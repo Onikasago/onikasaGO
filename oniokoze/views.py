@@ -2,7 +2,7 @@ import logging
 import re
 from django.views import generic,View
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
-from .forms import CatchCreateForm,FishnameCreateForm,RecipeCreateForm,SpotCreateForm,SampleChoiceForm
+from .forms import *
 from .models import *
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
@@ -456,3 +456,18 @@ class TriviaView(generic.TemplateView):
 class MypageView(generic.TemplateView):
     template_name = 'mypage.html'
 
+class ToolView(generic.TemplateView):
+    template_name = 'tool.html'
+class MannersView(generic.TemplateView):
+    template_name = 'manners.html'
+class BaitView(generic.TemplateView):
+    template_name = 'bait.html'
+
+class Fishing_methodView(generic.TemplateView):
+    template_name = 'fishing_method.html'
+
+class Dangerous_creatureView(generic.TemplateView):
+    template_name = 'dangerous_creature.html'
+
+class PlaceView(generic.TemplateView):
+    template_name = 'Place.html'

@@ -112,3 +112,43 @@ class SampleChoiceForm(forms.Form):
         required=False,
         widget=forms.widgets.Select(attrs={'class': 'form-control', 'id': 'id_prefecture'}),
     )
+
+class FishCreateForm(forms.ModelForm):
+    class Meta:
+        model = Fish
+        fields = '__all__'
+
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field in self.fields.values():
+                field.widget.attrs['class'] = 'form-control'
+
+        def form_valid(self, form):
+            fishname = form.save(commit=False)
+            fishname.save()
+            return super().form_vaild(form)
+
+        def add_prefix(self, field_name):
+            field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
+            return super(FishCreateForm, self).add_prefix(field_name)
+
+class OrderCreateForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field in self.fields.values():
+                field.widget.attrs['class'] = 'form-control'
+
+        def form_valid(self, form):
+            order = form.save(commit=False)
+            order.save()
+            return super().form_vaild(form)
+
+        def add_prefix(self, field_name):
+            field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
+            return super(OrderCreateForm, self).add_prefix(field_name)
