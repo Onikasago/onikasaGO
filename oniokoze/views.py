@@ -1,17 +1,17 @@
 import logging
 import re
-from django.views import generic
+from django.views import generic,View
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
-from .forms import CatchCreateForm,FishnameCreateForm,RecipeCreateForm,SpotCreateForm,AddressForm
+from .forms import CatchCreateForm,FishnameCreateForm,RecipeCreateForm,SpotCreateForm,SampleChoiceForm
 from .models import *
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect,JsonResponse
-from oniokoze.forms import *
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
+from . import forms
 
 
 
@@ -29,7 +29,7 @@ def spot(request):
         )
         messages.success(request, '「{}」の検索結果'.format(keyword))
 
-    return render(request, 'oniokoze/spot_list.html', {'spot': spot})
+    return render(request, 'spot_list.html', {'spot': spot})
 
 class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
@@ -201,10 +201,28 @@ class FishnameCreateView(generic.CreateView):
             corporationinformation.save()
         return redirect(to='/catch-list')
 
+def getPrefecture(request):
+    prefecture = request.POST.get('prefecture')
+    prefectures = return_cities_by_prefecture(prefecture)
+    return JsonResponse({'prefectures': prefectures})
+
 class SpotListView(LoginRequiredMixin,generic.ListView):
     model = Spot
     template_name = 'spot_list.html'
 
+    def get(self, request):
+        if request.method == 'GET':
+            form = forms.SampleChoiceForm()
+            context = {'form': form}
+            return render(request, 'spot_list.html', context)
+
+        if request.method == 'POST':
+            form = forms.SampleChoiceForm(request.POST)
+            if form.is_valid():
+                selected_province = request.POST['city']
+                obj = form.save(commit=False)
+                obj.state = selected_province
+                obj.save()
 
     def get_queryset(self):
         spots = Spot.objects.filter(user=self.request.user).order_by('-created_at')
@@ -216,7 +234,7 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
 
         if keyword:
             queryset = queryset.filter(
-                            Q(place__icontains=keyword) | Q(capital__icontains=keyword)
+                            Q(capital__icontains=selected_province) | Q(capital__icontains=keyword)
                        )
             messages.success(self.request, '「{}」の検索結果'.format(keyword))
 
@@ -314,26 +332,6 @@ class SpotDeleteView(LoginRequiredMixin,OnlyYouMixin,generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request,"日記を削除しました。")
         return super().delete(request,*args,**kwargs)
-
-def getPrefecture(request):
-    prefecture = request.POST.get('prefecture')
-    prefecutres = return_cities_by_prefecture(prefecture)
-    return JsonResponse({'prefecutres': prefecutres})
-
-def processForm(request):
-    context = {}
-    if request.method == 'GET':
-        form = AddressForm()
-        context['form'] = form
-        return render(request, 'spot_list.html', context)
-
-    if request.method == 'POST':
-        form = AddressForm(request.POST)
-        if form.is_valid():
-            selected_province = request.POST['city']
-            obj = form.save(commit=False)
-            obj.state = selected_province
-            obj.save()
 
 class RecipeListView(LoginRequiredMixin,generic.ListView):
     model = Recipe
@@ -457,3 +455,4 @@ class TriviaView(generic.TemplateView):
     template_name = 'trivia.html'
 class MypageView(generic.TemplateView):
     template_name = 'mypage.html'
+

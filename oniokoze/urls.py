@@ -27,7 +27,5 @@ urlpatterns = [
     path('like_for_recipe/', views.like_for_recipe, name='like_for_recipe'),
     path('trivia/', views.TriviaView.as_view(), name="trivia"),
     path('mypage/', views.MypageView.as_view(), name="mypage"),
-    path('process-form', processForm, name='process-form'),
-    path('get-prefecture', getPrefecture, name='get-prefecture'),
-
+    path('get-prefecture', views.getPrefecture, name='get-prefecture'),
 ]
