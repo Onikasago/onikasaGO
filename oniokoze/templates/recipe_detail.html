@@ -36,16 +36,16 @@
                 <strong>写真</strong>
             </div>
             <div class="col-3">
-                {% if object.titlephoto %}
+                {% if object.shopphoto %}
                 <p>
-                    <img src="{{ object.titlephoto.url }}" width="200" height="200"/>
+                    <img src="{{ object.shopphoto.url }}" width="200" height="200"/>
                 </p>
                 {% endif %}
             </div>
             <div class="col-3">
-                {% if object.shopphoto %}
+                {% if object.titlephoto %}
                 <p>
-                    <img src="{{ object.shopphoto.url }}" width="200" height="200"/>
+                    <img src="{{ object.titlephoto.url }}" width="200" height="200"/>
                 </p>
                 {% endif %}
             </div>

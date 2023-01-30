@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect,JsonResponse
 from django.db.models import Q
 from django.http.response import JsonResponse
 
+
 logger = logging.getLogger(__name__)
 
 def spot(request):
@@ -324,7 +325,6 @@ def processForm(request):
 class RecipeListView(LoginRequiredMixin,generic.ListView):
     model = Recipe
     template_name = 'recipe_list.html'
-    paginate_by = 3
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
@@ -332,19 +332,32 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
         list = [0, 0]
 
         if q := query.get('q'):  # python3.8以降
-            list[0] = 1
+            if q == '':
+                list[0] = 0
+            else:
+                list[0] = 1
 
-            if p := query.get('p'):
+        if p := query.get('p'):
+            if p == '':
+                list[1] = 9
+            else:
                 list[1] = 2
 
-            if (list[0] == 1) and (list[1] == 2):
-                queryset = queryset.filter(Q(method__icontains=q) & Q(title__icontains=p))
+        if (list[0] == 1) and (list[1] == 2):
+            queryset = queryset.filter(Q(method__icontains=q) & Q(title__icontains=p))
 
-            elif (list[0] == 1) and (list[1] != 2):
-                queryset = queryset.filter(Q(method__icontains=q))
+        elif (list[0] == 1) and (list[1] != 2):
+            queryset = queryset.filter(Q(method__icontains=q))
 
-            elif (list[0] != 1) and (list[1] == 2):
-                queryset = queryset.filter(Q(title__icontains=p))
+        elif (list[0] != 1) and (list[1] == 2):
+            queryset = queryset.filter(Q(title__icontains=p))
+
+        elif (list[0] == 0) and (list[1] == 2):
+            queryset = queryset.filter(Q(title__icontains=p))
+
+        return queryset.order_by('-created_at')
+
+
 
         # if q != query.get('p'):
         #     list[0] = 0
@@ -360,7 +373,7 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
         #     elif (list[0] != 0) and (list[1] == 2):
         #         queryset = queryset.filter(Q(title__icontains=p))
 
-        return queryset.order_by('-created_at')
+
 
 class RecipeDetailView(generic.DetailView):
     model = Recipe
@@ -378,3 +391,17 @@ class TriviaView(generic.TemplateView):
 
 class MypageView(generic.TemplateView):
     template_name = 'mypage.html'
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+    return render(request, 'recipe_detail.html', {'form': form})
+
+
+
