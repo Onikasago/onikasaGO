@@ -1,15 +1,18 @@
 import logging
-from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import CatchCreateForm,FishnameCreateForm,RecipeCreateForm,SpotCreateForm
-from .models import Catch,Fishname,Recipe,Spot,LikeForPost
-from django.shortcuts import render, redirect ,get_object_or_404
+import re
+from django.views import generic,View
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from .forms import *
+from .models import *
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
-from oniokoze.forms import CatchCreateForm,FishnameCreateForm,RecipeCreateForm,SpotCreateForm,AddressForm
 from django.http import HttpResponseRedirect,JsonResponse
+from django.contrib import messages
 from django.db.models import Q
-from django.http.response import JsonResponse
+from django.shortcuts import render, get_object_or_404
+from . import forms
+
 
 
 logger = logging.getLogger(__name__)
@@ -26,7 +29,7 @@ def spot(request):
         )
         messages.success(request, '「{}」の検索結果'.format(keyword))
 
-    return render(request, 'oniokoze/spot_list.html', {'spot': spot})
+    return render(request, 'spot_list.html', {'spot': spot})
 
 class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
@@ -46,6 +49,23 @@ class CatchListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         catches = Catch.objects.filter(user=self.request.user).order_by('-created_at')
         return catches
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # {'pk':{'count':ポストに対するイイネ数,'is_user_liked_for_post':bool},}という辞書を追加していく
+        d = {}
+        for catch in self.object_list:
+            # postに対するイイね数
+            like_for_catch_count = catch.likeforcatch_set.count()
+            # ログイン中のユーザーがイイねしているかどうか
+            is_user_liked_for_catch = False
+            if not self.request.user.is_anonymous:
+                if catch.likeforcatch_set.filter(user=self.request.user).exists():
+                    is_user_liked_for_catch = True
+
+            d[catch.pk] = {'count': like_for_catch_count, 'is_user_liked_for_catch': is_user_liked_for_catch}
+        context['catch_like_data'] = d
+        return context
 
 class CatchList(generic.ListView):
     model = Catch
@@ -76,7 +96,7 @@ def catch_create(request):
         context['formset'] = CatchFormset()
         print('SYSTEM ERROR')
 
-    return render(request, 'catch_create.html', context)
+    return render(request, 'catch_create.html' , context)
 
 
 class CatchDetailView(LoginRequiredMixin, generic.DetailView):
@@ -93,6 +113,37 @@ class CatchDetailView(LoginRequiredMixin, generic.DetailView):
         context = Fishname.objects.filter(catch_id='id')
         return render(request,'catch_detail.html',context)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        like_for_catch_count = self.object.likeforcatch_set.count()
+         # ポストに対するイイね数
+        context['like_for_catch_count'] = like_for_catch_count
+         # ログイン中のユーザーがイイねしているかどうか
+        is_user_liked_for_catch = False
+        if not self.request.user.is_anonymous:
+            if self.object.likeforcatch_set.filter(user=self.request.user).exists():
+                is_user_liked_for_catch = True
+        context['is_user_liked_for_catch'] = is_user_liked_for_catch
+        return context
+
+
+def like_for_catch(request):
+    catch_pk = request.POST.get('catch_pk')
+    context = {
+        'user': f'{request.user.last_name} {request.user.first_name}',
+    }
+    catchpost = get_object_or_404(Catch, pk=catch_pk)
+    like = LikeForCatch.objects.filter(target=catchpost, user=request.user)
+    if like.exists():
+        like.delete()
+        context['method'] = 'delete'
+    else:
+        like.create(target=catchpost, user=request.user)
+        context['method'] = 'create'
+
+    context['like_for_catch_count'] = catchpost.likeforcatch_set.count()
+
+    return JsonResponse(context)
 
 class CatchUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Catch
@@ -150,45 +201,28 @@ class FishnameCreateView(generic.CreateView):
             corporationinformation.save()
         return redirect(to='/catch-list')
 
-def get_queryset():
-    catches = Fishname.objects.select_related('catch').all()
-    return catches
-
-class FishnameCreateView(generic.CreateView):
-    form_class = FishnameCreateForm
-    template_name = 'fishname_create.html'
-    success_url = reverse_lazy('oniokoze:catch_create')
-
-    def post(self, request, *args, **kwrgs):
-          # 空の配列を作ります
-        titleList= []
-        bodyList= []
-        noList= []
-        idList= []
-          # request.POST.items()でPOSTで送られてきた全てを取得。
-        for i in request.POST.items():
-            if re.match(r'titleList_*', i[0]):
-                titleList.append(i[1])
-            if re.match(r'bodyList_*', i[0]):
-                bodyList.append(i[1])
-            if re.match(r'noList_*', i[0]):
-                noList.append(i[1])
-            if re.match(r'idList_*', i[0]):
-                idList.append(i[1])
-        for i in range(len(titleList)):
-            corporationinformation = Fishname.objects.create(
-                name= titleList[i],
-                size = bodyList[i],
-                no = noList[i],
-                catch_id= idList[i],
-            )
-            corporationinformation.save()
-        return redirect(to='/catch-create')
+def getPrefecture(request):
+    prefecture = request.POST.get('prefecture')
+    prefectures = return_cities_by_prefecture(prefecture)
+    return JsonResponse({'prefectures': prefectures})
 
 class SpotListView(LoginRequiredMixin,generic.ListView):
     model = Spot
     template_name = 'spot_list.html'
 
+    def get(self, request):
+        if request.method == 'GET':
+            form = forms.SampleChoiceForm()
+            context = {'form': form}
+            return render(request, 'spot_list.html', context)
+
+        if request.method == 'POST':
+            form = forms.SampleChoiceForm(request.POST)
+            if form.is_valid():
+                selected_province = request.POST['city']
+                obj = form.save(commit=False)
+                obj.state = selected_province
+                obj.save()
 
     def get_queryset(self):
         spots = Spot.objects.filter(user=self.request.user).order_by('-created_at')
@@ -200,7 +234,7 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
 
         if keyword:
             queryset = queryset.filter(
-                            Q(place__icontains=keyword) | Q(capital__icontains=keyword)
+                            Q(capital__icontains=selected_province) | Q(capital__icontains=keyword)
                        )
             messages.success(self.request, '「{}」の検索結果'.format(keyword))
 
@@ -212,19 +246,16 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
         d = {}
         for spot in self.object_list:
             # postに対するイイね数
-            like_for_post_count = spot.likeforpost_set.count()
+            like_for_spot_count = spot.likeforspot_set.count()
             # ログイン中のユーザーがイイねしているかどうか
-            is_user_liked_for_post = False
+            is_user_liked_for_spot = False
             if not self.request.user.is_anonymous:
-                if spot.likeforpost_set.filter(user=self.request.user).exists():
-                    is_user_liked_for_post = True
+                if spot.likeforspot_set.filter(user=self.request.user).exists():
+                    is_user_liked_for_spot = True
 
-            d[spot.pk] = {'count': like_for_post_count, 'is_user_liked_for_post': is_user_liked_for_post}
-        context['post_like_data'] = d
+            d[spot.pk] = {'count': like_for_spot_count, 'is_user_liked_for_spot': is_user_liked_for_spot}
+        context['spot_like_data'] = d
         return context
-
-class ResipeListView(LoginRequiredMixin, generic.TemplateView):
-    template_name = 'resipe_list.html'
 
 class SpotCreateView(LoginRequiredMixin,generic.CreateView):
     model = Spot
@@ -248,25 +279,25 @@ class SpotDetailView(LoginRequiredMixin,generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        like_for_post_count = self.object.likeforpost_set.count()
+        like_for_spot_count = self.object.likeforspot_set.count()
         # ポストに対するイイね数
-        context['like_for_post_count'] = like_for_post_count
+        context['like_for_spot_count'] = like_for_spot_count
         # ログイン中のユーザーがイイねしているかどうか
-        is_user_liked_for_post = False
+        is_user_liked_for_spot = False
         if not self.request.user.is_anonymous:
-            if self.object.likeforpost_set.filter(user=self.request.user).exists():
-                is_user_liked_for_post = True
-        context['is_user_liked_for_post'] = is_user_liked_for_post
+            if self.object.likeforspot_set.filter(user=self.request.user).exists():
+                is_user_liked_for_spot = True
+        context['is_user_liked_for_spot'] = is_user_liked_for_spot
 
         return context
 
-def like_for_post(request):
+def like_for_spot(request):
     spot_pk = request.POST.get('spot_pk')
     context = {
         'user': f'{request.user.last_name} {request.user.first_name}',
     }
     spotpost = get_object_or_404(Spot, pk=spot_pk)
-    like = LikeForPost.objects.filter(target=spotpost, user=request.user)
+    like = LikeForSpot.objects.filter(target=spotpost, user=request.user)
     if like.exists():
         like.delete()
         context['method'] = 'delete'
@@ -274,7 +305,7 @@ def like_for_post(request):
         like.create(target=spotpost, user=request.user)
         context['method'] = 'create'
 
-    context['like_for_post_count'] = spotpost.likeforpost_set.count()
+    context['like_for_spot_count'] = spotpost.likeforspot_set.count()
 
     return JsonResponse(context)
 
@@ -302,106 +333,141 @@ class SpotDeleteView(LoginRequiredMixin,OnlyYouMixin,generic.DeleteView):
         messages.success(self.request,"日記を削除しました。")
         return super().delete(request,*args,**kwargs)
 
-def getPrefecture(request):
-    prefecture = request.POST.get('prefecture')
-    prefecutres = return_cities_by_prefecture(prefecture)
-    return JsonResponse({'prefecutres': prefecutres})
-
-def processForm(request):
-    context = {}
-    if request.method == 'GET':
-        form = AddressForm()
-        context['form'] = form
-        return render(request, 'spot_list.html', context)
-
-    if request.method == 'POST':
-        form = AddressForm(request.POST)
-        if form.is_valid():
-            selected_province = request.POST['city']
-            obj = form.save(commit=False)
-            obj.state = selected_province
-            obj.save()
-
 class RecipeListView(LoginRequiredMixin,generic.ListView):
     model = Recipe
     template_name = 'recipe_list.html'
+    paginate_by = 3
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         query = self.request.GET
-        list = [0, 0]
 
-        if q := query.get('q'):  # python3.8以降
-            if q == '':
-                list[0] = 0
-            else:
-                list[0] = 1
-
-        if p := query.get('p'):
-            if p == '':
-                list[1] = 9
-            else:
-                list[1] = 2
-
-        if (list[0] == 1) and (list[1] == 2):
-            queryset = queryset.filter(Q(method__icontains=q) & Q(title__icontains=p))
-
-        elif (list[0] == 1) and (list[1] != 2):
-            queryset = queryset.filter(Q(method__icontains=q))
-
-        elif (list[0] != 1) and (list[1] == 2):
-            queryset = queryset.filter(Q(title__icontains=p))
-
-        elif (list[0] == 0) and (list[1] == 2):
-            queryset = queryset.filter(Q(title__icontains=p))
+        if q := query.get('q') : # python3.8以降
+            if p := query.get('p'):
+                if p == '#':
+                    queryset = queryset.filter( Q(method__icontains=q) )
+                elif q == '#':
+                    queryset = queryset.filter( Q(title__icontains=p) )
+                else:
+                    queryset = queryset.filter( Q(method__icontains=q) & Q(title__icontains=p))
 
         return queryset.order_by('-created_at')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # {'pk':{'count':ポストに対するイイネ数,'is_user_liked_for_post':bool},}という辞書を追加していく
+        d = {}
+        for recipe in self.object_list:
+            # postに対するイイね数
+            like_for_recipe_count = recipe.likeforrecipe_set.count()
+            # ログイン中のユーザーがイイねしているかどうか
+            is_user_liked_for_recipe = False
+            if not self.request.user.is_anonymous:
+                if recipe.likeforrecipe_set.filter(user=self.request.user).exists():
+                    is_user_liked_for_recipe = True
 
-
-        # if q != query.get('p'):
-        #     list[0] = 0
-        #     if p := query.get('p'):
-        #         list[1] = 2
-        #
-        #     if (list[0] == 0) and (list[1] == 2):
-        #         queryset = queryset.filter(Q(method__icontains=q) & Q(title__icontains=p))
-        #
-        #     elif (list[0] == 0) and (list[1] != 2):
-        #         queryset = queryset.filter(Q(method__icontains=q))
-        #
-        #     elif (list[0] != 0) and (list[1] == 2):
-        #         queryset = queryset.filter(Q(title__icontains=p))
-
-
-
-class RecipeDetailView(generic.DetailView):
-    model = Recipe
-    template_name = 'recipe_detail.html'
-
+            d[recipe.pk] = {'count': like_for_recipe_count, 'is_user_liked_for_recipe': is_user_liked_for_recipe}
+        context['recipe_like_data'] = d
+        return context
 
 class RecipeCreateView(generic.CreateView):
     model = Recipe
     form_class = RecipeCreateForm
     template_name = 'recipe_create.html'
-    success_url = reverse_lazy('oniokoze:recipe-create')
+    success_url = reverse_lazy('oniokoze:recipe_list')
+
+    def form_valid(self, form):
+        spot = form.save(commit=False)
+        spot.user = self.request.user
+        spot.save()
+        messages.success(self.request, '日記を作成しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "日記の作成に失敗しました。")
+        return super().form_invalid(form)
+
+
+class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Recipe
+    template_name = 'recipe_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        like_for_recipe_count = self.object.likeforrecipe_set.count()
+         # ポストに対するイイね数
+        context['like_for_recipe_count'] = like_for_recipe_count
+         # ログイン中のユーザーがイイねしているかどうか
+        is_user_liked_for_recipe = False
+        if not self.request.user.is_anonymous:
+            if self.object.likeforrecipe_set.filter(user=self.request.user).exists():
+                is_user_liked_for_recipe = True
+        context['is_user_liked_for_recipe'] = is_user_liked_for_recipe
+        return context
+
+
+def like_for_recipe(request):
+    recipe_pk = request.POST.get('recipe_pk')
+    context = {
+        'user': f'{request.user.last_name} {request.user.first_name}',
+    }
+    recipepost = get_object_or_404(Recipe, pk=recipe_pk)
+    like = LikeForRecipe.objects.filter(target=recipepost, user=request.user)
+    if like.exists():
+        like.delete()
+        context['method'] = 'delete'
+    else:
+        like.create(target=recipepost, user=request.user)
+        context['method'] = 'create'
+
+    context['like_for_recipe_count'] = recipepost.likeforrecipe_set.count()
+
+    return JsonResponse(context)
+
+class RecipeUpdateView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView):
+    model = Recipe
+    template_name = 'recipe_update.html'
+    form_class = RecipeCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('oniokoze:recipe_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        messages.success(self.request, '日記を更新しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "日記の更新に失敗しました。")
+        return super().form_invalid(form)
+
+
+class RecipeDeleteView(LoginRequiredMixin, OnlyYouMixin, generic.DeleteView):
+    model = Recipe
+    template_name = 'recipe_delete.html'
+    success_url = reverse_lazy('oniokoze:recipe_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "日記を削除しました。")
+        return super().delete(request, *args, **kwargs)
+
 
 class TriviaView(generic.TemplateView):
     template_name = 'trivia.html'
-
 class MypageView(generic.TemplateView):
     template_name = 'mypage.html'
 
+class ToolView(generic.TemplateView):
+    template_name = 'tool.html'
+class MannersView(generic.TemplateView):
+    template_name = 'manners.html'
+class BaitView(generic.TemplateView):
+    template_name = 'bait.html'
 
-def upload_file(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('/success/url/')
-    else:
-        form = UploadFileForm()
-    return render(request, 'recipe_detail.html', {'form': form})
+class Fishing_methodView(generic.TemplateView):
+    template_name = 'fishing_method.html'
 
+class Dangerous_creatureView(generic.TemplateView):
+    template_name = 'dangerous_creature.html'
 
-
+class PlaceView(generic.TemplateView):
+    template_name = 'Place.html'
