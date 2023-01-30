@@ -133,6 +133,14 @@ class FishCreateForm(forms.ModelForm):
             field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
             return super(FishCreateForm, self).add_prefix(field_name)
 
+class AddressForm(forms.Form):
+    country = forms.ChoiceField(
+        choices=get_prefecture(),
+        required=False,
+        label='都道府県',
+        widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_prefecture'}),
+    )
+    
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
