@@ -49,7 +49,8 @@ CatchFormset = forms.inlineformset_factory(
 class FishnameCreateForm(forms.ModelForm):
     class Meta:
         model = Fishname
-        fields = '__all__'
+        fields = ('name',
+                    'size',)
 
 
         def __init__(self, *args, **kwargs):
@@ -140,7 +141,7 @@ class AddressForm(forms.Form):
         label='都道府県',
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_prefecture'}),
     )
-    
+
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
