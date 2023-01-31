@@ -3,7 +3,7 @@
 
 {% block title %}日記詳細 | Private Diary{% endblock %}
 
-{% block active_object_list %}active{% endblock %}
+{% block active_recipe_list %}active{% endblock %}
 
 
 {% block contents %}
@@ -14,7 +14,7 @@
                 <strong>タイトル</strong>
             </div>
             <div class="col-9">
-                {{ object.title }}
+                {{ recipe.title }}
             </div>
         </div>
         <hr>
@@ -39,7 +39,7 @@
                 <strong>本文</strong>
             </div>
             <div class="col-9">
-                {{ object.content|linebreaksbr }}
+                {{ recipe.content|linebreaksbr }}
             </div>
         </div>
 
@@ -50,17 +50,13 @@
                 <strong>写真</strong>
             </div>
             <div class="col-3">
-                {% if object.shopphoto %}
-                <p>
-                    <img src="{{ object.shopphoto.url }}" width="200" height="200"/>
-                </p>
+                {% if recipe.titlephoto %}
+                    <img src="{{recipe.titlephoto.url}}" width="200" height="200"/>
                 {% endif %}
             </div>
             <div class="col-3">
-                {% if object.titlephoto %}
-                <p>
-                    <img src="{{ object.titlephoto.url }}" width="200" height="200"/>
-                </p>
+                {% if recipe.shopphoto %}
+                    <img src="{{recipe.shopphoto.url}}" width="200" height="200"/>
                 {% endif %}
             </div>
         </div>
@@ -72,7 +68,7 @@
                 <strong>作成日時</strong>
             </div>
             <div class="col-9">
-                {{ object.created_at }}
+                {{ recipe.created_at }}
             </div>
         </div>
 
@@ -83,10 +79,10 @@
                 <strong>更新日時</strong>
             </div>
             <div class="col-9">
-                {{ object.updated_at }}
+                {{ recipe.updated_at }}
             </div>
         </div>
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' object.pk%}">編集</a>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' recipe.pk%}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_delete' object.pk %}">削除</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_list'%}">戻る</a>
     </div>
