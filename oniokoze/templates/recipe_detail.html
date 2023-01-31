@@ -17,6 +17,20 @@
                 {{ object.title }}
             </div>
         </div>
+        <hr>
+        <div class="col-3">
+            <strong>お店</strong>
+        </div>
+        <div class="col-9">
+            {% if recipe.shopURL %}
+            <a href="{{ recipe.shopURL }}">
+                <img src="{{recipe.shopphoto.url}}" width="200" height="200"/>
+            </a>
+            {% else %}
+            {{ recipe.shopphoto }}
+            {% endif %}
+        </div>
+        </div>
 
         <hr>
 

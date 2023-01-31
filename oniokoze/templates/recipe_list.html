@@ -100,11 +100,13 @@
                                     </div>
                                 </a>
                               </div>
+                            </table>
                                 <hr class="my-4">
                                 {% empty %}　<!--何もなかった場合の処理-->
                                 <p>日記がありません。</p>
                                 {% endfor %} <!--繰り返し処理の終了部分-->
                                 <!--ページネーション処理-->
+
                             {% if is_paginated %}
                             <ul class="pagination">
                                 <!--前ページへのリンク-->
@@ -139,6 +141,7 @@
                                 {% endif %}
                             </ul>
                             {% endif %}
+
                         </div>
                     </div>
                 </div>
