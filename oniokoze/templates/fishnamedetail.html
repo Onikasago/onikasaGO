@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}釣果詳細 | OnikasaGO{% endblock %}
+
+{% block active_object_list %}active{% endblock %}
+
+{% block contents %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<div class="container my-div-style">
+  <div class="row">
+
+    <div class="col-3">
+      <strong>釣果タイトル</strong>
+    </div>
+    <div class="col-9">
+      {{object.nametitle}}　<!--魚種名の表示-->
+    </div>
+
+    <hr>
+
+
+    <div class="row">
+      <div class="col-3">
+        <strong>写真</strong>
+      </div>
+      <div class="col-3">
+        {% if object.photo1 %}　<!--写真があれば表示-->
+          <img src="{{ object.catch.photo1.url }}" width="200" height="200"/>
+
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {% if object.photo2 %} <!--写真があれば表示-->
+          <img src="{{object.photo2.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {% if object.photo3 %} <!--写真があれば表示-->
+          <img src="{{object.photo3.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {% if object.photo4 %} <!--写真があれば表示-->
+          <img src="{{object.photo4.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {% if object.photo5 %} <!--写真があれば表示-->
+          <img src="{{object.photo5.url}}" width="200" height="200"/>
+        {% endif %}
+      </div>
+
+
+    </div>
+
+    <hr>
+
+
+
+    <hr>
+
+    <div class="row">
+      <div class="col-3">
+        <strong>場所</strong>
+      </div>
+      <div class="col-9">
+        {{object.capital}}<!--場所の表示-->
+        {{object.city}}
+        {{object.address}}
+
+      </div>
+    </div>
+
+    <hr>
+        <div class="row">
+      <div class="col-3">
+        <strong>ロケーション</strong>
+      </div>
+      <div class="col-9">
+        {{object.location}}<!--サイズの表示-->
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-3">
+        <strong>その他</strong>
+      </div>
+      <div class="col-9">
+        {{object.free}}<!--自由記入の表示-->
+
+      </div>
+    </div>
+           <a class="btn btn-success mt-5 　mb-3" href="{% url 'oniokoze:catch_update' object.pk%}">編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_delete' object.pk %}">削除</a>
+  </div>
+  <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:catch_list' %}">キャンセル</a>
+</div>
+{% endblock %}

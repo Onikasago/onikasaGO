@@ -5,7 +5,7 @@
 
 {% block active_recipe_list %}active{% endblock %}
 
-<head><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script></head>
+
 {% block contents %}
 <div class="container">
     <div class="my-div-style w-100">
@@ -16,6 +16,20 @@
             <div class="col-9">
                 {{ recipe.title }}
             </div>
+        </div>
+        <hr>
+        <div class="col-3">
+            <strong>お店</strong>
+        </div>
+        <div class="col-9">
+            {% if recipe.shopURL %}
+            <a href="{{ recipe.shopURL }}">
+                <img src="{{recipe.shopphoto.url}}" width="200" height="200"/>
+            </a>
+            {% else %}
+            {{ recipe.shopphoto }}
+            {% endif %}
+        </div>
         </div>
 
         <hr>
@@ -68,63 +82,9 @@
                 {{ recipe.updated_at }}
             </div>
         </div>
-        <div class="card-header">
-          {% if is_user_liked_for_recipe %}
-            <button type="button" id="ajax-like-for-recipe" style="border:none;background:none">
-                <!-- すでにイイねしている時はfasクラス -->
-                <i class="fas fa-heart text-danger" id="like-for-recipe-icon"></i>
-            </button>
-            {% else %}
-            <button type="button" id="ajax-like-for-recipe" style="border:none;background:none">
-                <!-- イイねしていないときはfarクラス -->
-                <i class="far fa-heart text-danger" id="like-for-recipe-icon"></i>
-            </button>
-            {% endif %}
-            <!-- イイねの数 -->
-            <span id="like-for-recipe-count">{{ like_for_recipe_count }}</span>
-            <span>件のイイね</span>
-        </div>
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' object.pk %}">編集</a>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' recipe.pk%}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_delete' object.pk %}">削除</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_list'%}">戻る</a>
     </div>
 </div>
-
-<script type="text/javascript">
-     /* ポストに対するイイね */
-  document.getElementById('ajax-like-for-recipe').addEventListener('click', e => {
-    /* ログインしていない場合はログインページへ */
-    if ("{{ user.is_authenticated }}"=="False"){
-      window.location.href='{% url "oniokoze:index" %}'
-    }
-    e.preventDefault();
-    const url = '{% url "oniokoze:like_for_recipe" %}';
-    fetch(url, {
-      method: 'POST',
-      body: `recipe_pk={{recipe.pk}}`,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'X-CSRFToken': '{{ csrf_token }}',
-      },
-    }).then(response => {
-      return response.json();
-    }).then(response => {
-      const counter = document.getElementById('like-for-recipe-count')
-      const icon = document.getElementById('like-for-recipe-icon')
-      counter.textContent = response.like_for_recipe_count
-      if (response.method == 'create') {
-        icon.classList.remove('far')
-        icon.classList.add('fas')
-        icon.id = 'like-for-recipe-icon'
-      } else {
-        icon.classList.remove('fas')
-        icon.classList.add('far')
-        icon.id = 'like-for-recipe-icon'
-      }
-    }).catch(error => {
-      console.log(error);
-    });
-  });
-</script>
-
 {% endblock %}

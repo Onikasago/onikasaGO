@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="1/16 narita">
-      <change afterPath="$PROJECT_DIR$/oniokoze/templates/choice_sample.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oniokoze/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oniokoze/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oniokoze/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/oniokoze/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/assets/img/umi.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/img/umi.jpg" afterDir="false" />
-    </list>
+    <list default="true" id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="Revert &quot;1/30arita&quot;&#10;&#10;This reverts commit 2b187317" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +17,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="063919e9-cf9b-43f4-865b-559b9396e17d" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -45,7 +39,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/ict/venv_oniokoze/onikasaGO&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Shelf.Project.Settings&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;ChangesTree.GroupingKeys&quot;: [
@@ -53,25 +47,16 @@
     ]
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\ict\venv_oniokoze\onikasaGO\accounts\migrations" />
-      <recent name="C:\Users\ict\venv_oniokoze\onikasaGO\oniokoze\migrations" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\ict\venv_oniokoze\onikasaGO\static\data" />
-    </key>
-  </component>
   <component name="RunManager" selected="Python.runserver">
     <configuration name="makemigrations" type="PythonConfigurationType" factoryName="Python">
       <module name="onikasaGO" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_PASSWORD" value="keigo1225" />
+        <env name="DB_PASSWORD" value="Cloud2127" />
         <env name="DB_USER" value="postgres" />
         <env name="DJANGO_SETTINGS_MODULE" value="onikasaGO.settings_dev" />
+        <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="C:\Users\ict\venv_oniokoze\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -92,10 +77,10 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_PASSWORD" value="keigo1225" />
+        <env name="DB_PASSWORD" value="Cloud2127" />
         <env name="DB_USER" value="postgres" />
         <env name="DJANGO_SETTINGS_MODULE" value="onikasaGO.settings_dev" />
+        <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="C:\Users\ict\venv_oniokoze\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -116,10 +101,34 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DB_PASSWORD" value="keigo1225" />
+        <env name="DB_PASSWORD" value="Cloud2127" />
         <env name="DB_USER" value="postgres" />
         <env name="DJANGO_SETTINGS_MODULE" value="onikasaGO.settings_dev" />
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\ict\venv_oniokoze\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="runserver" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sub" type="PythonConfigurationType" factoryName="Python">
+      <module name="onikasaGO" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="DB_PASSWORD" value="Cloud2127" />
+        <env name="DB_USER" value="postgres" />
+        <env name="DJANGO_SETTINGS_MODULE" value="onikasaGO.settings_dev" />
+        <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="C:\Users\ict\venv_oniokoze\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -136,15 +145,13 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.makemigrations" />
-      <item itemvalue="Python.migrate" />
       <item itemvalue="Python.runserver" />
+      <item itemvalue="Python.migrate" />
+      <item itemvalue="Python.makemigrations" />
+      <item itemvalue="Python.sub" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="アプリケーションレベル" UseSingleDictionary="true" transferred="true" />
-  <component name="SvnConfiguration">
-    <configuration>C:\Users\ict\AppData\Roaming\Subversion</configuration>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="デフォルトタスク">
       <changelist id="4c19d678-78e0-4f7b-a342-c800ce9adb29" name="変更" comment="" />
@@ -286,63 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667893278542</updated>
     </task>
-    <task id="LOCAL-00020" summary="1/16 narita">
-      <created>1673853165100</created>
+    <task id="LOCAL-00020" summary="Revert &quot;1/30arita&quot;&#10;&#10;This reverts commit 2b187317">
+      <created>1675046187292</created>
       <option name="number" value="00020" />
       <option name="presentableId" value="LOCAL-00020" />
       <option name="project" value="LOCAL" />
-      <updated>1673853165100</updated>
+      <updated>1675046187292</updated>
     </task>
-    <task id="LOCAL-00021" summary="1/20 narita">
-      <created>1674194591728</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1674194591728</updated>
-    </task>
-    <task id="LOCAL-00022" summary="1/23 narita">
-      <created>1674439911394</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1674439911394</updated>
-    </task>
-    <task id="LOCAL-00023" summary="1/16 narita">
-      <created>1674449908791</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1674449908791</updated>
-    </task>
-    <task id="LOCAL-00024" summary="1/23 ブルーな気持ち">
-      <created>1674459165432</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1674459165432</updated>
-    </task>
-    <task id="LOCAL-00025" summary="1/23 views.py成田">
-      <created>1674459468522</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1674459468522</updated>
-    </task>
-    <task id="LOCAL-00026" summary="1/25 成田じゃないしいいねじゃないよ">
-      <created>1674617656334</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1674617656334</updated>
-    </task>
-    <task id="LOCAL-00027" summary="1/16 narita">
-      <created>1675044108726</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1675044108727</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -350,19 +308,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
         <entry key="aa11f570-a052-427b-a4e1-7b1f30d5534f">
@@ -405,12 +351,7 @@
     <MESSAGE value="オニカサGO" />
     <MESSAGE value="html" />
     <MESSAGE value="11/08 鈴木悠太作業" />
-    <MESSAGE value="1/20 narita" />
-    <MESSAGE value="1/23 narita" />
-    <MESSAGE value="1/23 ブルーな気持ち" />
-    <MESSAGE value="1/23 views.py成田" />
-    <MESSAGE value="1/25 成田じゃないしいいねじゃないよ" />
-    <MESSAGE value="1/16 narita" />
-    <option name="LAST_COMMIT_MESSAGE" value="1/16 narita" />
+    <MESSAGE value="Revert &quot;1/30arita&quot;&#10;&#10;This reverts commit 2b187317" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;1/30arita&quot;&#10;&#10;This reverts commit 2b187317" />
   </component>
 </project>

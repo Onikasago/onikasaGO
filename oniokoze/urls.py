@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import *
+# from django.contrib.staticfiles.urls import static
 
 app_name = 'oniokoze'
 
@@ -12,6 +13,8 @@ urlpatterns = [
     path('catch-update/<int:pk>/', views.CatchUpdateView.as_view(), name="catch_update"),
     path('catch-delete/<int:pk>/', views.CatchDeleteView.as_view(), name="catch_delete"),
     path('fishname-create', views.FishnameCreateView.as_view(), name="fishname_create"),
+    path('fishname-update/<int:pk>/', views.FishnameUpdateView.as_view(), name="fishname_update"),
+
     path('spot-list', views.SpotListView.as_view(), name="spot_list"),
     path('spot-create', views.SpotCreateView.as_view(), name="spot_create"),
     path('spot-detail/<int:pk>/', views.SpotDetailView.as_view(), name="spot_detail"),
@@ -22,6 +25,7 @@ urlpatterns = [
     path('recipe-detail/<int:pk>/', views.RecipeDetailView.as_view(), name="recipe_detail"),
     path('recipe-update/<int:pk>/', views.RecipeUpdateView.as_view(), name="recipe_update"),
     path('recipe-delete/<int:pk>/', views.RecipeDeleteView.as_view(), name="recipe_delete"),
+    path('order-create',views.OrderCreateView.as_view(),name="order_create"),
     path('like_for_spot/', views.like_for_spot, name='like_for_spot'),
     path('like_for_catch/', views.like_for_catch, name='like_for_catch'),
     path('like_for_recipe/', views.like_for_recipe, name='like_for_recipe'),
