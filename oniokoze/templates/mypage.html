@@ -14,7 +14,9 @@
             <table>
             <tr>
                 <div>
-                    <td><h2><img src="{% static 'assets/img/pict01.jpg' %}" class="circle" /></h2></td>
+                    {% if user.photo %}
+                    <td><h2><img src="{{ user.photo.url }}" class="circle" /></h2></td>
+                    {% endif %}
                 </div>
                 <div>
                     <td>
@@ -29,7 +31,7 @@
                 </div>
             </tr>
         </table>
-        <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5" >ユーザー情報</a>
+        <a href="{% url 'oniokoze:mypage_detail' user.pk %}" class="btn btn-primary btn-xl rounded-pill mt-5" >ユーザー情報</a>
         </div>
     </div>
 </div>
