@@ -82,7 +82,7 @@
                 {{ recipe.updated_at }}
             </div>
         </div>
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' object.pk%}">編集</a>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' recipe.pk%}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_delete' object.pk %}">削除</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_list'%}">戻る</a>
     </div>

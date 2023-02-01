@@ -1,13 +1,18 @@
 from .settings_common import *
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-gj+0n2+ja4$&3a#my)xrhb5l-z__m0i*&_52ku#p+jsoc(y9$_'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 ALLOWED_HOSTS = []
+
 # ロギング設定
 LOGGING = {
     'version': 1,  # 1固定
     'disable_existing_loggers': False,
+
     # ロガーの設定
     'loggers': {
         # Djangoが利用するロガー
@@ -26,6 +31,7 @@ LOGGING = {
             'level': 'DEBUG',
         },
     },
+
     # ハンドラの設定
     'handlers': {
         'console': {
@@ -34,6 +40,7 @@ LOGGING = {
             'formatter': 'dev'
         },
     },
+
     # フォーマッタの設定
     'formatters': {
         'dev': {
@@ -46,5 +53,7 @@ LOGGING = {
         },
     }
 }
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')

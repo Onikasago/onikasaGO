@@ -44,7 +44,7 @@ class IndexView(generic.TemplateView):
 class CatchListView(LoginRequiredMixin, generic.ListView):
     model = Catch
     template_name = 'catch_list.html'
-
+    paginate_by = 3
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         query = self.request.GET
