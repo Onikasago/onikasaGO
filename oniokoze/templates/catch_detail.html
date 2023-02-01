@@ -3,8 +3,9 @@
 
 {% block title %}釣果詳細 | OnikasaGO{% endblock %}
 
-{% block active_object_list %}active{% endblock %}
-<head xmlns="http://www.w3.org/1999/html"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script></head>
+{% block active_recipe_list %}active{% endblock %}
+
+<head><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script></head>
 {% block contents %}
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 
@@ -123,11 +124,10 @@
             <span id="like-for-catch-count">{{ like_for_catch_count }}</span>
             <span>件のイイね</span>
         </div>
-           <a class="btn btn-success mt-5 　mb-3" href="{% url 'oniokoze:catch_update' object.pk %}">釣果編集</a>
+        <a class="btn btn-success mt-5 　mb-3" href="{% url 'oniokoze:catch_update' object.pk %}">釣果編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_delete' object.pk %}">削除</a>
-  </div>
-  <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:catch_list' %}">戻る</a>
-
+        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_list' %}">戻る</a>
+ </div>
 </div>
 
 
