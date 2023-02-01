@@ -3,7 +3,7 @@ import re
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from .forms import CatchCreateForm,FishnameCreateForm,RecipeCreateForm,SpotCreateForm,AddressForm
-from .models import Recipe
+from .models import *
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -449,19 +449,18 @@ class RecipeCreateView(generic.CreateView):
     model = Recipe
     form_class = RecipeCreateForm
     template_name = 'recipe_create.html'
-    success_url = reverse_lazy('oniokoze:recipe_list')
+    success_url = reverse_lazy('oniokoze:order_create')
 
     def form_valid(self, form):
-        model = form.save(commit=False)
-        model.user = self.request.user
-        model.save()
+        spot = form.save(commit=False)
+        spot.user = self.request.user
+        spot.save()
         messages.success(self.request, '日記を作成しました。')
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(self.request, "日記の作成に失敗しました。")
         return super().form_invalid(form)
-
 
 class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe
@@ -537,6 +536,7 @@ class FishnameCreateView(generic.CreateView):
         noList= []
         idList= []
         n=1
+        id=Catch.objects.order_by('created_at').last().pk
           # request.POST.items()でPOSTで送られてきた全てを取得。
         for i in request.POST.items():
             if re.match(r'titleList_*', i[0]):
@@ -552,7 +552,7 @@ class FishnameCreateView(generic.CreateView):
                 name= titleList[i],
                 size = bodyList[i],
                 no = noList[i],
-                catch_id= Catch.objects.order_by('created_at').last().pk
+                catch_id= id
             )
             corporationinformation.save()
         return redirect(to='/catch-list')
