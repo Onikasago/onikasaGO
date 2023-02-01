@@ -45,9 +45,24 @@ class CatchListView(LoginRequiredMixin, generic.ListView):
     model = Catch
     template_name = 'catch_list.html'
     paginate_by = 3
-    def get_queryset(self):
-        catches = Catch.objects.filter(user=self.request.user).order_by('-created_at')
-        return catches
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        query = self.request.GET
+        list = [0]
+
+        if p := query.get('p'):
+            if p == '':
+                list[0] = 9
+            else:
+                list[0] = 1
+
+                if list[0] == 1:
+                    queryset = queryset.filter(Q(nametitle__icontains=p))
+                elif list[0] == 9:
+                    queryset = 'ヒットしませんでした/nワードを変えてお試しください'
+
+        return queryset.order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -102,6 +117,8 @@ class CatchDetailView(LoginRequiredMixin, generic.DetailView):
     slug_field = "catch_id"
     slug_url_kwarg = "catch_id"
     template_name = 'catch_detail.html'
+
+
 
     def add_parm(self,request):
         id = self.request.GET.get()
@@ -383,15 +400,31 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         query = self.request.GET
+        list = [0, 0]
 
-        if q := query.get('q') : # python3.8以降
-            if p := query.get('p'):
-                if p == '#':
-                    queryset = queryset.filter( Q(method__icontains=q) )
-                elif q == '#':
-                    queryset = queryset.filter( Q(title__icontains=p) )
-                else:
-                    queryset = queryset.filter( Q(method__icontains=q) & Q(title__icontains=p))
+        if q := query.get('q'):  # python3.8以降
+            if q == '':
+                list[0] = 0
+            else:
+                list[0] = 1
+
+        if p := query.get('p'):
+            if p == '':
+                list[1] = 9
+            else:
+                list[1] = 2
+
+        if (list[0] == 1) and (list[1] == 2):
+            queryset = queryset.filter(Q(method__icontains=q) & Q(title__icontains=p))
+
+        elif (list[0] == 1) and (list[1] != 2):
+            queryset = queryset.filter(Q(method__icontains=q))
+
+        elif (list[0] != 1) and (list[1] == 2):
+            queryset = queryset.filter(Q(title__icontains=p))
+
+        elif (list[0] == 0) and (list[1] == 2):
+            queryset = queryset.filter(Q(title__icontains=p))
 
         return queryset.order_by('-created_at')
 
@@ -416,12 +449,12 @@ class RecipeCreateView(generic.CreateView):
     model = Recipe
     form_class = RecipeCreateForm
     template_name = 'recipe_create.html'
-    success_url = reverse_lazy('oniokoze:order_create')
+    success_url = reverse_lazy('oniokoze:recipe_list')
 
     def form_valid(self, form):
-        spot = form.save(commit=False)
-        spot.user = self.request.user
-        spot.save()
+        model = form.save(commit=False)
+        model.user = self.request.user
+        model.save()
         messages.success(self.request, '日記を作成しました。')
         return super().form_valid(form)
 
