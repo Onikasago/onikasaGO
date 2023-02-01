@@ -117,8 +117,6 @@ class CatchDetailView(LoginRequiredMixin, generic.DetailView):
     slug_url_kwarg = "catch_id"
     template_name = 'catch_detail.html'
 
-
-
     def add_parm(self,request):
         id = self.request.GET.get()
         context = Fishname.objects.filter(catch_id='id')
@@ -394,7 +392,6 @@ class OrderCreateView(generic.CreateView):
 class RecipeListView(LoginRequiredMixin,generic.ListView):
     model = Recipe
     template_name = 'recipe_list.html'
-    paginate_by = 3
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
@@ -422,8 +419,8 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
         elif (list[0] != 1) and (list[1] == 2):
             queryset = queryset.filter(Q(title__icontains=p))
 
-        elif (list[0] == 0) and (list[1] == 2):
-            queryset = queryset.filter(Q(title__icontains=p))
+        elif (list[0] == 0) and (list[1] == 9):
+            queryset = '検索結果がヒットしませんでした'
 
         return queryset.order_by('-created_at')
 
@@ -463,7 +460,16 @@ class RecipeCreateView(generic.CreateView):
 
 class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Recipe
+    model = Order
+
+    slug_field = "recipe_id"
+    slug_url_kwarg = "recipe_id"
     template_name = 'recipe_detail.html'
+
+    def add_parm(self,request):
+        id = self.request.GET.get()
+        context = Order.objects.filter(recipe_id='id')
+        return render(request,'recipe_detail.html',context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -497,7 +503,7 @@ def like_for_recipe(request):
 
     return JsonResponse(context)
 
-class RecipeUpdateView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView):
+class RecipeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Recipe
     template_name = 'recipe_update.html'
     form_class = RecipeCreateForm

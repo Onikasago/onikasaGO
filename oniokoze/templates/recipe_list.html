@@ -93,17 +93,17 @@
                                         {% elif recipe.titlephoto %}
                                             <img src="{{recipe.titlephoto.url}}" width="300" height="200" hspace="30"><!--              場所の表示-->
                                             </img>
-
                                         {% else %}
                                         <h3>画像がありません</h3>
                                     {% endif %}
                                     </div>
+
                                 </a>
                               </div>
                             </table>
                                 <hr class="my-4">
                                 {% empty %}　<!--何もなかった場合の処理-->
-                                <p>日記がありません。</p>
+                                <p>レシピデータがありません。</p>
                                 {% endfor %} <!--繰り返し処理の終了部分-->
                                 <!--ページネーション処理-->
 

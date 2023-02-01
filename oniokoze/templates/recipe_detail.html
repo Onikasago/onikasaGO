@@ -27,7 +27,7 @@
                 <img src="{{recipe.shopphoto.url}}" width="200" height="200"/>
             </a>
             {% else %}
-            {{ recipe.shopphoto }}
+                {{ recipe.shopphoto }}
             {% endif %}
         </div>
         </div>
@@ -62,6 +62,23 @@
         </div>
 
         <hr>
+    <div class="col-3">
+<strong>手順</strong>
+    </div>
+    <div class="col-9">
+
+
+        {% for order in recipe.order.all %}
+
+        {{ order.order }}
+
+        {{order.procedure}}
+
+        <a href="{% url 'oniokoze:recipe_update' recipe.pk %}">編集する</a><br>
+      {% endfor %}
+    </div>
+
+    <hr>
 
         <div class="row">
             <div class="col-3">
