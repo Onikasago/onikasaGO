@@ -241,7 +241,6 @@ class Spot(models.Model):
     spotURL = models.URLField(verbose_name='URL記入欄', blank=True, null=True)
     location = models.CharField(choices=LOCATIONS, verbose_name='ロケーション',blank=True, null=True, max_length=5)
     beginner = models.BooleanField(verbose_name='初心者おすすめチェック',default=False, help_text='初心者おすすめ',blank=True,null=True)
-    spotfish=models.TextField(verbose_name='釣れる魚',blank=True)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
@@ -325,3 +324,14 @@ class LikeForRecipe(models.Model):
     target = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
+
+class Fish(models.Model):
+    fish = models.TextField(verbose_name='釣れる魚', blank=True, null=True)
+    no = models.IntegerField(verbose_name='番号', blank=True, null=True)
+    spot = models.ForeignKey(Spot, on_delete = models.CASCADE, related_name='fish')
+
+    class Meta:
+        verbose_name_plural = 'Fish'
+
+    def __str__(self):
+        return self.fish

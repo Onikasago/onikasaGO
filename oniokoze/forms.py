@@ -96,7 +96,14 @@ class SpotCreateForm(forms.ModelForm):
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = (
+            'order',
+            'procedure',
+            'photo',
+            'material',
+            'amount',
+            'unit'
+        )
 
 
         def __init__(self, *args, **kwargs):
@@ -131,7 +138,10 @@ class MypageCreateForm(forms.ModelForm):
 class FishCreateForm(forms.ModelForm):
     class Meta:
         model = Fish
-        fields = ('fish',)
+        fields = (
+
+            'fish',
+        )
 
 
         def __init__(self, *args, **kwargs):
@@ -140,8 +150,8 @@ class FishCreateForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
 
         def form_valid(self, form):
-            fishname = form.save(commit=False)
-            fishname.save()
+            fish = form.save(commit=False)
+            fish.save()
             return super().form_vaild(form)
 
         def add_prefix(self, field_name):

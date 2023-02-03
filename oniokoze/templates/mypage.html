@@ -16,6 +16,8 @@
                 <div>
                     {% if user.photo %}
                     <td><h2><img src="{{ user.photo.url }}" class="circle" /></h2></td>
+                    {% else %}
+                    <td><h2><img src="{% static 'assets/img/bobi.png' %}" class="circle" /></h2></td>
                     {% endif %}
                 </div>
                 <div>
