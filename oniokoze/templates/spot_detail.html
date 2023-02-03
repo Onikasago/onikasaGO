@@ -32,14 +32,19 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-3">
-                <strong>釣れる魚</strong>
-            </div>
-            <div class="col-9">
-                {{ spot.spotfish }}
-            </div>
-        </div>
+        <strong>釣れる魚</strong>
+    </div>
+    <div class="col-9">
+        {% for fish in spot.fish.all %}
+        {{ fish.no }}
+        {{ fish.fish }}
+
+
+        <a href="{% url 'oniokoze:fish_update' fish.pk %}">編集する</a><br>
+      {% endfor %}
+    </div>
+
+    <hr>
 
         <div class="row">
             <div class="col-3">
@@ -55,7 +60,12 @@
                 <strong>初心者おすすめ</strong>
             </div>
             <div class="col-9">
-                {{ spot.beginner }}
+
+                {% if spot.beginner == True %}
+                <a>✔</a>
+                {% else %}
+                <a>×</a>
+                {% endif %}
             </div>
         </div>
 

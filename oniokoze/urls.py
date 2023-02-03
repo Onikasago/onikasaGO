@@ -29,6 +29,8 @@ urlpatterns = [
     path('recipe-update/<int:pk>/', views.RecipeUpdateView.as_view(), name="recipe_update"),
     path('recipe-delete/<int:pk>/', views.RecipeDeleteView.as_view(), name="recipe_delete"),
     path('order-create/',views.OrderCreateView.as_view(),name="order_create"),
+    path('order-update/<int:pk>/', views.OrderUpdateView.as_view(), name="order_update"),
+
     path('like_for_spot/', views.like_for_spot, name='like_for_spot'),
     path('like_for_catch/', views.like_for_catch, name='like_for_catch'),
     path('like_for_recipe/', views.like_for_recipe, name='like_for_recipe'),

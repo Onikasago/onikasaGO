@@ -316,7 +316,7 @@ class LikeForRecipe(models.Model):
 class Fish(models.Model):
     fish = models.TextField(verbose_name='釣れる魚', blank=True, null=True)
     no = models.IntegerField(verbose_name='番号', blank=True, null=True)
-    spot = models.ForeignKey(Spot, on_delete = models.CASCADE)
+    spot = models.ForeignKey(Spot, on_delete = models.CASCADE, related_name='fish')
 
     class Meta:
         verbose_name_plural = 'Fish'

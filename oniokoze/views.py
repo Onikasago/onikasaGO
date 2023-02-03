@@ -593,7 +593,7 @@ class FishnameCreateView(generic.CreateView):
 class FishCreateView(generic.CreateView):
     form_class = FishCreateForm
     template_name = 'fish_create.html'
-    success_url = reverse_lazy('oniokoze:spot_list')
+    success_url = reverse_lazy('oniokoze:spot_create')
 
     def post(self, request, *args, **kwrgs):
           # 空の配列を作ります
@@ -623,10 +623,10 @@ class FishUpdateView(generic.UpdateView):
     model = Fish
     form_class = FishCreateForm
 
+
     def get_success_url(self):
-        id = Fishname.catch
-        # return reverse_lazy('oniokoze:catch_detail',kwargs={'pk':self.kwargs['pk']})
-        return reverse_lazy('oniokoze:mypage')
+        # id = Fish.spot
+        return reverse_lazy('oniokoze:spot_detail', kwargs={'pk':self.kwargs['pk']})
 
     def form_valid(self, form):
         messages.success(self.request, '項目を更新しました')
@@ -638,20 +638,40 @@ class FishUpdateView(generic.UpdateView):
 
 
 class FishnameUpdateView(generic.UpdateView):
-        template_name = 'fishname_update.html'
-        model = Fishname
-        form_class = FishnameCreateForm
-        def get_success_url(self):
-            id = Fishname.catch
-            # return reverse_lazy('oniokoze:catch_detail',kwargs={'pk':self.kwargs['pk']})
-            return  reverse_lazy('oniokoze:mypage')
-        def form_valid(self, form):
-            messages.success(self.request,'項目を更新しました')
-            return super().form_valid(form)
-        def form_invalid(self, form):
-            messages.error(self.request,'項目の更新に失敗しました')
-            return super().form_invalid(form)
+    template_name = 'fishname_update.html'
+    model = Fishname
+    form_class = FishnameCreateForm
 
+    def get_success_url(self):
+        return reverse_lazy('oniokoze:catch_detail',kwargs={'pk':self.kwargs['pk']})
+
+
+    def form_valid(self, form):
+        messages.success(self.request, '項目を更新しました')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, '項目の更新に失敗しました')
+        return super().form_invalid(form)
+
+
+class OrderUpdateView(generic.UpdateView):
+    template_name = 'order_update.html'
+    model = Order
+    form_class = OrderCreateForm
+
+
+    def get_success_url(self):
+        return reverse_lazy('oniokoze:recipe_detail',kwargs={'pk':self.kwargs['pk']})
+
+
+    def form_valid(self, form):
+        messages.success(self.request, '項目を更新しました')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, '項目の更新に失敗しました')
+        return super().form_invalid(form)
 
 
 

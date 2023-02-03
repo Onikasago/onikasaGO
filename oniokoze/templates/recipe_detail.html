@@ -33,19 +33,7 @@
         </div>
         <hr>
 
-        <div class="row">
-            <div class="col-3">
-                <strong>必要なもの</strong>
-            </div>
-            <div class="col-9">
-                {% for order in recipe.order.all%}
-                {{order.material}}
-                {{order.amount}}
-                {{order.unit}}
-                {% endfor %}
-            </div>
-        </div>
-        <hr>
+
 
         <div class="row">
             <div class="col-3">
@@ -87,7 +75,7 @@
 
         {{order.procedure}}
 
-        <a href="{% url 'oniokoze:recipe_update' recipe.pk %}">編集する</a><br>
+        <a href="{% url 'oniokoze:order_update' order.pk %}">編集する</a><br>
       {% endfor %}
     </div>
 
