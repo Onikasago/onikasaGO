@@ -263,6 +263,8 @@ class Recipe(models.Model):
     shopURL = models.URLField(verbose_name='お店のURL', blank=True, null=True)
     titlephoto = models.ImageField(verbose_name='タイトル写真', blank=True, null=True)
     titlemovie = models.URLField(verbose_name='タイトル動画', blank=True, null=True)
+    user=models.ForeignKey(CustomUser,verbose_name='ユーザー',on_delete=models.PROTECT)
+
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
