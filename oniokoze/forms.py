@@ -87,7 +87,7 @@ class RecipeCreateForm(forms.ModelForm):
 class SpotCreateForm(forms.ModelForm):
     class Meta:
         model=Spot
-        fields=('capital', 'city', 'address','place', 'location','spotfish','spotURL','free','beginner')
+        fields=('capital', 'city', 'address','place', 'location', 'spotURL','free','beginner')
         def __init__(self,*args,**kwargs):
             super().__init__(*args,**kwargs)
             for field in self.fields.value():
@@ -127,3 +127,23 @@ class MypageCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+
+class FishCreateForm(forms.ModelForm):
+    class Meta:
+        model = Fish
+        fields = '__all__'
+
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field in self.fields.values():
+                field.widget.attrs['class'] = 'form-control'
+
+        def form_valid(self, form):
+            fish = form.save(commit=False)
+            fish.save()
+            return super().form_vaild(form)
+
+        def add_prefix(self, field_name):
+            field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
+            return super(FishCreateForm, self).add_prefix(field_name)

@@ -289,7 +289,7 @@ class SpotCreateView(LoginRequiredMixin,generic.CreateView):
     model = Spot
     template_name = 'spot_create.html'
     form_class=SpotCreateForm
-    success_url=reverse_lazy('oniokoze:spot_list')
+    success_url=reverse_lazy('oniokoze:fish_create')
 
     def form_valid(self,form):
         spot=form.save(commit=False)
@@ -429,7 +429,6 @@ class OrderCreateView(generic.CreateView):
 class RecipeListView(LoginRequiredMixin,generic.ListView):
     model = Recipe
     template_name = 'recipe_list.html'
-    paginate_by = 3
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
@@ -594,7 +593,7 @@ class FishnameCreateView(generic.CreateView):
 class FishCreateView(generic.CreateView):
     form_class = FishCreateForm
     template_name = 'fish_create.html'
-    success_url = reverse_lazy('oniokoze:spot_create')
+    success_url = reverse_lazy('oniokoze:spot_list')
 
     def post(self, request, *args, **kwrgs):
           # 空の配列を作ります
@@ -618,6 +617,25 @@ class FishCreateView(generic.CreateView):
             )
             corporationinformation.save()
         return redirect(to='/spot-list')
+
+class FishUpdateView(generic.UpdateView):
+    template_name = 'fish_update.html'
+    model = Fish
+    form_class = FishCreateForm
+
+    def get_success_url(self):
+        id = Fishname.catch
+        # return reverse_lazy('oniokoze:catch_detail',kwargs={'pk':self.kwargs['pk']})
+        return reverse_lazy('oniokoze:mypage')
+
+    def form_valid(self, form):
+        messages.success(self.request, '項目を更新しました')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, '項目の更新に失敗しました')
+        return super().form_invalid(form)
+
 
 class FishnameUpdateView(generic.UpdateView):
         template_name = 'fishname_update.html'

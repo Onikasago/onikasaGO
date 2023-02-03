@@ -20,6 +20,9 @@ urlpatterns = [
     path('spot-detail/<int:pk>/', views.SpotDetailView.as_view(), name="spot_detail"),
     path('spot-update/<int:pk>', views.SpotUpdateView.as_view(), name="spot_update"),
     path('spot-delete/<int:pk>/', views.SpotDeleteView.as_view(), name="spot_delete"),
+    path('fish-create/', views.FishCreateView.as_view(), name="fish_create"),
+    path('fish-update/<int:pk>/', views.FishUpdateView.as_view(), name="fish_update"),
+
     path('recipe-list/', views.RecipeListView.as_view(), name="recipe_list"),
     path('recipe-create/', views.RecipeCreateView.as_view(), name="recipe_create"),
     path('recipe-detail/<int:pk>/', views.RecipeDetailView.as_view(), name="recipe_detail"),

@@ -93,9 +93,10 @@
             <span id="like-for-spot-count">{{ like_for_spot_count }}</span>
             <span>件のイイね</span>
         </div>
-
+        <a class="btn btn-success mt-5 mb-3" target="_blank" href="https://tenki.jp/search/?keyword={{ spot.capital }}{{ spot.city }}">天気</a>
+        <a class="btn btn-success mt-5 mb-3" target="_blank" href="https://www.google.co.jp/maps/place/{{ spot.capital }}{{ spot.city }}{{ spot.address }}">MAP</a>
         <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:spot_update' spot.pk %}">編集</a>
-        <a class="btn btn-success mt-5 ml-1 mb-3" href="#">編集履歴</a>
+<!--        <a class="btn btn-success mt-5 ml-1 mb-3" href="#">編集履歴</a>-->
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:spot_delete' spot.pk %}">削除</a>
         <a class="btn btn-secondary mt-5 ml-3 mb-3" href="{% url 'oniokoze:spot_list' %}">キャンセル</a>
     </div>
