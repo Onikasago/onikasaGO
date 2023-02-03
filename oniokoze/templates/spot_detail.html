@@ -36,9 +36,16 @@
             <div class="col-3">
                 <strong>釣れる魚</strong>
             </div>
-            <div class="col-9">
-                {{ spot.spotfish }}
-            </div>
+        <div class="col-9">
+        {% for fish in spot.fish.all %}
+            {{ fish.fish }}
+
+            {% if object.user_id == request.user.pk %}
+            <a href="{% url 'oniokoze:fish_update' fish.pk %}">編集する</a><br>
+            {% endif %}
+            <br>
+            {% endfor%}
+        </div>
         </div>
 
         <div class="row">

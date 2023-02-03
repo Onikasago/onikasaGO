@@ -288,7 +288,7 @@ class SpotCreateView(LoginRequiredMixin,generic.CreateView):
     model = Spot
     template_name = 'spot_create.html'
     form_class=SpotCreateForm
-    success_url=reverse_lazy('oniokoze:spot_list')
+    success_url=reverse_lazy('oniokoze:fish_create')
 
     def form_valid(self,form):
         spot=form.save(commit=False)
@@ -633,8 +633,39 @@ class FishnameUpdateView(generic.UpdateView):
             messages.error(self.request,'項目の更新に失敗しました')
             return super().form_invalid(form)
 
+class OrderUpdateView(generic.UpdateView):
+    template_name = 'order_update.html'
+    model = Order
+    form_class = OrderCreateForm
 
+    def get_success_url(self):
+        id = Order.recipe
+        return reverse_lazy('oniokoze:mypage')
 
+    def form_valid(self, form):
+        messages.success(self.request, '項目を更新しました')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, '項目の更新に失敗しました')
+        return super().form_invalid(form)
+
+class FishUpdateView(generic.UpdateView):
+    template_name = 'fish_update.html'
+    model = Fish
+    form_class = FishCreateForm
+
+    def get_success_url(self):
+        id = Fish.spot
+        return reverse_lazy('oniokoze:mypage')
+
+    def form_valid(self, form):
+        messages.success(self.request, '項目を更新しました')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, '項目の更新に失敗しました')
+        return super().form_invalid(form)
 
 class TriviaView(generic.TemplateView):
     template_name = 'trivia.html'

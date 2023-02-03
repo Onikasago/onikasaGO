@@ -282,7 +282,7 @@ class Order(models.Model):
     material = models.TextField(verbose_name='材料', blank=True, null=True)
     amount = models.IntegerField(verbose_name='量', blank=True, null=True)
     unit = models.TextField(verbose_name='単位', blank=True, null=True)
-    recipe = models.ForeignKey(Recipe, on_delete = models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete = models.CASCADE,related_name='order')
 
     class Meta:
         verbose_name_plural = 'Order'
@@ -296,7 +296,7 @@ class Order(models.Model):
 class Fish(models.Model):
     fish = models.TextField(verbose_name='釣れる魚', blank=True, null=True)
     no = models.IntegerField(verbose_name='番号', blank=True, null=True)
-    spot = models.ForeignKey(Spot, on_delete = models.CASCADE)
+    spot = models.ForeignKey(Spot, on_delete = models.CASCADE,related_name='fish')
 
     class Meta:
         verbose_name_plural = 'Fish'
