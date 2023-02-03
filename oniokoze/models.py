@@ -78,11 +78,6 @@ class History(models.Model):
     def __str__(self):
         return self.CAPITALS
 
-
-
-
-
-
     class Meta:
         verbose_name_plural = 'Fishname'
 
@@ -255,7 +250,6 @@ class Spot(models.Model):
     def __str__(self):
         return self.place
 
-
 class Recipe(models.Model):
 
     CHOICE_TUPLE=(
@@ -273,12 +267,13 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
-
     class Meta:
         verbose_name_plural = 'Recipe'
 
     def __str__(self):
         return self.title
+
+
 
 class Order(models.Model):
     order = models.IntegerField(verbose_name='順番')
@@ -287,13 +282,15 @@ class Order(models.Model):
     material = models.TextField(verbose_name='材料', blank=True, null=True)
     amount = models.IntegerField(verbose_name='量', blank=True, null=True)
     unit = models.TextField(verbose_name='単位', blank=True, null=True)
-    recipe = models.ForeignKey(Recipe, on_delete = models.CASCADE,related_name='order')
+    recipe = models.ForeignKey(Recipe, on_delete = models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'Order'
 
     def __str__(self):
         return self.procedure
+
+
 
 
 class Fish(models.Model):
