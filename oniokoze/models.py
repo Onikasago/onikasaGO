@@ -253,13 +253,14 @@ class Recipe(models.Model):
         ("豆知識", "豆知識"),
     )
 
-    user = models.ForeignKey(CustomUser, verbose_name='ユーザID', on_delete=models.PROTECT)
     method = models.TextField(choices=CHOICE_TUPLE,verbose_name='分類', blank=True)
     title = models.TextField(verbose_name='タイトル')
     shopphoto = models.ImageField(verbose_name='お店の写真', blank=True, null=True)
     shopURL = models.URLField(verbose_name='お店のURL', blank=True, null=True)
     titlephoto = models.ImageField(verbose_name='タイトル写真', blank=True, null=True)
     titlemovie = models.URLField(verbose_name='タイトル動画', blank=True, null=True)
+    user=models.ForeignKey(CustomUser,verbose_name='ユーザー',on_delete=models.PROTECT)
+
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
@@ -286,6 +287,19 @@ class Order(models.Model):
     def __str__(self):
         return self.procedure
 
+
+
+
+class Fish(models.Model):
+    fish = models.TextField(verbose_name='釣れる魚', blank=True, null=True)
+    no = models.IntegerField(verbose_name='番号', blank=True, null=True)
+    spot = models.ForeignKey(Spot, on_delete = models.CASCADE,related_name='fish')
+
+    class Meta:
+        verbose_name_plural = 'Fish'
+
+    def __str__(self):
+        return self.fish
 
 class Trivia(models.Model):
     trivia = models.TextField(verbose_name='豆知識', blank=True, null=True)

@@ -87,7 +87,7 @@ class RecipeCreateForm(forms.ModelForm):
 class SpotCreateForm(forms.ModelForm):
     class Meta:
         model=Spot
-        fields=('capital', 'city', 'address','place', 'location', 'spotURL','free','beginner')
+        fields=('capital', 'city', 'address','place', 'location','spotURL','free','beginner')
         def __init__(self,*args,**kwargs):
             super().__init__(*args,**kwargs)
             for field in self.fields.value():
@@ -139,7 +139,7 @@ class FishCreateForm(forms.ModelForm):
     class Meta:
         model = Fish
         fields = (
-            'no',
+
             'fish',
         )
 

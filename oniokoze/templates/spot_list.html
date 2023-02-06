@@ -14,10 +14,10 @@
                 <div class="my-div-style">
 
                     <h1>釣り場</h1>
-                     <form method="GET" action="{% url 'oniokoze:spot_list' %}">
+                     <form method="GET">
                          <label>釣り場名から検索:</label><br>
                          <input type="text" name="keyword" placeholder="釣り場名"><br>
-                         <input type="checkbox" name="">初心者おすすめ</input><br>
+                         <input type="checkbox" name="beginner">初心者おすすめ</input><br>
                          <button class="btn btn-primary" type="submit">検索</button>
                      </form>
                 </div>

@@ -32,19 +32,21 @@
             </div>
         </div>
 
-        <strong>釣れる魚</strong>
-    </div>
-    <div class="col-9">
+        <div class="row">
+            <div class="col-3">
+                <strong>釣れる魚</strong>
+            </div>
+        <div class="col-9">
         {% for fish in spot.fish.all %}
-        {{ fish.no }}
-        {{ fish.fish }}
+            {{ fish.fish }}
 
-
-        <a href="{% url 'oniokoze:fish_update' fish.pk %}">編集する</a><br>
-      {% endfor %}
-    </div>
-
-    <hr>
+            {% if object.user_id == request.user.pk %}
+            <a href="{% url 'oniokoze:fish_update' fish.pk %}">編集する</a><br>
+            {% endif %}
+            <br>
+            {% endfor%}
+        </div>
+        </div>
 
         <div class="row">
             <div class="col-3">
@@ -60,11 +62,10 @@
                 <strong>初心者おすすめ</strong>
             </div>
             <div class="col-9">
-
                 {% if spot.beginner == True %}
-                <a>✔</a>
-                {% else %}
-                <a>×</a>
+                    <a>✔</a>
+                {% elif spot.beginner == False %}
+                    <a>×</a>
                 {% endif %}
             </div>
         </div>
@@ -103,10 +104,9 @@
             <span id="like-for-spot-count">{{ like_for_spot_count }}</span>
             <span>件のイイね</span>
         </div>
-        <a class="btn btn-success mt-5 mb-3" target="_blank" href="https://tenki.jp/search/?keyword={{ spot.capital }}{{ spot.city }}">天気</a>
-        <a class="btn btn-success mt-5 mb-3" target="_blank" href="https://www.google.co.jp/maps/place/{{ spot.capital }}{{ spot.city }}{{ spot.address }}">MAP</a>
+
         <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:spot_update' spot.pk %}">編集</a>
-<!--        <a class="btn btn-success mt-5 ml-1 mb-3" href="#">編集履歴</a>-->
+        <a class="btn btn-success mt-5 ml-1 mb-3" href="#">編集履歴</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:spot_delete' spot.pk %}">削除</a>
         <a class="btn btn-secondary mt-5 ml-3 mb-3" href="{{request.META.HTTP_REFERER}}">キャンセル</a>
     </div>

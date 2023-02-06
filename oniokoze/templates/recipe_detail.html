@@ -16,36 +16,40 @@
             <div class="col-9">
                 {{ recipe.title }}
             </div>
-        </div>
+
         <hr>
+
+
         <div class="col-3">
-            <strong>お店</strong>
+            <strong>材料</strong>
         </div>
         <div class="col-9">
-            {% if recipe.shopURL %}
-            <a href="{{ recipe.shopURL }}">
-                <img src="{{recipe.shopphoto.url}}" width="200" height="200"/>
-            </a>
-            {% else %}
-                {{ recipe.shopphoto }}
+        {% for order in recipe.order.all %}
+            {{ order.material }}
+            {{order.amount}}
+            {{order.unit}}
+            {% if object.user_id == request.user.pk %}
+            <a href="{% url 'oniokoze:order_update' order.pk %}">編集する</a><br>
             {% endif %}
-        </div>
-        </div>
-        <hr>
-
-
-
-        <div class="row">
-            <div class="col-3">
-                <strong>本文</strong>
-            </div>
-            <div class="col-9">
-                {{ recipe.content|linebreaksbr }}
-            </div>
+            <br>
+            {% endfor%}
         </div>
 
         <hr>
 
+        <div class="col-3">
+            <strong>手順</strong>
+        </div>
+        <div class="col-9">
+            {% for order in recipe.order.all %}
+            {{order.order}}
+            {{ order.procedure }}
+            <br>
+        {% endfor %}
+        </div>
+
+
+        <hr>
         <div class="row">
             <div class="col-3">
                 <strong>写真</strong>
@@ -63,23 +67,6 @@
         </div>
 
         <hr>
-    <div class="col-3">
-<strong>手順</strong>
-    </div>
-    <div class="col-9">
-
-
-        {% for order in recipe.order.all %}
-
-        {{ order.order }}
-
-        {{order.procedure}}
-
-        <a href="{% url 'oniokoze:order_update' order.pk %}">編集する</a><br>
-      {% endfor %}
-    </div>
-
-    <hr>
 
         <div class="row">
             <div class="col-3">
@@ -118,7 +105,12 @@
     </div>
 
         <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' object.pk %}">編集</a>
+                </div>
+    {% if request.user == object.user %}
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' recipe.pk%}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_delete' object.pk %}">削除</a>
+    {% endif%}
+</div>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{{request.META.HTTP_REFERER}}">戻る</a>
     </div>
 </div>
