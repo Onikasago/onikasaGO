@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}釣果一覧|OnikasaGO{% endblock %}
+
+{% block contents %}
+
+<div class="masthead">
+    <div class="container">
+        <div class="row">
+            <div class="my-div-style">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h1>マイ釣果</h1>
+                    {% for catch in catch_list %}<!--Fishnameモデルが持つデータを繰り返しで表示する-->
+                    <div class="post-preview">
+                        <a href="{% url 'oniokoze:catch_detail' catch.pk %}">
+                            <!--        idにあったデータの詳細画面を表示するリンクの表示-->
+                            <h2 class="post-title">
+                                {{catch.nametitle}}<!--            魚種名の表示-->
+                            </h2>
+                            <h3 class="post-subtitle">
+                                {{catch.place}}{{catch.capital}}{{catch.city}}<!--              場所の表示-->
+                            </h3>
+                            <div class="thumbnail">
+                                {% if catch.photo1 %}
+                                <img src="{{catch.photo1.url}}" width="300" height="200" hspace="30">
+                                <!--              場所の表示-->
+                                {% elif catch.photo2 %}
+                                <img src="{{catch.photo2.url}}" width="300" height="200" hspace="30">
+                                <!--              場所の表示-->
+                                {% elif catch.photo3 %}
+                                <img src="{{catch.photo2.url}}" width="300" height="200" hspace="30">
+                                {% elif catch.photo4 %}
+                                <img src="{{catch.photo4.url}}" width="300" height="200" hspace="30">
+                                {% elif catch.photo5 %}
+                                <img src="{{catch.photo5.url}}" width="300" height="200" hspace="30">
+                                {% else %}
+                                <h3>画像がありません</h3>
+                                {% endif %}
+                            </div>
+                        </a>
+                        <p class="post-meta">
+                            {{catch.created_at}}<!--              作成日時の表示-->
+                        </p>
+                    </div>
+                    <hr class="my-4">
+                    {% empty %}　<!--何もなかった場合の処理-->
+                    <p>日記がありません。</p>
+                    {% endfor %} <!--繰り返し処理の終了部分-->
+                    <!--ページネーション処理-->
+                    {% if is_paginated %}
+                    <ul class="pagination">
+                        <!--前ページへのリンク-->
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{page_obj.previous_page_number}}">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <!--ページ数表示-->
+                        {% for page_num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == page_num %}
+                        <li class="page-item active">
+                            <a class="page-link" href="#">{{page_num}}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{page_num}}">
+                                {{page_num}}
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        <!--次ページへのリンク-->
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{page_obj.next_page_number}}">
+                                <span aria-hidden="true">&raquo</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

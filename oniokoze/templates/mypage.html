@@ -5,8 +5,7 @@
 {% block title %}効果測定{% endblock %}
 
 {% block header%}
-<header>
-    <div class="masthead">
+<div class="masthead">
 <div class="container">
     <div class="row">
         <div class="my-div-style">
@@ -34,124 +33,52 @@
             </tr>
         </table>
         <a href="{% url 'oniokoze:mypage_detail' user.pk %}" class="btn btn-primary btn-xl rounded-pill mt-5" >ユーザー情報</a>
+             <div class="tabbox">
+                 <input type="radio" name="tabset" id="tabcheck1" checked><label for="tabcheck1" class="tab">　　　　　　　　　　　　　　　マイ投稿　　　　　　　　　　　　　　　　</label>
+                 <input type="radio" name="tabset" id="tabcheck2"        ><label for="tabcheck2" class="tab">　　　　　　　　　　　　　　　マイいいね　　　　　　　　　　　　　　　</label>
+                 <div class="tabcontent" id="tabcontent1">
+                     <div class="col-auto my-1">
+                         <select class="form-control" id="sample" onchange="viewChange();">
+                             <option value="select1">釣果</option>
+                             <option value="select2">レシピ</option>
+                         </select>
+                     </div>
+                     <div class="col-auto my-5">
+                         <div id="Box1" class="my-5">
+                             <p><a href="{% url 'oniokoze:mycatch_list' %}" class="btn btn-primary btn-xl rounded-pill mt-5" >釣果</a></p>
+                         </div>
+                         <div id="Box2" class="my-5" style="display:none;">
+                             <p><a href="{% url 'oniokoze:myrecipe_list' %}" class="btn btn-primary btn-xl rounded-pill mt-5" >レシピ</a></p>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="tabcontent" id="tabcontent2">
+                     <div class="col-auto my-1">
+                         <select class="form-control" id="sample2" onchange="viewChange2();">
+                             <option value="select3">釣り場</option>
+                             <option value="select4">釣果</option>
+                             <option value="select5">レシピ</option>
+                         </select>
+                     </div>
+                     <div class="col-auto my-5">
+                         <div id="Box3" class="my-5">
+                             <p><a href="{% url 'oniokoze:myspot_like' %}" class="btn btn-primary btn-xl rounded-pill mt-5" >釣り場</a></p>
+                         </div>
+                         <div id="Box4" class="my-5" style="display:none;">
+                             <p><a href="{% url 'oniokoze:mycatch_like' %}" class="btn btn-primary btn-xl rounded-pill mt-5" >釣果</a></p>
+                         </div>
+                         <div id="Box5" class="my-5" style="display:none;">
+                             <p><a href="{% url 'oniokoze:myrecipe_like' %}" class="btn btn-primary btn-xl rounded-pill mt-5" >レシピ</a></p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
         </div>
     </div>
 </div>
-    </div>
-</header>
+</div>
+
+
 {% endblock %}
 
-{% block contents %}
-<section class="about-section text-center" id="about">
-            <div class="container px-4 px-lg-5">
-                <!-- Featured Project Row-->
-                <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-12 col-lg-8">
-                        <div class="tabbox">
-                            <input type="radio" name="tabset" id="tabcheck1" checked><label for="tabcheck1" class="tab">マイ投稿</label>
-                            <input type="radio" name="tabset" id="tabcheck2"        ><label for="tabcheck2" class="tab">マイいいね</label>
-                            <div class="tabcontent" id="tabcontent1">
-                                <div class="col-auto my-1">
-                                    <select class="form-control" id="sample" onchange="viewChange();">
-                                        <option value="select1">釣果</option>
-                                        <option value="select2">レシピ</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto my-5">
-                                    <div id="Box1" class="my-5">
-                                        <p><img class="img-fluid" src="{% static 'assets/img/fish1.jpg' %}"></p>
-                                    </div>
-                                    <div id="Box2" class="my-5" style="display:none;">
-                                        <p><img class="img-fluid" src="{% static 'assets/img/fish2.png' %}"></p>
-                                    </div>
-                                </div>
 
-                            </div>
-                            <div class="tabcontent" id="tabcontent2">
-                                <div class="col-auto my-1">
-                                    <select class="form-control" id="sample2" onchange="viewChange2();">
-                                        <option value="select3">釣り場</option>
-                                        <option value="select4">釣果</option>
-                                        <option value="select5">レシピ</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto my-5">
-                                    <div id="Box3" class="my-5">
-                                        <p>
-                                        <div class="masthead2">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="my-div-style w-100">
-                                                    <div class="col-lg-8 col-md-10 mx-auto">
-                                                        {% for spot in spot_list %}
-                                                        <div class="post-preview">
-                                                            <a href="{% url 'oniokoze:spot_detail' spot.pk %}">
-                                                                <h2 class="post-title">
-                                                                    {{ spot.place }}
-                                                                </h2>
-                                                                <h3 class="post-subtitle">
-                                                                    {{ spot.capital }}
-                                                                    {{ spot.city }}
-                                                                    {{ spot.address }}
-                                                                </h3>
-                                                            </a>
-                                                            <p class="post-meta">{{ spot.created_at }}</p>
-                                                        </div>
-                                                        <hr>
-                                                        {% empty %}
-                                                        <p>日記がありません。</p>
-                                                        {% endfor %}
-
-                                                        <!-- ページネーション処理 -->
-                                                        {% if is_paginated %}
-                                                        <ul class="pagination">
-                                                            <!-- 前ページへのリンク -->
-                                                            {% if page_obj.has_previous %}
-                                                            <li class="page-item">
-                                                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-                                                                    <span aria-hidden="true"></span>
-                                                                </a>
-                                                            </li>
-                                                            {% endif %}
-
-                                                            <!-- ページ数表示 -->
-                                                            {% for page_num in page_obj.paginator.page_range %}
-                                                            {% if page_obj.number == page_num %}
-                                                            <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
-                                                            {% else %}
-                                                            <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
-                                                            {% endif %}
-                                                            {% endfor %}
-
-                                                            <!-- 次ページへのリンク -->
-                                                            {% if page_obj.has_next %}
-                                                            <li class="page-item">
-                                                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-                                                                    <span aria-hidden="true">&raquo;</span>
-                                                                </a>
-                                                            </li>
-                                                            {% endif %}
-                                                        </ul>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                        </p>
-                                    </div>
-                                    <div id="Box4" class="my-5" style="display:none;">
-                                        <p><img class="img-fluid" src="{% static 'assets/img/pict02.jpg' %}"></p>
-                                    </div>
-                                    <div id="Box5" class="my-5" style="display:none;">
-                                        <p><img class="img-fluid" src="{% static 'assets/img/pict03.jpg' %}"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-{% endblock %}

@@ -14,6 +14,8 @@ urlpatterns = [
     path('catch-delete/<int:pk>/', views.CatchDeleteView.as_view(), name="catch_delete"),
     path('fishname-create/', views.FishnameCreateView.as_view(), name="fishname_create"),
     path('fishname-update/<int:pk>/', views.FishnameUpdateView.as_view(), name="fishname_update"),
+    path('mycatch-list', views.MyCatchListView.as_view(), name="mycatch_list"),
+    path('mycatch-like/', views.MyCatchLikeView.as_view(), name="mycatch_like"),
 
     path('spot-list/', views.SpotListView.as_view(), name="spot_list"),
     path('spot-create/', views.SpotCreateView.as_view(), name="spot_create"),
@@ -22,6 +24,7 @@ urlpatterns = [
     path('spot-delete/<int:pk>/', views.SpotDeleteView.as_view(), name="spot_delete"),
     path('fish-create/', views.FishCreateView.as_view(), name="fish_create"),
     path('fish-update/<int:pk>/', views.FishUpdateView.as_view(), name="fish_update"),
+    path('myspot-like/', views.MySpotLikeView.as_view(), name="myspot_like"),
 
     path('recipe-list/', views.RecipeListView.as_view(), name="recipe_list"),
     path('recipe-create/', views.RecipeCreateView.as_view(), name="recipe_create"),
@@ -30,6 +33,8 @@ urlpatterns = [
     path('recipe-delete/<int:pk>/', views.RecipeDeleteView.as_view(), name="recipe_delete"),
     path('order-create/',views.OrderCreateView.as_view(),name="order_create"),
     path('order-update/<int:pk>/', views.OrderUpdateView.as_view(), name="order_update"),
+    path('myrecipe-list/', views.MyRecipeListView.as_view(), name="myrecipe_list"),
+    path('myrecipe-like/', views.MyRecipeLikeView.as_view(), name="myrecipe_like"),
 
     path('like_for_spot/', views.like_for_spot, name='like_for_spot'),
     path('like_for_catch/', views.like_for_catch, name='like_for_catch'),

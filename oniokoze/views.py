@@ -717,3 +717,42 @@ class MypageUpdateView(LoginRequiredMixin,GotoHellMixin, generic.UpdateView):
         return super().form_invalid(form)
 
 
+class MyCatchListView(LoginRequiredMixin, generic.ListView):
+    model = Catch
+    template_name = 'mycatch_list.html'
+    def get_queryset(self):
+        mycatchs= Catch.objects.filter(user=self.request.user).order_by('-created_at')
+        return mycatchs
+
+
+class MyRecipeListView(LoginRequiredMixin,generic.ListView):
+    model = Recipe
+    template_name = 'myrecipe_list.html'
+
+    def get_queryset(self):
+        myrecipes= Recipe.objects.filter(user=self.request.user).order_by('-created_at')
+        return myrecipes
+
+class MySpotLikeView(LoginRequiredMixin,generic.ListView):
+    model = LikeForSpot
+    template_name = 'myspot_like.html'
+
+    def get_queryset(self):
+        spotlikes= LikeForSpot.objects.filter(user=self.request.user).order_by('-timestamp')
+        return spotlikes
+
+class MyCatchLikeView(LoginRequiredMixin,generic.ListView):
+    model = LikeForCatch
+    template_name = 'mycatch_like.html'
+
+    def get_queryset(self):
+        catchlikes= LikeForCatch.objects.filter(user=self.request.user).order_by('-timestamp')
+        return catchlikes
+
+class MyRecipeLikeView(LoginRequiredMixin,generic.ListView):
+    model = LikeForRecipe
+    template_name = 'myrecipe_like.html'
+
+    def get_queryset(self):
+        recipelikes= LikeForRecipe.objects.filter(user=self.request.user).order_by('-timestamp')
+        return recipelikes

@@ -78,11 +78,7 @@ class History(models.Model):
     def __str__(self):
         return self.CAPITALS
 
-    class Meta:
-        verbose_name_plural = 'Fishname'
 
-    def __str__(self):
-        return self.title
 
 class Catch(models.Model):
     CAPITALS = (
@@ -162,7 +158,7 @@ class Catch(models.Model):
     updated_at = models.DateTimeField(verbose_name='更新日時', auto_now=True)
 
     def __str__(self):
-        return self.id
+        return self.nametitle
         # return str(self.nametitle)+self.capital
 
 class Fishname(models.Model):

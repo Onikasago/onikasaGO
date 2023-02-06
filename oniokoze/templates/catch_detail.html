@@ -126,7 +126,7 @@
         </div>
         <a class="btn btn-success mt-5 　mb-3" href="{% url 'oniokoze:catch_update' object.pk %}">釣果編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_delete' object.pk %}">削除</a>
-        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_list' %}">戻る</a>
+        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{{request.META.HTTP_REFERER}}">戻る</a>
  </div>
 </div>
 
