@@ -65,6 +65,11 @@
         </div>
     </div>
 </div>
+    </div>
+  </div>
+</div>
+</div>
+
     <div class="masthead2">
         <div class="container">
             <div class="row">
@@ -75,33 +80,38 @@
                                 <a class="btn btn-primary float-right" href="{% url 'oniokoze:recipe_create' %}">新規作成</a>
                             </div>
                           {% for recipe in recipe_list %}<!--Recipeモデルが持つデータを繰り返しで表示する-->
-                          <div class="post-preview">
-                    <!--        idにあったデータの詳細画面を表示するリンクの表示-->
-                            <a href="{% url 'oniokoze:recipe_detail' recipe.pk %}">
-                                <h2 class="post-title">
-                                    {{recipe.title}}<!--            魚種名の表示-->
-                                </h2>
-                                <h2>
-                                    {{recipe.method}}<!--            魚種名の表示-->
-                                </h2>
-                                {% if recipe.shopphoto %}
-                                <h3>
-                                    <img src="{{recipe.shopphoto.url}}" width="300" height="200" hspace="30">
-                                    <!--              場所の表示-->
-                                </h3>
-                                {% elif recipe.titlephoto %}
-                                <h3>
-                                    <img src="{{recipe.titlephoto.url}}" width="300" height="200" hspace="30">
-                                    <!--              場所の表示-->
-                                </h3>
-                                {% endif %}
-                            </a>
-                          </div>
-                            <hr class="my-4">
-                            {% empty %}　<!--何もなかった場合の処理-->
-                            <p>日記がありません。</p>
-                            {% endfor %} <!--繰り返し処理の終了部分-->
-                            <!--ページネーション処理-->
+                            <table>
+                              <div class="post-preview">
+                        <!--        idにあったデータの詳細画面を表示するリンクの表示-->
+                                <a href="{% url 'oniokoze:recipe_detail' recipe.pk %}">
+                                    <h2 class="post-title">
+                                        {{recipe.title}}<!--            魚種名の表示-->
+                                    </h2>
+                                    <h2>
+                                        {{recipe.method}}<!--            魚種名の表示-->
+                                    </h2>
+                                    <div class="thumbnail">
+                                    {% if recipe.shopphoto %}
+                                        <img src="{{recipe.shopphoto.url}}" width="300" height="200" hspace="30">
+                                            <!--              場所の表示-->
+
+                                        {% elif recipe.titlephoto %}
+                                            <img src="{{recipe.titlephoto.url}}" width="300" height="200" hspace="30"><!--              場所の表示-->
+
+                                        {% else %}
+                                        <h3>画像がありません</h3>
+                                    {% endif %}
+                                    </div>
+
+                                </a>
+                              </div>
+                            </table>
+                                <hr class="my-4">
+                                {% empty %}　<!--何もなかった場合の処理-->
+                                <p>レシピデータがありません。</p>
+                                {% endfor %} <!--繰り返し処理の終了部分-->
+                                <!--ページネーション処理-->
+
                             {% if is_paginated %}
                             <ul class="pagination">
                                 <!--前ページへのリンク-->
@@ -136,11 +146,7 @@
                                 {% endif %}
                             </ul>
                             {% endif %}
-                            <script>
 
-
-
-                            </script>
                         </div>
                     </div>
                 </div>
@@ -148,10 +154,7 @@
         </div>
     </div>
   </div>
-</div>
-  </div>
-</div>
-</div>
+
 {% endblock %}
 
 
