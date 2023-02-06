@@ -62,7 +62,11 @@
                 <strong>初心者おすすめ</strong>
             </div>
             <div class="col-9">
-                {{ spot.beginner }}
+                {% if spot.beginner == True %}
+                    <a>✔</a>
+                {% elif spot.beginner == False %}
+                    <a>×</a>
+                {% endif %}
             </div>
         </div>
 

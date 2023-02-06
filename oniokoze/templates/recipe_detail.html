@@ -88,7 +88,7 @@
             </div>
         </div>
                 </div>
-    {% if object.user_id == request.user.pk %}
+    {% if request.user == object.user %}
         <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' recipe.pk%}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_delete' object.pk %}">削除</a>
     {% endif%}

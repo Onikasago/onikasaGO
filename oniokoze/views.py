@@ -250,22 +250,51 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
     model = Spot
     template_name = 'spot_list.html'
 
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        query = self.request.GET
+        list = [0, 0]
 
-    def get_queryset(self):
-        spots = Spot.objects.filter(user=self.request.user).order_by('-created_at')
-        return spots
+        if k := query.get('keyword'):  # python3.8以降
+            if k == '':
+                list[0] = 0
+            else:
+                list[0] = 1
 
-    def get_queryset(self):
-        queryset = Spot.objects.order_by('-id')
-        keyword = self.request.GET.get('keyword')
+        if b := query.get('beginner'):
+            if b == '':
+                list[1] = 9
+                b = False
 
-        if keyword:
-            queryset = queryset.filter(
-                            Q(place__icontains=keyword) | Q(capital__icontains=keyword)
-                       )
-            messages.success(self.request, '「{}」の検索結果'.format(keyword))
+            elif b == 'on':
+                list[1] = 2
+                b = True
 
-        return queryset
+        if (list[0] == 1) and (list[1] == 2):
+            queryset = queryset.filter(Q(place__icontains=k) & Q(beginner__icontains=b))
+
+        elif (list[0] == 1) and (list[1] != 2):
+            queryset = queryset.filter(Q(place__icontains=k))
+
+        elif (list[0] != 1) and (list[1] == 2):
+            queryset = queryset.filter(Q(beginner__icontains=b))
+
+        elif (list[0] == 0) and (list[1] == 2):
+            queryset = queryset.filter(Q(beginner__icontains=b))
+
+        return queryset.order_by('-created_at')
+
+    # def get_queryset(self):
+    #     queryset = Spot.objects.order_by('-id')
+    #     keyword = self.request.GET.get('keyword')
+    #
+    #     if keyword:
+    #         queryset = queryset.filter(
+    #                         Q(place__icontains=keyword) | Q(capital__icontains=keyword)
+    #                    )
+    #         messages.success(self.request, '「{}」の検索結果'.format(keyword))
+    #
+    #     return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
