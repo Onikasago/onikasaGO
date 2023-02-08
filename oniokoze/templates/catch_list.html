@@ -19,7 +19,7 @@
       <form id="selectForm">
           <div class="search_ui size_search_box pc">
               <form class="d-flex" action="{% url 'oniokoze:catch_list' %}" method="get">
-                  <a>分類: </a>
+                  <a>魚種: </a>
                   <input name="p" placeholder="Search" aria-label="Search">
                   <button type="submit">検索</button>
               </form>
@@ -74,7 +74,7 @@
       </div>
       <hr class="my-4">
       {% empty %}　<!--何もなかった場合の処理-->
-      <p>日記がありません。</p>
+      <p>該当する結果がありません</p>
       {% endfor %} <!--繰り返し処理の終了部分-->
 
       <!--ページネーション処理-->

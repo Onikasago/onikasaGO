@@ -26,6 +26,9 @@
         <div class="col-9">
         {% for order in recipe.order.all %}
             {{ order.material }}
+            {% if order.amount <= 0 %}
+                <a>未記入</a>
+            {% endif %}
             {{order.amount}}
             {{order.unit}}
             {% if object.user_id == request.user.pk %}
@@ -103,8 +106,6 @@
         <span id="like-for-recipe-count">{{ like_for_recipe_count }}</span>
         <span>件のイイね</span>
     </div>
-
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' object.pk %}">編集</a>
                 </div>
     {% if request.user == object.user %}
         <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' recipe.pk%}">編集</a>
