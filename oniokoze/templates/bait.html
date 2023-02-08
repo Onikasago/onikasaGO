@@ -6,6 +6,64 @@
 </head>
 <body>
 <style>
+<div id="page">
+  <header id="header">Header</header>
+  <article id="content">
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+  </article>
+  <aside id="sidebar">
+    <div>Sidebar</div>
+    <div>Sidebar</div>
+  </aside>
+  <footer id="footer">Footer</footer>
+</div>
+#page {
+  width: 980px;
+  margin: 0 auto;
+  border: blue 5px solid;
+}
+#header {
+  background-color: lightblue;
+}
+#content {
+  width: 680px;
+  float: left;
+  background-color: lightpink;
+}
+#sidebar {
+  width: 300px;
+  float: right;
+  background-color: lightgreen;
+}
+#footer {
+  clear: both;
+  background-color: lightblue;
+}
+@media screen and (max-width: 1000px) {
+  #page {
+    width: 98%;
+    border-color: yellow;
+  }
+  #content {
+    width: 70%;
+  }
+  #sidebar {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 700px) {
+  #page {
+    border-color: red;
+  }
+  #content {
+    width: 100%;
+  }
+  #sidebar {
+    width: 100%;
+  }
+}
 .center {
   text-align: center;
 }
@@ -13,52 +71,143 @@
   margin-right: auto;
   margin-left: auto;
 }
+h1 {
+    font-size: 80px;
+    background-color: #F3F3F3;
+}
+h2 {
+    font-size: 60px;
+    background-color: #F3F3F3;
+}
+h3 {
+    font-size: 40px;
+    background-color: #F3F3F3;
+}
 </style>
  <div class="center">
 {% load static %}
-<p>
+
 <h1>エサ</h1><br>
+  <p>目次</p>
   <a href="#anker1">海釣りで使われるエサ</a><br>
   <a href="#anker2">川、湖で使われるエサ</a><br>
   <a href="#anker3">その他</a><br>
    <h2 id="anker1">海釣りで使われるエサ</h2>
-    <img src="{% static 'assets/img/24677625_s.jpg' %}"><br>
-    <b>イソメ類</b><br>
-    海釣りで最もポピュラーなエサ。価格もお手頃でいろいろな魚が狙える。ただし見た目が気持ち悪くミミズの上位互換。アオイソメが一番多く使われている。<br>
-    <img src="{% static 'assets/img/3433841_s.jpg' %}"><br>
-    <b>アミ類</b><br>
-    アミエビなど小さいエビのような見た目をしていてサビキ釣りで小さ目の魚を狙う時などに使ったりするものや、オキアミなど幅広い魚種に対応するものもあります。見た目がエビなので触りやすい。<br>
-    <img src="{% static 'assets/img/crab-g79b706b7f_640.jpg' %}"><br>
-    <b>貝、カニ</b><br>
-    釣具屋さんに売っている物もあれば、磯など、釣り場にいる貝やカニを捕まえてそのままエサにする現地調達ができるエサでもある。貝は殻ごと付けたり、殻を石で割ったりしてむき身で使う。<br>
-    <img src="{% static 'assets/img/23549075_s.jpg' %}"><br>
-    <b>魚</b><br>
-    大きな魚を釣るときには、その魚が食べる小さな魚をエサとして使うことがあります(泳がせ釣り)。代表的な物としては、アジ、ウグイなどがあげられます。また、タチウオの特攻エサとしてドジョウが使われていたりもします。<br>
-    <img src="{% static 'assets/img/4921366_s.jpg' %}"><br>
-    <b>魚の切り身</b><br>
-    釣具屋に売っているものもありますがスーパーで売っている魚の切り身でOK。皮つきで、身質がかたいものがエサもちが良くてオススメ。<br>
-    <img src="{% static 'assets/img/24704051_s.jpg' %}"><br>
-    <b>ルアー</b><br>
-    小魚の形を模した、金属でできたハードルアーと、イソメなど虫エサの形を模したソフトルアーがあります。使いまわしができて手も汚れない。ただ生きエサよりも若干釣れづらくなる。<br>
-
+    <h3>イソメ類</h3>
+     <div class="flex">
+         <a><img src="{% static 'assets/img/24677625_s.jpg' %}"></a>
+         <p style="margin-right:40px">
+         海釣りで最もポピュラーなエサ。価格もお手頃でいろいろな魚が狙える。ただし見た目が気持ち悪くミミズの上位互換。アオイソメが一番多く使われている。<br>
+         <br>
+         釣れる魚<br>
+         ・キス　　　　・グレ<br>
+         ・カレイ　　　・カサゴ<br>
+         ・ハゼ　　　　・カワハギ<br>
+         ・アイナメ　　・スズキ<br>
+         ・メバル　　　・その他</p>
+     </div>
+  　<h3>アミ類</h3>
+     <div class="flex">
+         <a><img src="{% static 'assets/img/3433841_s.jpg' %}"></a><br>
+         <p style="margin-right:40px">
+             アミエビなど小さいエビのような見た目をしていてサビキ釣りで小さ目の魚を狙う時などに使ったりするものや、オキアミなど幅広い魚種に対応するものもあります。(大きさによってマグロなど大型の魚のエサに使われる)見た目がエビなので触りやすい。<br></p>
+         <br>
+         釣れる魚<br>
+         ・アジ　　　　・イワシ<br>
+         ・サバ　　　　・サッパ<br>
+         ・グレ　　　　・カワハギ<br>
+         ・アイナメ　　・チヌ<br>
+         ・メバル　　　・その他大型魚など</p>
+     </div>
+    <h3>貝、カニ</h3>
+         <div class="flex">
+      <a><img src="{% static 'assets/img/crab-g79b706b7f_640.jpg' %}"></a><br>
+      <p style="margin-right:40px">
+          釣具屋さんに売っている物もあれば、磯など、釣り場にいる貝やカニを捕まえてそのままエサにする現地調達ができるエサでもある。貝は殻ごと付けたり、殻を石で割ったりしてむき身で使う。<br>
+             釣れる魚<br>
+         ・チヌ　　　　・タコ<br>
+         ・石鯛　　　　・ブダイ<br>
+         ・コロダイ　　・イシガキダイ<br>
+         ・カサゴ　　　・シーバス<br>
+         ・キジハタ　　・ウグイ</p>
+         </div>
+    <h3>魚</h3>
+         <div class="flex">
+             <a><img src="{% static 'assets/img/23549075_s.jpg' %}"></a><br>
+             <p style="margin-right:40px">
+    大きな魚を釣るときには、その魚が食べる小さな魚をエサとして使うことがあります(泳がせ釣り)。代表的な物としては、アジ、ウグイなどがあげられます。また、タチウオの特攻エサとしてドジョウが使われていたりもします。
+             釣れる魚<br>
+         ・シーバス　　・カサゴ<br>
+         ・キジハタ　　・アオリイカ<br>
+         ・ヒラメ　　　・ブリ<br>
+         ・マゴチ　　　・サワラ<br>
+         ・タチウオ　　・その他大型魚など</p><br>
+         </div>
+    <h3>魚の切り身</h3>
+             <div class="flex">
+                 <a><img src="{% static 'assets/img/4921366_s.jpg' %}"></a><br>
+                              <p style="margin-right:40px">
+         釣具屋に売っているものもありますがスーパーで売っている魚の切り身でOK。皮つきで、身質がかたいものがエサもちが良くてオススメ。<br>
+              釣れる魚<br>
+         ・マダイ　　　・タチウオ<br>
+         ・サバ　　　　・スズキ<br>
+         ・カマス　　　・サワラ<br>
+         ・アイナメ　　・チヌ<br>
+         ・メバル　　　・その他根魚など</p>
+             </div>
+    <h3>ルアー</h3>
+          <div class="flex">
+          <a><img src="{% static 'assets/img/24704051_s.jpg' %}"></a><br>
+                    <p style="margin-right:40px">
+    小魚の形を模した、金属でできたハードルアーと、イソメなど虫エサの形を模したソフトルアーがあります。使いまわしができて手も汚れない。ただ生きエサよりも若干釣れづらくなる。
+                釣れる魚<br>
+         ・スズキ　　　・アジ<br>
+         ・ヒラメ　　　・マゴチ<br>
+         ・クロダイ　　・メバル<br>
+         ・カサゴ　　　・ハタ<br>
+         ・アオリイカ　・その他大型魚など</p>
+          </div>
     <br>
     <h2 id="anker2">川、湖で使われるエサ</h2>
-    <img src="{% static 'assets/img/5176893_s.jpg' %}"><br>
-    <b>ミミズ類</b><br>
-    川上流から河口、湖沼まで使われる万能エサです。自分で採取するもよし、釣具屋で売っているのでそれを買うのもよし。<br>
-    <img src="{% static 'assets/img/24873161_s.jpg' %}"><br>
-    <b>幼虫類</b><br>
+    <h3>ミミズ</h3>
+    <div class="flex">
+    　<a><img src="{% static 'assets/img/5176893_s.jpg' %}"></a><br>
+        <p style="margin-right:40px">
+    川上流から河口、湖沼まで使われる万能エサです。自分で採取するもよし、釣具屋で売っているのでそれを買うのもよし。
+               釣れる魚<br>
+         ・ウナギ　　　・ブラックバス<br>
+         ・ナマズ　　　・コイ<br>
+         ・ニゴイ　　　・ライギョ<br>
+         ・ハゼ　　　　・フナ<br>
+         ・ハヤ　　　　・その他<br>
+        </p>
+    </div>
+    <h3>幼虫類</h3>
+            <div class="flex">
+        　<a><img src="{% static 'assets/img/24873161_s.jpg' %}"></a><br>
+        <p style="margin-right:40px">
     サシ(ハエの幼虫)や赤虫(ユスリカの幼虫)、ブドウ虫(ブドウの木にいる害虫)などがあり狙う魚によって様々な種類がある。
-    例：ワカサギ＝サシ、小魚＝赤虫、マス類＝ブドウ虫など
-    <img src="{% static 'assets/img/22014812_s.jpg' %}"><br>
-    <b>水生昆虫</b><br>
-    川底の石の裏についていることの多い虫。上流や中流域にいることが多く、そこにいる魚が普段から食している物なので釣果が期待できる。<br>
-
+            例：ワカサギ＝サシ、小魚＝赤虫、マス類＝ブドウ虫など
+              釣れる魚<br>
+         ・イワナ　　　・ヤマメ<br>
+         ・ニジマス　　・ハヤ<br>
+         ・ワカサギ　　・など
+            </div>
+    <h3>水生昆虫</h3>
+    <div class="flex">
+　  <a><img src="{% static 'assets/img/22014812_s.jpg' %}"></a><br>
+    <p style="margin-right:40px">
+            川底の石の裏についていることの多い虫。上流や中流域にいることが多く、そこにいる魚が普段から食している物なので釣果が期待できる。
+              釣れる魚<br>
+         ・イワナ　　　・ヤマメ<br>
+         ・ニジマス　　・ハヤ<br>
+         ・オイカワ　　・ウグイ<br>
+    </div>
    <h2 id="anker3">その他</h2>
-   <b>コーン・カキ・ウニ・海藻・パン・人口エサ</b><br>
-   釣りたい魚によって様々なエサがあるし人や地域によって使うエサも違ってくる。自分なりのエサを探すのも楽しみの一つ。
+                        <h3>コーン・カキ・ウニ・海藻・パン・人口エサ</h3>
+                        <p>釣りたい魚によって様々なエサがあるし人や地域によって使うエサも違ってくる。自分なりのエサを探すのも楽しみの一つ。</p>
+ </div>
 
-</p>
  </div>
 </body>
 </html>
