@@ -15,7 +15,7 @@
                     {{ form.as_table }}
                 </table>
                 <button class="btn btn-primary" type="submit">更新</button>
-                <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:recipe_detail' object.recipe_id %}">キャンセル</a>
+                <a class="btn btn-secondary ml-2" href="{{request.META.HTTP_REFERER}}">キャンセル</a>
             </form>
         </div>
     </div>

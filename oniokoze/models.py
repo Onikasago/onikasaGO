@@ -1,7 +1,7 @@
 from accounts.models import CustomUser
 from django.utils import timezone
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 class History(models.Model):
     CAPITALS = (
         ('北海道', '北海道'),
@@ -163,7 +163,8 @@ class Catch(models.Model):
 
 class Fishname(models.Model):
     name = models.CharField(verbose_name='魚種',max_length=50 ,blank=True, null=True)
-    size = models.IntegerField(verbose_name='サイズ', blank=True,null=True)
+
+    size = models.DecimalField(verbose_name='サイズ', max_digits=6, decimal_places=2, blank=True, null=True)
     no = models.IntegerField(verbose_name='種類数', blank=True, null=True)
     catch = models.ForeignKey(Catch, on_delete = models.CASCADE, related_name='fishname')
 
@@ -277,7 +278,7 @@ class Order(models.Model):
     procedure = models.TextField(verbose_name='手順', blank=True, null=True)
     photo = models.ImageField(verbose_name='写真', blank=True, null=True)
     material = models.TextField(verbose_name='材料', blank=True, null=True)
-    amount = models.IntegerField(verbose_name='量', blank=True, null=True)
+    amount = models.DecimalField(verbose_name='量', max_digits=6,decimal_places=2, blank=True, null=True,validators=[MinValueValidator(0)])
     unit = models.TextField(verbose_name='単位', blank=True, null=True)
     recipe = models.ForeignKey(Recipe, on_delete = models.CASCADE,related_name='order')
 
