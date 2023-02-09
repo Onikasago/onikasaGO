@@ -99,7 +99,6 @@ class OrderCreateForm(forms.ModelForm):
         fields = (
             'order',
             'procedure',
-            'photo',
             'material',
             'amount',
             'unit'

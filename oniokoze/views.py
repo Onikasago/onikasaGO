@@ -8,6 +8,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect,JsonResponse
+from oniokoze.forms import *
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
@@ -30,7 +31,7 @@ def spot(request):
         )
         messages.success(request, '「{}」の検索結果'.format(keyword))
 
-    return render(request, 'oniokoze/spot_list.html', {'spot': spot})
+    return render(request, 'spot_list.html', {'spot': spot})
 
 class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
@@ -60,7 +61,7 @@ class IndexView(generic.TemplateView):
 class CatchListView(LoginRequiredMixin, generic.ListView):
     model = Catch
     template_name = 'catch_list.html'
-    paginate_by = 3
+
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         query = self.request.GET
@@ -250,51 +251,22 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
     model = Spot
     template_name = 'spot_list.html'
 
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        query = self.request.GET
-        list = [0, 0]
 
-        if k := query.get('keyword'):  # python3.8以降
-            if k == '':
-                list[0] = 0
-            else:
-                list[0] = 1
+    def get_queryset(self):
+        spots = Spot.objects.filter(user=self.request.user).order_by('-created_at')
+        return spots
 
-        if b := query.get('beginner'):
-            if b == '':
-                list[1] = 9
-                b = False
+    def get_queryset(self):
+        queryset = Spot.objects.order_by('-id')
+        keyword = self.request.GET.get('keyword')
 
-            elif b == 'on':
-                list[1] = 2
-                b = True
+        if keyword:
+            queryset = queryset.filter(
+                            Q(place__icontains=keyword) | Q(capital__icontains=keyword) |  Q(city__icontains=keyword) | Q(address__icontains=keyword)
+                       )
+            messages.success(self.request, '「{}」の検索結果'.format(keyword))
 
-        if (list[0] == 1) and (list[1] == 2):
-            queryset = queryset.filter(Q(place__icontains=k) & Q(beginner__icontains=b))
-
-        elif (list[0] == 1) and (list[1] != 2):
-            queryset = queryset.filter(Q(place__icontains=k))
-
-        elif (list[0] != 1) and (list[1] == 2):
-            queryset = queryset.filter(Q(beginner__icontains=b))
-
-        elif (list[0] == 0) and (list[1] == 2):
-            queryset = queryset.filter(Q(beginner__icontains=b))
-
-        return queryset.order_by('-created_at')
-
-    # def get_queryset(self):
-    #     queryset = Spot.objects.order_by('-id')
-    #     keyword = self.request.GET.get('keyword')
-    #
-    #     if keyword:
-    #         queryset = queryset.filter(
-    #                         Q(place__icontains=keyword) | Q(capital__icontains=keyword)
-    #                    )
-    #         messages.success(self.request, '「{}」の検索結果'.format(keyword))
-    #
-    #     return queryset
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -323,10 +295,10 @@ class SpotCreateView(LoginRequiredMixin,generic.CreateView):
         spot=form.save(commit=False)
         spot.user=self.request.user
         spot.save()
-        messages.success(self.request,'日記を作成しました。')
+        messages.success(self.request,'釣り場情報を作成しました。')
         return super().form_valid(form)
     def form_invalid(self,form):
-        messages.error(self.request,"日記の作成に失敗しました。")
+        messages.error(self.request,"釣り場情報の作成に失敗しました。")
         return super().form_invalid(form)
 
 class SpotDetailView(LoginRequiredMixin,generic.DetailView):
@@ -365,7 +337,7 @@ def like_for_spot(request):
 
     return JsonResponse(context)
 
-class SpotUpdateView(LoginRequiredMixin,OnlyYouMixin,generic.UpdateView):
+class SpotUpdateView(LoginRequiredMixin,generic.UpdateView):
     model = Spot
     template_name = 'spot_update.html'
     form_class = SpotCreateForm
@@ -374,10 +346,10 @@ class SpotUpdateView(LoginRequiredMixin,OnlyYouMixin,generic.UpdateView):
         return reverse_lazy('oniokoze:spot_detail',kwargs={'pk':self.kwargs['pk']})
 
     def form_valid(self,form):
-        messages.success(self.request,'日記を更新しました。')
+        messages.success(self.request,'情報を更新しました。')
         return super().form_valid(form)
     def form_invalid(self,form):
-        messages.error(self.request,"日記の更新に失敗しました。")
+        messages.error(self.request,"情報の更新に失敗しました。")
         return super().form_invalid(form)
 
 class SpotDeleteView(LoginRequiredMixin,OnlyYouMixin,generic.DeleteView):
@@ -386,7 +358,7 @@ class SpotDeleteView(LoginRequiredMixin,OnlyYouMixin,generic.DeleteView):
     success_url = reverse_lazy('oniokoze:spot_list')
 
     def delete(self, request, *args, **kwargs):
-        messages.success(self.request,"日記を削除しました。")
+        messages.success(self.request,"釣り場情報を削除しました。")
         return super().delete(request,*args,**kwargs)
 
 def getPrefecture(request):
@@ -457,7 +429,6 @@ class OrderCreateView(generic.CreateView):
 class RecipeListView(LoginRequiredMixin,generic.ListView):
     model = Recipe
     template_name = 'recipe_list.html'
-    paginate_by = 3
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
@@ -560,7 +531,7 @@ def like_for_recipe(request):
 
     return JsonResponse(context)
 
-class RecipeUpdateView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView):
+class RecipeUpdateView(LoginRequiredMixin,FuckYouMixin,generic.UpdateView):
     model = Recipe
     template_name = 'recipe_update.html'
     form_class = RecipeCreateForm
@@ -569,21 +540,21 @@ class RecipeUpdateView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView):
         return reverse_lazy('oniokoze:recipe_detail', kwargs={'pk': self.kwargs['pk']})
 
     def form_valid(self, form):
-        messages.success(self.request, '日記を更新しました。')
+        messages.success(self.request, 'レシピを更新しました。')
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "日記の更新に失敗しました。")
+        messages.error(self.request, "レシピの更新に失敗しました。")
         return super().form_invalid(form)
 
 
-class RecipeDeleteView(LoginRequiredMixin, OnlyYouMixin, generic.DeleteView):
+class RecipeDeleteView(LoginRequiredMixin,FuckYouMixin,generic.DeleteView):
     model = Recipe
     template_name = 'recipe_delete.html'
     success_url = reverse_lazy('oniokoze:recipe_list')
 
     def delete(self, request, *args, **kwargs):
-        messages.success(self.request, "日記を削除しました。")
+        messages.success(self.request, "レシピを削除しました。")
         return super().delete(request, *args, **kwargs)
 
 class FishnameCreateView(generic.CreateView):
@@ -647,29 +618,52 @@ class FishCreateView(generic.CreateView):
             corporationinformation.save()
         return redirect(to='/spot-list')
 
+class FishUpdateView(generic.UpdateView):
+    template_name = 'fish_update.html'
+    model = Fish
+    form_class = FishCreateForm
+
+
+    def get_success_url(self):
+        # id = Fish.spot
+        return reverse_lazy('oniokoze:spot_detail', kwargs={'pk':self.kwargs['pk']})
+
+    def form_valid(self, form):
+        messages.success(self.request, '項目を更新しました')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, '項目の更新に失敗しました')
+        return super().form_invalid(form)
+
+
 class FishnameUpdateView(generic.UpdateView):
-        template_name = 'fishname_update.html'
-        model = Fishname
-        form_class = FishnameCreateForm
-        def get_success_url(self):
-            id = Fishname.catch
-            # return reverse_lazy('oniokoze:catch_detail',kwargs={'pk':self.kwargs['pk']})
-            return  reverse_lazy('oniokoze:mypage')
-        def form_valid(self, form):
-            messages.success(self.request,'項目を更新しました')
-            return super().form_valid(form)
-        def form_invalid(self, form):
-            messages.error(self.request,'項目の更新に失敗しました')
-            return super().form_invalid(form)
+    template_name = 'fishname_update.html'
+    model = Fishname
+    form_class = FishnameCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('oniokoze:catch_detail',kwargs={'pk':self.kwargs['pk']})
+
+
+    def form_valid(self, form):
+        messages.success(self.request, '項目を更新しました')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, '項目の更新に失敗しました')
+        return super().form_invalid(form)
+
 
 class OrderUpdateView(generic.UpdateView):
     template_name = 'order_update.html'
     model = Order
     form_class = OrderCreateForm
 
+
     def get_success_url(self):
-        id = Order.recipe
-        return reverse_lazy('oniokoze:mypage')
+        return reverse_lazy('oniokoze:recipe_detail',kwargs={'pk':self.kwargs['pk']})
+
 
     def form_valid(self, form):
         messages.success(self.request, '項目を更新しました')
@@ -679,22 +673,7 @@ class OrderUpdateView(generic.UpdateView):
         messages.error(self.request, '項目の更新に失敗しました')
         return super().form_invalid(form)
 
-class FishUpdateView(generic.UpdateView):
-    template_name = 'fish_update.html'
-    model = Fish
-    form_class = FishCreateForm
 
-    def get_success_url(self):
-        id = Fish.spot
-        return reverse_lazy('oniokoze:mypage')
-
-    def form_valid(self, form):
-        messages.success(self.request, '項目を更新しました')
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        messages.error(self.request, '項目の更新に失敗しました')
-        return super().form_invalid(form)
 
 class TriviaView(generic.TemplateView):
     template_name = 'trivia.html'
@@ -730,11 +709,11 @@ class MypageUpdateView(LoginRequiredMixin,GotoHellMixin, generic.UpdateView):
         return reverse_lazy('oniokoze:mypage_detail', kwargs={'pk': self.kwargs['pk']})
 
     def form_valid(self, form):
-        messages.success(self.request, '日記を更新しました。')
+        messages.success(self.request, '情報を更新しました。')
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "日記の更新に失敗しました。")
+        messages.error(self.request, "情報の更新に失敗しました。")
         return super().form_invalid(form)
 
 
