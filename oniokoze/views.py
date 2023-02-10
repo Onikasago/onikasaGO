@@ -17,6 +17,9 @@ from accounts.models import CustomUser
 
 
 
+
+
+
 logger = logging.getLogger(__name__)
 
 def spot(request):
@@ -61,6 +64,7 @@ class IndexView(generic.TemplateView):
 class CatchListView(LoginRequiredMixin, generic.ListView):
     model = Catch
     template_name = 'catch_list.html'
+    paginate_by = 3
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
@@ -195,7 +199,7 @@ class CatchDeleteView(LoginRequiredMixin,generic.DeleteView):
     success_url = reverse_lazy('oniokoze:catch_list')
 
     def delete(self, request, *args, **kwargs):
-        messages.success(self.request,"項目を削除しました")
+        messages.success(self.request,"釣果を削除しました")
         return super().delete(request,*args, **kwargs)
 class FishnameCreateView(generic.CreateView):
     form_class = FishnameCreateForm
@@ -247,6 +251,16 @@ class FishnameUpdateView(generic.UpdateView):
         messages.error(self.request, '項目の更新に失敗しました')
         return super().form_invalid(form)
 
+
+class FishnameDeleteView(LoginRequiredMixin,OnlyYouMixin,generic.DeleteView):
+    model = Fishname
+    template_name = 'fishname_delete.html'
+    success_url = reverse_lazy('oniokoze:catch_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,"釣果情報を削除しました。")
+        return super().delete(request,*args,**kwargs)
+
 class SpotListView(LoginRequiredMixin,generic.ListView):
     model = Spot
     template_name = 'spot_list.html'
@@ -256,17 +270,39 @@ class SpotListView(LoginRequiredMixin,generic.ListView):
         spots = Spot.objects.filter(user=self.request.user).order_by('-created_at')
         return spots
 
-    def get_queryset(self):
-        queryset = Spot.objects.order_by('-id')
-        keyword = self.request.GET.get('keyword')
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        query = self.request.GET
+        list = [0, 0]
 
-        if keyword:
-            queryset = queryset.filter(
-                            Q(place__icontains=keyword) | Q(capital__icontains=keyword) |  Q(city__icontains=keyword) | Q(address__icontains=keyword)
-                       )
-            messages.success(self.request, '「{}」の検索結果'.format(keyword))
+        if k := query.get('keyword'):  # python3.8以降
+            if k == '':
+                list[0] = 0
+            else:
+                list[0] = 1
 
-        return queryset
+        if b := query.get('beginner'):
+            if b == '':
+                list[1] = 9
+                b = False
+
+            elif b == 'on':
+                list[1] = 2
+                b = True
+
+        if (list[0] == 1) and (list[1] == 2):
+            queryset = queryset.filter(Q(place__icontains=k) & Q(beginner__icontains=b))
+
+        elif (list[0] == 1) and (list[1] != 2):
+            queryset = queryset.filter(Q(place__icontains=k))
+
+        elif (list[0] != 1) and (list[1] == 2):
+            queryset = queryset.filter(Q(beginner__icontains=b))
+
+        elif (list[0] == 0) and (list[1] == 2):
+            queryset = queryset.filter(Q(beginner__icontains=b))
+
+        return queryset.order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -295,8 +331,20 @@ class SpotCreateView(LoginRequiredMixin,generic.CreateView):
         spot=form.save(commit=False)
         spot.user=self.request.user
         spot.save()
-        messages.success(self.request,'釣り場情報を作成しました。')
-        return super().form_valid(form)
+
+
+        if spot.capital is None or spot.city is None or spot.address is None or spot.place is None:
+            ms = 'このフィールドは必須です'
+            d ={
+                'ms': ms,
+            }
+        else:
+            messages.success(self.request, '釣れる魚を入力してください')
+            return super().form_valid(form)
+
+        return render(request, 'oniokoze/spot_create.html', d)
+
+
     def form_invalid(self,form):
         messages.error(self.request,"釣り場情報の作成に失敗しました。")
         return super().form_invalid(form)
@@ -485,11 +533,20 @@ class RecipeCreateView(generic.CreateView):
     success_url = reverse_lazy('oniokoze:order_create')
 
     def form_valid(self, form):
-        spot = form.save(commit=False)
-        spot.user = self.request.user
-        spot.save()
-        messages.success(self.request, '日記を作成しました。')
-        return super().form_valid(form)
+        recipe = form.save(commit=False)
+        recipe.user = self.request.user
+        recipe.save()
+
+        if recipe.method is None or recipe.title is None:
+            ms = 'このフィールドは必須です'
+            d ={
+                'ms': ms,
+            }
+        else:
+            messages.success(self.request, 'レシピを作成しました。')
+            return super().form_valid(form)
+
+        return render(request, 'oniokoze/recipe_create.html', d)
 
     def form_invalid(self, form):
         messages.error(self.request, "日記の作成に失敗しました。")

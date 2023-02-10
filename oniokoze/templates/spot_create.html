@@ -15,7 +15,9 @@
                 <table class="table">
                     {{ form.as_table }}
                 </table>
+                {{ms}}
                 <button class="btn btn-primary" type="submit">釣れる魚入力へ</button>
+                <a class="btn btn-danger" href="{{request.META.HTTP_REFERER}}">戻る</a>
             </form>
         </div>
     </div>

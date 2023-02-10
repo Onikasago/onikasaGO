@@ -15,6 +15,7 @@
                     {{ form.as_table }}
                 </table>
                 <button class="btn btn-primary" type="submit">更新</button>
+                <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:fish_delete' fish.pk %}">削除</a>
                 <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:spot_detail' object.spot_id %}">キャンセル</a>
             </form>
         </div>
