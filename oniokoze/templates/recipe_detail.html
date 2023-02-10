@@ -50,9 +50,10 @@
             {{order.order}}
             {{ order.procedure }}
 
-            {% endif %}
+
                         {% if object.user_id == request.user.pk %}
             <a  href="{% url 'oniokoze:order_update' order.pk %}">編集する</a><br>
+            {% endif %}
             {% endif %}
             <br>
         {% endfor %}
