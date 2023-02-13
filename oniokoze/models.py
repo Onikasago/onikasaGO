@@ -87,7 +87,7 @@ class Catch(models.Model):
 class Fishname(models.Model):
     name = models.CharField(verbose_name='魚種',max_length=50 ,blank=True, null=True)
 
-    size = models.DecimalField(verbose_name='サイズ', max_digits=6, decimal_places=2, blank=True, null=True)
+    size = models.DecimalField(verbose_name='サイズ', max_digits=6, decimal_places=1, blank=True, null=True,validators=[MinValueValidator(0)])
     no = models.IntegerField(verbose_name='種類数', blank=True, null=True)
     catch = models.ForeignKey(Catch, on_delete = models.CASCADE, related_name='fishname')
 
@@ -153,9 +153,9 @@ class Spot(models.Model):
 
     user=models.ForeignKey(CustomUser,verbose_name='ユーザー',on_delete=models.PROTECT)
     capital = models.CharField(choices=CAPITALS, verbose_name='都道府県', blank=True,max_length=5)
-    city = models.TextField(verbose_name='市区町村', blank=True)
-    address = models.TextField(verbose_name='番地以降', blank=True)
-    place = models.TextField(verbose_name='釣り場', blank=True)
+    city = models.CharField(verbose_name='市区町村',max_length=50, blank=True)
+    address = models.CharField(verbose_name='番地以降',max_length=50, blank=True)
+    place = models.CharField(verbose_name='釣り場',max_length=50, blank=True)
     free = models.TextField(verbose_name='自由記入欄', blank=True, null=True)
     spotURL = models.URLField(verbose_name='URL記入欄', blank=True, null=True)
     location = models.CharField(choices=LOCATIONS, verbose_name='ロケーション',blank=True, null=True, max_length=5)
@@ -177,11 +177,10 @@ class Recipe(models.Model):
     )
 
     method = models.TextField(choices=CHOICE_TUPLE,verbose_name='分類', blank=True)
-    title = models.TextField(verbose_name='タイトル')
+    title = models.CharField(verbose_name='タイトル',max_length=100)
     shopphoto = models.ImageField(verbose_name='お店の写真', blank=True, null=True)
     shopURL = models.URLField(verbose_name='お店のURL', blank=True, null=True)
     titlephoto = models.ImageField(verbose_name='タイトル写真', blank=True, null=True)
-    titlemovie = models.URLField(verbose_name='タイトル動画', blank=True, null=True)
     user=models.ForeignKey(CustomUser,verbose_name='ユーザー',on_delete=models.PROTECT)
 
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
@@ -197,11 +196,10 @@ class Recipe(models.Model):
 
 class Order(models.Model):
     order = models.IntegerField(verbose_name='順番')
-    procedure = models.TextField(verbose_name='手順', blank=True, null=True)
-    photo = models.ImageField(verbose_name='写真', blank=True, null=True)
-    material = models.TextField(verbose_name='材料', blank=True, null=True)
+    procedure = models.CharField(verbose_name='手順',max_length=100 , blank=True, null=True)
+    material = models.CharField(verbose_name='材料',max_length=30 , blank=True, null=True)
     amount = models.DecimalField(verbose_name='量', max_digits=6,decimal_places=2, blank=True, null=True,validators=[MinValueValidator(0)])
-    unit = models.TextField(verbose_name='単位', blank=True, null=True)
+    unit = models.CharField(verbose_name='単位',max_length=32 , blank=True, null=True)
     recipe = models.ForeignKey(Recipe, on_delete = models.CASCADE,related_name='order')
 
     class Meta:
@@ -214,7 +212,7 @@ class Order(models.Model):
 
 
 class Fish(models.Model):
-    fish = models.TextField(verbose_name='釣れる魚', blank=True, null=True)
+    fish = models.CharField(verbose_name='釣れる魚',max_length=50, blank=True, null=True)
     no = models.IntegerField(verbose_name='番号', blank=True, null=True)
     spot = models.ForeignKey(Spot, on_delete = models.CASCADE,related_name='fish')
 
@@ -247,7 +245,7 @@ class LikeForRecipe(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
 
 class Fish(models.Model):
-    fish = models.TextField(verbose_name='釣れる魚', blank=True, null=True)
+    fish = models.CharField(verbose_name='釣れる魚',max_length=50, blank=True, null=True)
     no = models.IntegerField(verbose_name='番号', blank=True, null=True)
     spot = models.ForeignKey(Spot, on_delete = models.CASCADE, related_name='fish')
 
