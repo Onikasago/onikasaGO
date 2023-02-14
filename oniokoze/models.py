@@ -244,13 +244,4 @@ class LikeForRecipe(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
 
-class Fish(models.Model):
-    fish = models.CharField(verbose_name='釣れる魚',max_length=50, blank=True, null=True)
-    no = models.IntegerField(verbose_name='番号', blank=True, null=True)
-    spot = models.ForeignKey(Spot, on_delete = models.CASCADE, related_name='fish')
 
-    class Meta:
-        verbose_name_plural = 'Fish'
-
-    def __str__(self):
-        return self.fish

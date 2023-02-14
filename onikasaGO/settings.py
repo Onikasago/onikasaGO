@@ -1,8 +1,4 @@
-from settings_common import *
-
-
-
-
+from .settings_common import *
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
