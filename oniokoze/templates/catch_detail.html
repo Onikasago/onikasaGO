@@ -22,6 +22,14 @@
 
     <hr>
 
+      <div class="col-3">
+      <strong>釣り場</strong>
+    </div>
+    <div class="col-9">
+      {{object.place}}　<!--魚種名の表示-->
+    </div>
+
+      <hr>
 
     <div class="row">
       <div class="col-3">
@@ -126,12 +134,14 @@
             <!-- イイねの数 -->
             <span id="like-for-catch-count">{{ like_for_catch_count }}</span>
             <span>件のイイね</span>
-        </div>
+        <hr>
+
         {% if request.user == object.user %}
-        <a class="btn btn-success mt-5 　mb-3" href="{% url 'oniokoze:catch_update' object.pk %}">釣果編集</a>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:catch_update' object.pk %}">釣果編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_delete' object.pk %}">削除</a>
         {% endif %}
-        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{{request.META.HTTP_REFERER}}">戻る</a>
+        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'oniokoze:catch_list' %}">戻る</a>
+        </div>
  </div>
 </div>
 

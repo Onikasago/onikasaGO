@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}釣果投稿 | OnikasaGO{% endblock %}
+{% block title %}魚種投稿 | OnikasaGO{% endblock %}
 
 {% block active_oniokoze_list %}active{% endblock %}
 
@@ -33,8 +33,10 @@
                     </div>
                   </div>
                 <input type="button" value="追加" class="list_add">
-              <button class="btn btn-primary" type="submit">作成</button>
+              <button class="btn btn-primary" type="submit">投稿</button>
+                <a class="btn btn-secondary ml-2" href="{% url 'oniokoze:catch_create' %}">戻る</a>
             </form>
+
             <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
             <script type="text/javascript">

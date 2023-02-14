@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}釣果一覧|OnikasaGO{% endblock %}
+{% block title %}レシピ一覧|OnikasaGO{% endblock %}
 
 {% block head %}
 <link href="#" rel="stylesheet">
@@ -44,7 +44,7 @@
                             </table>
                                 <hr class="my-4">
                                 {% empty %}　<!--何もなかった場合の処理-->
-                                <p>レシピデータがありません。</p>
+                                <p>投稿していません</p>
                                 {% endfor %} <!--繰り返し処理の終了部分-->
                                 <!--ページネーション処理-->
 
