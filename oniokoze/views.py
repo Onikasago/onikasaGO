@@ -20,6 +20,7 @@ from accounts.models import CustomUser
 
 
 
+
 logger = logging.getLogger(__name__)
 
 def spot(request):
@@ -438,11 +439,10 @@ class OrderCreateView(generic.CreateView):
           # 空の配列を作ります
         orderList= []
         procedureList= []
-        photoList= []
         materialList= []
         amountList = []
         unitList = []
-        n=1
+        n=0
           # request.POST.items()でPOSTで送られてきた全てを取得。
         for i in request.POST.items():
 
@@ -453,18 +453,20 @@ class OrderCreateView(generic.CreateView):
             if re.match(r'materialList_*', i[0]):
                 materialList.append(i[1])
             if re.match(r'amountList_*', i[0]):
-                amountList.append(i[1])
+                if (i[1]==''):
+                    amountList.append(0)
+                else:
+                    amountList.append(i[1])
             if re.match(r'unitList_*', i[0]):
                 unitList.append(i[1])
-            orderList.append(n)
-            n+=1
-        print(procedureList)
-        print(photoList)
+                n += 1
+                orderList.append(n)
+
+
         for i in range(len(procedureList)):
             corporationinformation = Order.objects.create(
                 order=orderList[i],
                 procedure =procedureList[i],
-                # photo=photoList[i],
                 material =materialList[i],
                 amount=amountList[i],
                 unit=unitList[i],
@@ -472,6 +474,7 @@ class OrderCreateView(generic.CreateView):
             )
             corporationinformation.save()
         return redirect(to='/recipe-list')
+
 
 
 class RecipeListView(LoginRequiredMixin,generic.ListView):

@@ -37,7 +37,7 @@
     <div class="col-9">
         {% for fish in spot.fish.all %}
             {{ fish.no }}
-            {{ fish.fish }}
+            <a href="{% url 'oniokoze:catch_list' %}">{{fish.fish}}</a>
         {% endfor %}
     </div>
 

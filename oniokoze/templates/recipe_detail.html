@@ -25,18 +25,18 @@
         </div>
         <div class="col-9">
         {% for order in recipe.order.all %}
+            {%if order.amount != 0 %}
             {{ order.material }}
-            {% if order.amount <= 0 %}
-                <a>未記入</a>
-            {% endif %}
             {{order.amount}}
             {{order.unit}}
+
             {% if object.user_id == request.user.pk %}
-            <a href="{% url 'oniokoze:order_update' order.pk %}">編集する</a><br>
+            <a  href="{% url 'oniokoze:order_update' order.pk %}">編集する</a><br>
+            {% endif %}
             {% endif %}
             <br>
+
             {% endfor%}
-        </div>
 
         <hr>
 
@@ -111,7 +111,7 @@
         <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:recipe_update' recipe.pk%}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_delete' object.pk %}">削除</a>
     {% endif%}
-        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{{request.META.HTTP_REFERER}}">戻る</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:recipe_list' %}">戻る</a>
     </div>
 
     </div>
