@@ -1,11 +1,66 @@
 {% extends 'base.html' %}
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>道具</title>
-</head>
-<body>
+{% block title %}道具{% endblock %}
+
+{% block contents %}
 <style>
+<div id="page">
+  <header id="header">Header</header>
+  <article id="content">
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+  </article>
+  <aside id="sidebar">
+    <div>Sidebar</div>
+    <div>Sidebar</div>
+  </aside>
+  <footer id="footer">Footer</footer>
+</div>
+#page {
+  width: 980px;
+  margin: 0 auto;
+  border: blue 5px solid;
+}
+#header {
+  background-color: lightblue;
+}
+#content {
+  width: 680px;
+  float: left;
+  background-color: lightpink;
+}
+#sidebar {
+  width: 300px;
+  float: right;
+  background-color: lightgreen;
+}
+#footer {
+  clear: both;
+  background-color: lightblue;
+}
+@media screen and (max-width: 1000px) {
+  #page {
+    width: 98%;
+    border-color: yellow;
+  }
+  #content {
+    width: 70%;
+  }
+  #sidebar {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 700px) {
+  #page {
+    border-color: red;
+  }
+  #content {
+    width: 100%;
+  }
+  #sidebar {
+    width: 100%;
+  }
+}
 .center {
   text-align: center;
 }
@@ -19,7 +74,9 @@ h3 {
 }
 </style>
 <div class="center">
-<h1>釣りに使う道具</h1><br>
+<h1></h1><br>
+     <br>
+     <br>
 
 {% load static %}
 <p>目次</p>
@@ -126,5 +183,7 @@ h3 {
 </div>
 </body>
 </html>
+
+{% endblock %}
 
 

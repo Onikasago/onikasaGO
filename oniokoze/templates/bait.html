@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>エサ</title>
-</head>
-<body>
+{% block title %}エサ{% endblock %}
+
+{% block contents %}
 <style>
 <div id="page">
   <header id="header">Header</header>
@@ -87,7 +84,9 @@ h3 {
  <div class="center">
 {% load static %}
 
-<h1>エサ</h1><br>
+<h1></h1><br>
+     <br>
+     <br>
   <p>目次</p>
   <a href="#anker1">海釣りで使われるエサ</a><br>
   <a href="#anker2">川、湖で使われるエサ</a><br>
@@ -211,3 +210,5 @@ h3 {
  </div>
 </body>
 </html>
+
+{% endblock %}

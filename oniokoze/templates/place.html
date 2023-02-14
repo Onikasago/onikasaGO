@@ -1,12 +1,67 @@
 {% extends 'base.html' %}
 
-<html lang="ja" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>危険な場所</title>
-</head>
-<body>
+{% block title %}危険な場所{% endblock %}
+
+{% block contents %}
 <style>
+<div id="page">
+  <header id="header">Header</header>
+  <article id="content">
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+  </article>
+  <aside id="sidebar">
+    <div>Sidebar</div>
+    <div>Sidebar</div>
+  </aside>
+  <footer id="footer">Footer</footer>
+</div>
+#page {
+  width: 980px;
+  margin: 0 auto;
+  border: blue 5px solid;
+}
+#header {
+  background-color: lightblue;
+}
+#content {
+  width: 680px;
+  float: left;
+  background-color: lightpink;
+}
+#sidebar {
+  width: 300px;
+  float: right;
+  background-color: lightgreen;
+}
+#footer {
+  clear: both;
+  background-color: lightblue;
+}
+@media screen and (max-width: 1000px) {
+  #page {
+    width: 98%;
+    border-color: yellow;
+  }
+  #content {
+    width: 70%;
+  }
+  #sidebar {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 700px) {
+  #page {
+    border-color: red;
+  }
+  #content {
+    width: 100%;
+  }
+  #sidebar {
+    width: 100%;
+  }
+}
 .center {
   text-align: center;
 }
@@ -24,7 +79,9 @@ h2 {
 }
 </style>
  <div class="center">
-<h1>危険な場所</h1><br>
+<h1></h1><br>
+     <br>
+     <br>
      {% load static %}
 <img src="{% static 'assets/img/25568161_s.jpg' %}"><br>
 ・テトラポットや消波ブロック<br>
@@ -53,3 +110,5 @@ h2 {
  </div>
 </body>
 </html>
+
+{% endblock %}
