@@ -97,11 +97,10 @@ class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = (
-            'order',
             'procedure',
             'material',
             'amount',
-            'unit'
+            'unit',
         )
 
 

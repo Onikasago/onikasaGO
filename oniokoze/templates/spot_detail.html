@@ -36,9 +36,13 @@
     </div>
     <div class="col-9">
         {% for fish in spot.fish.all %}
-            {{ fish.no }}
-            <a href="{% url 'oniokoze:catch_list' %}">{{fish.fish}}</a>
-        {% endfor %}
+            {{ fish.fish }}
+
+            {% if object.user_id == request.user.pk %}
+            <a href="{% url 'oniokoze:fish_update' fish.pk %}">編集する</a><br>
+            {% endif %}
+            <br>
+            {% endfor%}
     </div>
 
     <hr>
@@ -105,7 +109,7 @@
         <a class="btn btn-success mt-5 mb-3" href="{% url 'oniokoze:spot_update' spot.pk %}">編集</a>
 <!--        <a class="btn btn-success mt-5 ml-1 mb-3" href="#">編集履歴</a>-->
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'oniokoze:spot_delete' spot.pk %}">削除</a>
-        <a class="btn btn-secondary mt-5 ml-3 mb-3" href="{% url 'oniokoze:spot_list' %}">戻る</a>
+        <a class="btn btn-secondary mt-5 ml-3 mb-3" href="{{request.META.HTTP_REFERER}}">キャンセル</a>
     </div>
 </div>
 <script type="text/javascript">
