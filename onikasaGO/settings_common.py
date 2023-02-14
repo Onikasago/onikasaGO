@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'reversion',
     'widget_tweaks',
+    'django_ses',
 ]
 
 MIDDLEWARE = [
