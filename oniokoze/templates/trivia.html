@@ -1,340 +1,95 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}効果測定{% endblock %}
+{% block title %}トリビア{% endblock %}
 
 {% block header%}
+<style>
+.example{
+    display: inline-block;
+}
+.example img{
+    display: block;
+}
+<!--h1{-->
+<!--  color:#000000-->
+<!--}-->
+<!--h3{-->
+<!--  color:#000000-->
+<!--}-->
+<!--a{-->
+<!--  color:#000000-->
+<!--}-->
+h5{
+color:#000000
+}
+a{
+  text-align: center
+}
+ul {
+  display: flex;
+  margin: auto;
+}
+li{
+display: inline;
+list-style: none;
+  margin: auto;
+
+}
+
+
+</style>
+
+
+</a>
 <header>
     <div class="masthead">
         <div class="container">
-            <div class="row">
-                <a class="my-div-style">
-                    <h1>トリビア</h1>
-                    <a href="{% url 'oniokoze:tool' %}">道具</a><br>
-                    <a href="{% url 'oniokoze:manners' %}">マナー</a><br>
-                    <a href="{% url 'oniokoze:bait' %}">エサ</a><br>
-                    <a href="{% url 'oniokoze:fishing_method' %}">釣り方</a><br>
-                    <a href="{% url 'oniokoze:dangerous_creature' %}">危険な生き物</a><br>
-                    <a href="{% url 'oniokoze:place' %}">危険な場所</a><br>
+             <div class="row">
+                 <div class="my-div-style">
+                     <h2><br></h2>
+                     <h1>トリビア</h1>
+                 </div>
 
-            </div>
-            </div>
+<!--             <li width:33%>-->
+             <ul>
+             <li><a href="{% url 'oniokoze:tool' %}"><img width="300" src="{% static 'assets/img/道具.png' %}"><h5>道具</h5></a>
+             </li>
+<!--             </li>-->
+<!--             <li width:33%>-->
+             <li><a href="{% url 'oniokoze:manners' %}"><img width="300" src="{% static 'assets/img/マナー.png' %}"><h5>マナー</h5></a>
+             </li>
+<!--             </li>-->
+<!--             <li width:33%>-->
+
+             <li><a href="{% url 'oniokoze:bait' %}"><img width="300" src="{% static 'assets/img/エサ.png' %}"><h5>エサ</h5></a>
+             </li>
+             </ul>
+
+<!--             </li>-->
+
+<!--             <li width:33%>-->
+
+             <ul>
+             <li><a href="{% url 'oniokoze:fishing_method' %}"><img width="300" src="{% static 'assets/img/釣り方.png' %}"><h5>釣り方</h5></a>
+             </li>
+<!--             </li>-->
+<!--             <li width:33%>-->
+             <li><a href="{% url 'oniokoze:dangerous_creature' %}"><img width="300" src="{% static 'assets/img/危険な生き物.png' %}"><h5>危険な生き物</h5></a>
+             </li>
+<!--             </li>-->
+<!--             <li width:33%>-->
+             <li><a href="{% url 'oniokoze:place' %}"><img width="300" src="{% static 'assets/img/危険場所.png' %}"><h5>危険な場所</h5></a>
+            </li>
+             </ul>
+<!--             </li>-->
+
+
+             </div>
         </div>
     </div>
 </header>
+
+
 {% endblock %}
 
-<!--{% block contents %}-->
-<!--<div class="masthead">-->
-<!--<section class="page-section portfolio" id="portfolio">-->
-<!--            <div class="container">-->
-<!--                &lt;!&ndash; Portfolio Section Heading&ndash;&gt;-->
-<!--                <h1 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h1>-->
-<!--                &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                &lt;!&ndash; Portfolio Grid Items&ndash;&gt;-->
-<!--                <div class="row justify-content-center">-->
-<!--                    &lt;!&ndash; Portfolio Item 1&ndash;&gt;-->
-<!--                    <div class="col-md-5 col-lg-3 mb-4">-->
-<!--                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">-->
-<!--                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">-->
-<!--                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>-->
-<!--                            </div>-->
-<!--                                <img class="img-fluid" src="{% static 'assets/img/釣り.png' %}" alt="..." />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Portfolio Item 2&ndash;&gt;-->
-<!--                    <div class="col-md-5 col-lg-3 mb-4">-->
-<!--                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal2">-->
-<!--                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">-->
-<!--                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid" src="{% static 'assets/img/釣り竿.png' %}" alt="..." />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Portfolio Item 3&ndash;&gt;-->
-<!--                    <div class="col-md-5 col-lg-3 mb-4">-->
-<!--                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal3">-->
-<!--                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">-->
-<!--                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid" src="{% static 'assets/img/店.png' %}" alt="..." />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Portfolio Item 4&ndash;&gt;-->
-<!--                    <div class="col-md-5 col-lg-3 mb-4 mb-lg-0">-->
-<!--                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal4">-->
-<!--                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">-->
-<!--                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>-->
-<!--                            </div>-->
-<!--                                <img class="img-fluid" src="{% static 'assets/img/魚.png' %}" alt="..." />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Portfolio Item 5&ndash;&gt;-->
-<!--                    <div class="col-md-5 col-lg-3 mb-4 mb-md-0">-->
-<!--                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal5">-->
-<!--                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">-->
-<!--                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid" src="{% static 'assets/img/初心者.png' %}" alt="..." />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Portfolio Item 6&ndash;&gt;-->
-<!--                    <div class="col-md-5 col-lg-3">-->
-<!--                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal6">-->
-<!--                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">-->
-<!--                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid" src="{% static 'assets/img/海.png' %}" alt="..." />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Portfolio Item 7&ndash;&gt;-->
-<!--                    <div class="col-md-5 col-lg-3">-->
-<!--                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal6">-->
-<!--                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">-->
-<!--                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid" src="{% static 'assets/img/注意.png' %}" alt="..." />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Portfolio Item 8&ndash;&gt;-->
-<!--                    <div class="col-md-5 col-lg-3">-->
-<!--                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal6">-->
-<!--                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">-->
-<!--                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid" src="{% static 'assets/img/禁止.png' %}" alt="..." />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-
-<!--&lt;!&ndash; Copyright Section&ndash;&gt;-->
-<!--<div class="copyright py-4 text-center text-white">-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Portfolio Modals&ndash;&gt;-->
-<!--        &lt;!&ndash; Portfolio Modal 1&ndash;&gt;-->
-<!--        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">-->
-<!--            <div class="modal-dialog modal-xl">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>-->
-<!--                    <div class="modal-body text-center pb-5">-->
-<!--                        <div class="container">-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="col-lg-8">-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Title&ndash;&gt;-->
-<!--                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Log Cabin</h2>-->
-<!--                                    &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Image&ndash;&gt;-->
-<!--                                    <img class="img-fluid rounded mb-5" src="{% static 'assets/img/釣り.png' %}"alt="..." />-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Text&ndash;&gt;-->
-<!--                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>-->
-<!--                                    <button class="btn btn-primary" data-bs-dismiss="modal">-->
-<!--                                        <i class="fas fa-xmark fa-fw"></i>-->
-<!--                                        Close Window-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Portfolio Modal 2&ndash;&gt;-->
-<!--        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">-->
-<!--            <div class="modal-dialog modal-xl">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>-->
-<!--                    <div class="modal-body text-center pb-5">-->
-<!--                        <div class="container">-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="col-lg-8">-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Title&ndash;&gt;-->
-<!--                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Tasty Cake</h2>-->
-<!--                                    &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Image&ndash;&gt;-->
-<!--                                    <img class="img-fluid rounded mb-5" src="{% static 'assets/img/釣り竿.png' %}" alt="..." />-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Text&ndash;&gt;-->
-<!--                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>-->
-<!--                                    <button class="btn btn-primary" data-bs-dismiss="modal">-->
-<!--                                        <i class="fas fa-xmark fa-fw"></i>-->
-<!--                                        Close Window-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Portfolio Modal 3&ndash;&gt;-->
-<!--        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" aria-labelledby="portfolioModal3" aria-hidden="true">-->
-<!--            <div class="modal-dialog modal-xl">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>-->
-<!--                    <div class="modal-body text-center pb-5">-->
-<!--                        <div class="container">-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="col-lg-8">-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Title&ndash;&gt;-->
-<!--                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Circus Tent</h2>-->
-<!--                                    &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Image&ndash;&gt;-->
-<!--                                    <img class="img-fluid rounded mb-5" src="{% static 'assets/img/店.png' %}" alt="..." />-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Text&ndash;&gt;-->
-<!--                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>-->
-<!--                                    <button class="btn btn-primary" data-bs-dismiss="modal">-->
-<!--                                        <i class="fas fa-xmark fa-fw"></i>-->
-<!--                                        Close Window-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Portfolio Modal 4&ndash;&gt;-->
-<!--        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" aria-labelledby="portfolioModal4" aria-hidden="true">-->
-<!--            <div class="modal-dialog modal-xl">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>-->
-<!--                    <div class="modal-body text-center pb-5">-->
-<!--                        <div class="container">-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="col-lg-8">-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Title&ndash;&gt;-->
-<!--                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Controller</h2>-->
-<!--                                    &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Image&ndash;&gt;-->
-<!--                                    <img class="img-fluid rounded mb-5" src="{% static 'assets/img/魚.png' %}" alt="..." />-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Text&ndash;&gt;-->
-<!--                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>-->
-<!--                                    <button class="btn btn-primary" data-bs-dismiss="modal">-->
-<!--                                        <i class="fas fa-xmark fa-fw"></i>-->
-<!--                                        Close Window-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Portfolio Modal 5&ndash;&gt;-->
-<!--        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" aria-labelledby="portfolioModal5" aria-hidden="true">-->
-<!--            <div class="modal-dialog modal-xl">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>-->
-<!--                    <div class="modal-body text-center pb-5">-->
-<!--                        <div class="container">-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="col-lg-8">-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Title&ndash;&gt;-->
-<!--                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Locked Safe</h2>-->
-<!--                                    &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Image&ndash;&gt;-->
-<!--                                    <img class="img-fluid rounded mb-5" src="{% static 'assets/img/初心者.png' %}" alt="..." />-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Text&ndash;&gt;-->
-<!--                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>-->
-<!--                                    <button class="btn btn-primary" data-bs-dismiss="modal">-->
-<!--                                        <i class="fas fa-xmark fa-fw"></i>-->
-<!--                                        Close Window-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Portfolio Modal 6&ndash;&gt;-->
-<!--        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" aria-labelledby="portfolioModal6" aria-hidden="true">-->
-<!--            <div class="modal-dialog modal-xl">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>-->
-<!--                    <div class="modal-body text-center pb-5">-->
-<!--                        <div class="container">-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="col-lg-8">-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Title&ndash;&gt;-->
-<!--                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Submarine</h2>-->
-<!--                                    &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Image&ndash;&gt;-->
-<!--                                    <img class="img-fluid rounded mb-5" src="{% static 'assets/img/海.png' %}" alt="..." />-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Text&ndash;&gt;-->
-<!--                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>-->
-<!--                                    <button class="btn btn-primary" data-bs-dismiss="modal">-->
-<!--                                        <i class="fas fa-xmark fa-fw"></i>-->
-<!--                                        Close Window-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    &lt;!&ndash; Portfolio Modal 7&ndash;&gt;-->
-<!--        <div class="portfolio-modal modal fade" id="portfolioModal7" tabindex="-1" aria-labelledby="portfolioModal7" aria-hidden="true">-->
-<!--            <div class="modal-dialog modal-xl">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>-->
-<!--                    <div class="modal-body text-center pb-5">-->
-<!--                        <div class="container">-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="col-lg-8">-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Title&ndash;&gt;-->
-<!--                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Submarine</h2>-->
-<!--                                    &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Image&ndash;&gt;-->
-<!--                                    <img class="img-fluid rounded mb-5" src="{% static 'assets/img/注意.png' %}" alt="..." />-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Text&ndash;&gt;-->
-<!--                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>-->
-<!--                                    <button class="btn btn-primary" data-bs-dismiss="modal">-->
-<!--                                        <i class="fas fa-xmark fa-fw"></i>-->
-<!--                                        Close Window-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    &lt;!&ndash; Portfolio Modal 8&ndash;&gt;-->
-<!--        <div class="portfolio-modal modal fade" id="portfolioModal8" tabindex="-1" aria-labelledby="portfolioModal8" aria-hidden="true">-->
-<!--            <div class="modal-dialog modal-xl">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>-->
-<!--                    <div class="modal-body text-center pb-5">-->
-<!--                        <div class="container">-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="col-lg-8">-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Title&ndash;&gt;-->
-<!--                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Submarine</h2>-->
-<!--                                    &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Image&ndash;&gt;-->
-<!--                                    <img class="img-fluid rounded mb-5" src="{% static 'assets/img/禁止.png' %}" alt="..." />-->
-<!--                                    &lt;!&ndash; Portfolio Modal - Text&ndash;&gt;-->
-<!--                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>-->
-<!--                                    <button class="btn btn-primary" data-bs-dismiss="modal">-->
-<!--                                        <i class="fas fa-xmark fa-fw"></i>-->
-<!--                                        Close Window-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--</div>-->
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-{% endblock %}

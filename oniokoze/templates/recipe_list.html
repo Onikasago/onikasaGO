@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}釣果一覧|OnikasaGO{% endblock %}
+{% block title %}レシピ一覧|OnikasaGO{% endblock %}
 
 {% block active_recipe_list %}active{% endblock %}
 
@@ -99,16 +99,18 @@
                                             <img src="{{recipe.titlephoto.url}}" width="300" height="200" hspace="30"><!--              場所の表示-->
 
                                         {% else %}
-                                        <h3>画像がありません</h3>
+                                        <h2>画像がありません</h2>
                                     {% endif %}
                                     </div>
+                                    <div class="card-header">
+                                </div>
 
                                 </a>
                               </div>
                             </table>
                                 <hr class="my-4">
                                 {% empty %}　<!--何もなかった場合の処理-->
-                                <p>レシピデータがありません。</p>
+                                <p>該当する結果がありません</p>
                                 {% endfor %} <!--繰り返し処理の終了部分-->
                                 <!--ページネーション処理-->
 
@@ -146,6 +148,8 @@
                                 {% endif %}
                             </ul>
                             {% endif %}
+
+
 
                         </div>
                     </div>
