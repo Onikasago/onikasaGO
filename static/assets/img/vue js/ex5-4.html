@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>クリックしたら、たし算する例</h2>
+    <div id="app">
+      <p>
+        数１ = <input v-model.number="number1"><br>
+        数２ = <input v-model.number="number2">
+      </p>
+      <button v-on:click="add">たし算</button>
+      <hr>
+      <h3>計算結果</h3>
+      <p>{{number1}}+{{number2}}={{Add}}</p> 
+
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data:{
+            number1:0,
+            number2:0,
+            Add:0
+        },
+        methods:{
+            add:function(){
+              this.Add=this.number1+this.number2;
+            }
+        }
+
+      })
+    </script>
+  </body>
+</html>

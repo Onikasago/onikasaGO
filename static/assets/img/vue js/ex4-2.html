@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>入力した数値の四則検算</h2>
+    <div id="app">
+      <label>数値１ = <input type="number" v-model.number="number1"></label>
+      <br>
+      <label>数値２ = <input type="number" v-model.number="number2"></label>
+      <p>たし算：{{number1}}+{{number2}}={{number1+number2}}<br>
+         ひき算：{{number1}}-{{number2}}={{number1-number2}}<br>
+         かけ算：{{number1}}*{{number2}}={{number1*number2}}<br>
+         わり算：{{number1}}/{{number2}}={{number1/number2}}<br>
+         剰余：{{number1}}%{{number2}}={{number1%number2}}
+    </p>
+
+      
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+    <script>
+      new Vue({
+        el:'#app',
+        data:{
+            number1:'',
+            number2:''
+        }
+
+
+
+
+      })
+    </script>
+  </body>
+
+</html>

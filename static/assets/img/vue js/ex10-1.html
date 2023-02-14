@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>効果測定</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>ボタンを押してリストが増減するとき、アニメーションする例</h2>
+    <div id="app">
+      <ol>
+        <transition-group>
+            <li v-for="item in cityList" v-bind:key="item">{{item}}</li>
+        </transition-group>
+      </ol>
+      <p>
+        <label>都市名：
+        <input v-model="addItem" placeholder="追加する県庁所在地">
+        </label>
+        <button v-on:click="addList">追加</button><p>
+      </p>
+      <p>
+        <label>番号：
+        <input v-model.number="removeNumber">
+        </label>
+        <button v-on:click="remove">削除</button>
+      </p>
+    </div>
+    
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          cityList: ['札幌市', '青森市', '仙台市'],
+          addItem: '',
+          removeNumber: 0
+        },
+        methods: {
+            addList:function(){
+                this.cityList.push(this.addItem);
+                this.addItem='';
+            },
+            remove:function(){
+                var Idx=this.removeNumber-1;
+                this.cityList.splice(Idx,1);
+            },
+        }
+      })
+    </script>
+    
+    <style>
+      /* 現れている最中と、消えている最中は、0.5秒 */
+      .v-enter-active, .v-leave-active {
+        transition: 0.5s;
+      }
+      /* 現れる前の状態と、消えたときの状態は、透明度0で、右へ50移動*/
+      .v-enter, .v-leave-to {
+        opacity: 0;
+        transform: translateX(50px)
+      }
+    </style>
+  </body>
+</html>
+

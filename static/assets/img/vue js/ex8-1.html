@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js 演習問題</title>
+    <link href="main.css" rel="stylesheet">
+    <script src
+      ="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>算出プロパティの使い方</h2>
+      <h3>三角形の面積</h3>
+      <!-- この#appの内側にテンプレートを書き込んでいく -->
+      <p>底辺 = {{ bottom }}、高さ = {{ height }}<br>
+        の三角形の面積は、{{ area }} です。</p>
+    </div>
+    
+    <script>
+      new Vue({
+        el: '#app',
+        data:{
+          bottom:100,
+          height:45
+        },
+        computed:{
+          area:function(){
+            var ans=this.bottom*this.height/2;
+            return ans;
+          }
+        }
+
+     })
+    </script>
+    
+  </body>
+</html>

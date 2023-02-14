@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>いろいろな型のデータを表示する演習</h2>
+    <div id="app">
+      <table border="1">
+        <caption>主要都市情報</caption>
+        <tr>
+          <th>都市名</th><th>人口</th><th>政令指定都市</th>
+        </tr>
+        <tr>
+          <td>{{ aomori.name }}</td>
+          <td>{{ aomori.population }}万人</td>
+          <td>{{ aomori.govermentCity }}</td>
+        </tr>
+        <tr>
+          <td>{{ sendai.name }}</td>
+          <td>{{ sendai.population }}万人</td>
+          <td>{{ sendai.govermentCity }}</td>
+        </tr>
+        <tr>
+          <td>{{ morioka.name }}</td>
+          <td>{{ morioka.population }}万人</td>
+          <td>{{ morioka.govermentCity }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          // 青森市
+          aomori: 
+            {name: '青森市', population: 28.76, govermentCity: false},
+          // 仙台市
+          sendai: 
+            {name: '仙台市', population: 108.2, govermentCity: true},
+          // 盛岡市
+          morioka: 
+            {name: '盛岡市', population: 29.76, govermentCity: false}
+        }
+      })
+    </script>
+  </body>
+</html>
+

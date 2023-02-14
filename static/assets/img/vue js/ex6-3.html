@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>配列データを、リストで表示する例</h2>
+    <div id="app">
+        <li v-for="name in prefecture">県名:{{name}}</li>
+
+
+
+
+
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          prefecture: [
+              "青森県","岩手県","秋田県","宮城県","山形県","福島県"
+          ]
+        }
+      })
+    </script>
+  </body>
+</html>
+

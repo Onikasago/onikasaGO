@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      <p>ご感想は、140文字以内でご入力ください</p>
+      <textarea v-model="myText"></textarea>
+      <p v-bind:style="{color:computedColor}">残り{{remaining}}文字です。</p>
+  </div>  
+  <script>
+      new Vue({
+          el:'#app',
+          data:{
+              myText:'今日はいい天気です。'
+          },
+          computed:{
+              remaining:function(){
+                  return 140-this.myText.length;
+              },
+              computedColor:function(){
+                  col="green";
+                  if(this.remaining<20){
+                      col="orange";
+                  }
+                  if(this.remaining<1){
+                      col="red";
+                  }
+                  return col;
+              }
+          }
+      })
+  </script>
+</body>
+</html> 

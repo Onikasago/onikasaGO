@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>クリックしたら、四則演算する例</h2>
+    <div id="app">
+      <p>
+        数１ = <input v-model.number="number1"><br>
+        数２ = <input v-model.number="number2">
+      </p>
+      <button v-on:click="a">たし算</button>
+      <button v-on:click="b">ひき算</button>
+      <button v-on:click="c">かけ算</button>
+      <button v-on:click="d">わり算</button>
+      <button v-on:click="e">あまり</button>
+      <hr>
+      <h3>計算結果</h3>
+      <p>{{ number1 }} {{ operator }} {{ number2 }} = {{ answer }}</p> 
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          number1: 0,
+          number2: 0,
+          answer: 0,
+          operator: ''
+        },
+        methods:{
+            a:function(){
+              this.answer=this.number1+this.number2;
+              this.operator="+"
+            },
+            b:function(){
+              this.answer=this.number1-this.number2;
+              this.operator="-"
+            },
+            c:function(){
+              this.answer=this.number1*this.number2;
+              this.operator="×"
+            },
+            d:function(){
+              this.answer=this.number1/this.number2;
+              this.operator="÷"
+            },
+            e:function(){
+              this.answer=this.number1%this.number2;
+              this.operator="%"
+            }
+        }
+
+      })
+    </script>
+  </body>
+</html>

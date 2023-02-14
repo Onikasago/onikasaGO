@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js sample</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>クリックしたら、値をいろいろ増やす例</h2>
+    <div id="app">
+      <p>{{ count }}</p> 
+      <p>
+        増やしたい数 = 
+        <input v-model.number="inc">
+      </p>
+      	<button v-on:click="countUp">増やす</button>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          count: 0,
+          inc: 0,
+        },
+        methods:{
+            countUp:function(){
+                this.count+=this.inc;
+            }
+        }
+      })
+    </script>
+  </body>
+</html>

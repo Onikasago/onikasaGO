@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <div id="app">
+        <img src="face1.png"></img><p>
+        <img v-bind:src="fileName">v-bindで指定</img>
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                fileName:'face1.png'
+            }
+        })
+    </script>
+  </body>
+</html>
+
+
