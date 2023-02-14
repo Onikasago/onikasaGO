@@ -8,6 +8,7 @@ body, #wrapper {
     -webkit-text-stroke: 0.3px #000;
     text-stroke: 0.1px #000;
 }
+
   background-image: url("/static/assets/img/umi.jpg");
 header{
       position: fixed;

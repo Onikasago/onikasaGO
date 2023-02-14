@@ -4170,6 +4170,9 @@ textarea.form-control-lg {
   font-size: 1.25rem;
   text-decoration: none;
   white-space: nowrap;
+
+
+
 }
 .navbar-nav {
   display: flex;
@@ -4554,9 +4557,12 @@ textarea.form-control-lg {
 
 .navbar-light .navbar-brand {
   color: rgba(0, 0, 0, 0.9);
+
+
 }
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);
+
 }
 .navbar-light .navbar-nav .nav-link {
   color: rgba(0, 0, 0, 0.55);
@@ -4589,9 +4595,11 @@ textarea.form-control-lg {
 
 .navbar-dark .navbar-brand {
   color: #fff;
+
 }
 .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
   color: #fff;
+
 }
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.55);
@@ -11490,6 +11498,7 @@ body {
   color: #000;
   font-weight: 700;
   padding: 0.9rem 0;
+
 }
 #mainNav .navbar-nav .nav-item:hover {
   color: fade(#fff, 80%);
@@ -11514,6 +11523,7 @@ body {
     -webkit-text-stroke: 0.3px #000;
     text-stroke: 0.3px #000;
 
+
   }
   #mainNav .nav-link {
     transition: none;
@@ -11534,6 +11544,7 @@ body {
   }
   #mainNav.navbar-shrink .navbar-brand {
     color: #000;
+
   }
   #mainNav.navbar-shrink .nav-link {
     color: #000;

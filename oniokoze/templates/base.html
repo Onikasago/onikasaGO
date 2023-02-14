@@ -2,12 +2,14 @@
 
 <html lang="ja">
 
+
   <head>
     <meta charset="utf-8">
 <!--スマホ画面の最適化-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
 
     <title>{% block title %}{% endblock %}</title>
 <!--      ファビコン設定-->
@@ -42,7 +44,7 @@
         <!-- Navigation -->
          <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="{% url 'oniokoze:index' %}">オニカサGO</a>
+                <a class="navbar-brand" href="{% url 'oniokoze:index' %}"><img width="160" width="30" src="{% static 'assets/img/おにかさご.png' %}"></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
