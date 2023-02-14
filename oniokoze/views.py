@@ -97,7 +97,7 @@ class CatchListView(LoginRequiredMixin, generic.ListView):
         context['catch_like_data'] = d
         return context
 
-class CatchCreateView(generic.CreateView):
+class CatchCreateView(LoginRequiredMixin,generic.CreateView):
     model = Catch
     form_class = CatchCreateForm
     template_name = 'catch_create.html'
@@ -509,7 +509,7 @@ class RecipeListView(LoginRequiredMixin,generic.ListView):
         context['recipe_like_data'] = d
         return context
 
-class RecipeCreateView(generic.CreateView):
+class RecipeCreateView(LoginRequiredMixin,generic.CreateView):
     model = Recipe
     form_class = RecipeCreateForm
     template_name = 'recipe_create.html'
