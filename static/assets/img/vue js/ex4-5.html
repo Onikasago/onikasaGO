@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>チェックボックスのONOFFを調べる例</h2>
+    <div id="app">
+        <label><input type="checkbox"value="北海道"v-model="myCheak">
+        北海道</label><br>
+        <label><input type="checkbox"value="東北"v-model="myCheak">
+        東北</label><br>
+        <label><input type="checkbox"value="関東"v-model="myCheak">
+        関東</label><br>
+        <label><input type="checkbox"value="東海"v-model="myCheak">
+        東海</label><br>
+        <label><input type="checkbox"value="甲信越"v-model="myCheak">
+        甲信越</label><br>
+        <label><input type="checkbox"value="中部"v-model="myCheak">
+        中部</label><br>
+        <label><input type="checkbox"value="近畿"v-model="myCheak">
+        近畿</label><br>
+        <label><input type="checkbox"value="北陸"v-model="myCheak">
+        北陸</label><br>
+        <label><input type="checkbox"value="中国・四国"v-model="myCheak">
+        中国・四国</label><br>
+        <label><input type="checkbox"value="九州・沖縄"v-model="myCheak">
+        九州・沖縄</label><br>
+        チェックボックスは、{{myCheak}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <script>
+      new Vue({
+        el:'#app',
+            data:{
+                myCheak:[]
+            }
+
+      })
+    </script>
+
+  </body>
+</html>

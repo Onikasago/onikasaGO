@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      <input v-model="findWord">
+      <ul>
+          <li v-for="item in findItems">{{item}}</li>
+      </ul>
+  </div>  
+  <script>
+      new Vue({
+          el:'#app',
+          data:{
+              findWord:'',
+              items:['桃太郎','花咲かじいさん','浦島太郎','かぐや姫','かちかち山']
+          },
+          computed:{
+              findItems:function(){
+                  if(this.findWord){
+                      return this.items.filter(function(value){
+                          return(value.indexOf(this.findWord)>-1);
+                      },this);
+                    }else{
+                        return this.items;
+                    }
+            
+          }
+        }
+      })
+  </script>
+</body>
+</html> 

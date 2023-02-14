@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+    <h2>オブジェクトの配列データを、リストで表示する例</h2>
+    <div id="app">
+        <table border="1">
+            <caption>東北6県基本情報</caption>      
+            <tr>
+                <th>県名</th><th>人口</th>
+            </tr>
+            <tr v-for="item in prefecture">
+                <td>{{item.name}}</td><td>{{item.population}}万人</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          prefecture: [
+            {name: '青森県', population: 124.9},
+            {name: '岩手県', population: 122.9},
+            {name: '秋田県', population: 96.6},
+            {name: '宮城県', population: 230.6},
+            {name: '山形県', population: 108},
+            {name: '福島県', population: 184.8}
+          ]
+        }
+      })
+    </script>
+  </body>
+</html>
+

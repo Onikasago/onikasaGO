@@ -74,7 +74,7 @@ class CatchListView(LoginRequiredMixin, generic.ListView):
                 list[0] = 1
 
                 if list[0] == 1:
-                    queryset = queryset.filter(Q(nametitle__icontains=p))
+                    queryset = queryset.filter(Q(nametitle__icontains=p)| Q(place__icontains=p))
                 elif list[0] == 9:
                     queryset = 'ヒットしませんでした/nワードを変えてお試しください'
 

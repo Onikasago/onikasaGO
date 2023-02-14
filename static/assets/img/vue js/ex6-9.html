@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue.js 演習問題</title>
+    <link rel="stylesheet" href="style.css" >
+    <script src=
+      "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+    </script>
+  </head>
+  
+  <body>
+       
+    <h2>ボタンでリストの追加を行う</h2>
+    <div id="app">
+      <h3>都道府県名</h3>
+      <ul>
+        <li v-for="name in prefecture">{{name}}
+            <button v-on:click="a">削除</button></li>
+      </ul>
+      <p>情報追加<br>
+        県名：<input v-model="name"><br>
+        <button v-on:click="addLast">追加</button>
+      </p>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          prefecture: ['北海道', '青森県','宮城県','福島県'],
+          name:""
+        },
+        methods: {
+          addLast:function(){this.prefecture.push(this.name)},
+
+          a:function(){this.prefecture.splice(this.name)}
+        }
+      })
+    </script>
+  </body>
+</html>

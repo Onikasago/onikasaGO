@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js 演習問題</title>
+    <link href="main.css" rel="stylesheet">
+    <script src
+      ="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>消費税込み価格計算</h2>
+      定価：<input type="number" v-model.number="price">円
+      <p>消費税込み価格は {{ taxPrice }}円です。</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data:{
+              price:"",
+          },
+          computed:{
+              taxPrice:function(){
+                  return Math.floor(this.price*1.10);
+              }
+          }
+      })
+    </script>
+  </body>
+</html>
