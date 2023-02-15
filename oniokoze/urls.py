@@ -49,4 +49,6 @@ urlpatterns = [
     path('place/', views.PlaceView.as_view(), name="place"),
     path('mypage-detail/<int:pk>/', views.MypageDetailView.as_view(), name="mypage_detail"),
     path('mypage-update/<int:pk>/', views.MypageUpdateView.as_view(), name="mypage_update"),
+    path('guide/', views.GuideView.as_view(), name="guide"),
+
 ]

@@ -703,6 +703,10 @@ class TriviaView(generic.TemplateView):
 class MypageView(generic.TemplateView):
     template_name = 'mypage.html'
 
+class GuideView(generic.TemplateView):
+    template_name = 'guide.html'
+
+
 
 class ToolView(generic.TemplateView):
     template_name = 'tool.html'
